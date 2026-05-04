@@ -50,3 +50,5 @@
 22:24:04 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
 22:24:06 [INFO] primp — response: https://www.mojeek.com/search?q=M%C3%A9xico+gu%C3%ADa+pedag%C3%B3gica+de+inteligencia+artificial 200
 22:24:09 [INFO] government_search — [gov_search] Query: política pública inteligencia artificial educación México gob.mx
+22:24:09 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=pol%C3%ADtica%20p%C3%BAblica%20inteligencia%20artificial%20educaci%C3%B3n%20M%C3%A9xico%20gob.mx 200
+22:24:09 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=pol%C3%ADtica+p%C3%BAblica+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico+gob.mx&limit=1 200
