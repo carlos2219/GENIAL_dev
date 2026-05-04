@@ -44,6 +44,25 @@ def load_universities(csv_path=config.CSV_PATH) -> pd.DataFrame:
     # Quitar universidades sin dominio válido
     valid = df[df["_domain"].str.len() > 4].copy()
 
+    # Construir conjunto de dominios de universidades prioritarias (excepción)
+    priority_domains = {
+        _extract_domain(u["url_oficial"])
+        for u in getattr(config, "PRIORITY_UNIVERSITIES", [])
+    }
+
+    # Aceptar solo dominios .edu.mx o dominios prioritarios conocidos
+    def _is_valid_university_domain(domain: str) -> bool:
+        return domain.endswith(".edu.mx") or domain in priority_domains
+
+    before = len(valid)
+    valid = valid[valid["_domain"].apply(_is_valid_university_domain)].copy()
+    skipped = before - len(valid)
+    if skipped:
+        logger.info(
+            f"[uni_search] {skipped} universidades descartadas por dominio no .edu.mx "
+            f"y no prioritarias"
+        )
+
     # Deduplicar por dominio (un dominio puede aparecer varias veces en el CSV)
     valid = valid.drop_duplicates(subset=["_domain"])
 
@@ -106,6 +125,15 @@ def _search_university_ddg(name: str, domain: str) -> List[Dict]:
             body  = r.get("body", "")
 
             if not url or is_excluded(url):
+                continue
+
+            # Descartar URLs fuera del dominio de la universidad consultada
+            result_domain = _extract_domain(url)
+            if domain not in result_domain and result_domain not in domain:
+                logger.debug(
+                    f"[uni_search] URL fuera de dominio descartada: {url[:60]} "
+                    f"(esperado: {domain})"
+                )
                 continue
 
             docs.append({

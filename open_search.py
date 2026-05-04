@@ -15,6 +15,14 @@ from url_filter import filter_and_rank, is_excluded
 logger = logging.getLogger(__name__)
 
 
+def _is_mexican_official_url(url: str) -> bool:
+    """Verifica que la URL pertenezca a un dominio oficial mexicano (.gob.mx, .edu.mx o dominios prioritarios)."""
+    url_l = url.lower()
+    if ".gob.mx" in url_l or ".edu.mx" in url_l:
+        return True
+    return any(d and d in url_l for d in getattr(config, "GOVERNMENT_PRIORITY_DOMAINS", []))
+
+
 def _topic_match(url: str, title: str, body: str) -> bool:
     """Filtro temático para reducir ruido en búsqueda abierta."""
     if not getattr(config, "STRICT_TOPIC_FILTER", False):
@@ -76,6 +84,11 @@ def search_open() -> List[Dict]:
             body  = r.get("body", "")
 
             if not url or is_excluded(url):
+                continue
+
+            # Solo fuentes oficiales mexicanas (.gob.mx, .edu.mx o dominios prioritarios)
+            if not _is_mexican_official_url(url):
+                logger.debug(f"[open_search] Dominio no oficial descartado: {url[:60]}")
                 continue
 
             if not _topic_match(url, title, body):

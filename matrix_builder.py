@@ -6,7 +6,9 @@ de la matriz final con exactamente las columnas requeridas.
 """
 
 import logging
+from datetime import datetime
 from typing import List, Dict, Optional
+from urllib.parse import urlparse
 
 import config
 
@@ -59,8 +61,8 @@ _DOMINIO_MAP = {
     "protección de datos": "Protección de datos",
     "ética": "Ética",
     "técnico": "Técnico",
-    "mixto": "Mixto",
     "no aplica": "No especificado",
+    # "mixto" eliminado: el manual prohíbe este valor en la matriz final
 }
 
 _VINCULO_MAP = {
@@ -92,7 +94,7 @@ def _safe(value, fallback: str = "No disponible") -> str:
 
 
 def _format_date_for_matrix(value: str) -> str:
-    """Convierte YYYY-MM-DD a DD/MM/YYYY cuando sea posible."""
+    """Convierte YYYY-MM-DD a DD/MM/YYYY. Rechaza fechas fuera de rango [2015, año actual]."""
     raw = _safe(value, getattr(config, "NO_INDICA_LABEL", "No Indica"))
     if raw in ("No disponible", getattr(config, "NO_INDICA_LABEL", "No Indica")):
         return raw
@@ -101,6 +103,13 @@ def _format_date_for_matrix(value: str) -> str:
     if len(parts) == 3 and all(p.isdigit() for p in parts):
         y, m, d = parts
         if len(y) == 4 and len(m) in (1, 2) and len(d) in (1, 2):
+            year = int(y)
+            current_year = datetime.now().year
+            if year < 2015 or year > current_year:
+                logger.warning(
+                    f"[matrix] Fecha fuera de rango plausible ({raw}); usando No Indica"
+                )
+                return getattr(config, "NO_INDICA_LABEL", "No Indica")
             return f"{d.zfill(2)}/{m.zfill(2)}/{y}"
     return raw
 
@@ -164,6 +173,24 @@ def _build_row(document: Dict) -> Optional[Dict]:
     Construye una fila de la matriz normativa a partir de un documento clasificado.
     Retorna None si el documento no debe incluirse en la matriz.
     """
+    # ── Validación de dominio oficial mexicano ─────────────────────────────────────────
+    url_lower = document.get("url", "").lower()
+    priority_domains = {
+        urlparse(u["url_oficial"]).netloc.lower().replace("www.", "")
+        for u in getattr(config, "PRIORITY_UNIVERSITIES", [])
+        if u.get("url_oficial")
+    }
+    is_mexican_official = (
+        ".gob.mx" in url_lower
+        or ".edu.mx" in url_lower
+        or any(d and d in url_lower for d in getattr(config, "GOVERNMENT_PRIORITY_DOMAINS", []))
+        or any(d and d in url_lower for d in priority_domains)
+    )
+    if not is_mexican_official:
+        logger.warning(
+            f"[matrix] Descartando URL sin dominio oficial mexicano: {url_lower[:80]}"
+        )
+        return None
     ai = document.get("ai_classification") or {}
     heuristic_label = document.get("heuristic_label", "BAJA")
     has_reliable_ai = bool(ai) and not _is_ai_unavailable(ai)
@@ -200,14 +227,22 @@ def _build_row(document: Dict) -> Optional[Dict]:
     dedic_raw   = ai.get("dedicacion_texto", "no aplica")
     ambito_raw  = ai.get("ambito", "no aplica")
 
+    # Rechazar documentos con dominio=mixto (prohibido por el manual)
+    if dominio_raw.lower() == "mixto":
+        logger.warning(
+            f"[matrix] Descartando documento con dominio=mixto: "
+            f"{document.get('url', '')[:60]}"
+        )
+        return None
+
     row = {
         "Investigador":              config.RESEARCHER_NAME,
         "País":                      config.COUNTRY,
         "Título de la Norma":        _infer_titulo(document, ai),
-        "Tipo de norma":             _TIPO_NORMA_MAP.get(tipo_raw.lower(), _safe(tipo_raw, "No especificado")),
+        "Tipo de norma":             _TIPO_NORMA_MAP.get(tipo_raw.lower(), "No especificado"),
         "Estado":                    _ESTADO_MAP.get(estado_raw.lower(), _safe(estado_raw, "No especificado")),
         "Organismo Emisor/Universidad": _infer_organismo(document, ai),
-        "Dominio":                   _DOMINIO_MAP.get(dominio_raw.lower(), _safe(dominio_raw, "No especificado")),
+        "Dominio":                   _DOMINIO_MAP.get(dominio_raw.lower(), "No especificado"),
         "Vínculo con Educación":     _VINCULO_MAP.get(vinculo_raw.lower(), _safe(vinculo_raw, "No especificado")),
         "Dedicación del Texto":      _DEDIC_MAP_get(dedic_raw),
         "Fecha de Publicación":      _format_date_for_matrix(ai.get("fecha_publicacion")),

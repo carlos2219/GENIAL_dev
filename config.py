@@ -33,8 +33,8 @@ OPENAI_INPUT_CHARS = 5500
 
 # Ampliación controlada de cobertura IA para documentos borderline
 AI_INCLUDE_BORDERLINE_BAJA = True
-AI_BAJA_MIN_SCORE = 0.22
-AI_BAJA_MIN_URL_PRIORITY = 0.40
+AI_BAJA_MIN_SCORE = 0.30          # Umbral mínimo elevado para reducir falsos positivos
+AI_BAJA_MIN_URL_PRIORITY = 0.60   # Umbral URL elevado para exigir más señal normativa
 AI_MAX_EXTRA_BAJA = 20
 
 # ─── Búsqueda ─────────────────────────────────────────────────────────────────
@@ -154,8 +154,6 @@ GOVERNMENT_SEED_URLS = [
     "https://www.gob.mx/sep",
     "https://conahcyt.mx",
     "https://www.dof.gob.mx",
-    "https://www.unesco.org",
-    "https://www.cepal.org",
     "https://www.inai.org.mx",
     "https://www.ift.org.mx",
     "https://www.economia.gob.mx",
@@ -164,7 +162,7 @@ GOVERNMENT_SEED_URLS = [
 ]
 GOVERNMENT_PRIORITY_DOMAINS = [
     ".gob.mx", "dof.gob.mx", "sep.gob.mx", "conahcyt.mx",
-    "conacyt.gob.mx", "cepal.org", "oecd.org", "unesco.org",
+    "conacyt.gob.mx",
 ]
 
 # ─── Universidades prioritarias ───────────────────────────────────────────────

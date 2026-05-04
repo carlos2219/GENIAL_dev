@@ -38,7 +38,7 @@ Responde EXCLUSIVAMENTE con este JSON (sin markdown, sin comentarios):
   "es_normativa": "si" | "no",
   "tipo_norma": "ley" | "decreto" | "reglamento" | "guía ética" | "estrategia nacional" | "resolución rectoral" | "lineamiento académico" | "libro blanco" | "guía pedagógica" | "código de ética" | "acuerdo institucional" | "otro" | "no aplica",
   "estado": "vigente" | "en proyecto" | "derogada" | "no especificado",
-  "dominio": "pedagógico" | "administrativo" | "protección de datos" | "ética" | "técnico" | "mixto" | "no aplica",
+  "dominio": "pedagógico" | "administrativo" | "protección de datos" | "ética" | "técnico" | "no aplica",
   "vinculo": "directo" | "indirecto" | "no aplica",
   "dedicacion_texto": "articulado completo" | "sección/capítulo" | "mención breve" | "no aplica",
   "titulo_norma": "<título oficial del documento o 'No disponible'>",
@@ -57,8 +57,9 @@ Criterios:
 - es_normativa = "si" SOLO si el documento establece reglas, lineamientos, políticas o marcos normativos relacionados con IA
 - Si el documento es una noticia, artículo académico, página informativa o blog → es_normativa = "no"
 - tipo_norma debe reflejar el instrumento jurídico/institucional real
-- dominio = ámbito temático principal de la norma
+- dominio = ámbito temático PRINCIPAL de la norma; elige UNO solo; si abarca varios, elige el predominante
 - vinculo = "directo" si la norma trata IA de forma central; "indirecto" si IA es tema secundario
+- Solo incluye documentos de organismos mexicanos (gobierno federal, estados, o universidades mexicanas)
 """
 
 
@@ -245,8 +246,8 @@ def classify_batch_with_ai(
 
     extra_baja = []
     if getattr(config, "AI_INCLUDE_BORDERLINE_BAJA", False):
-        min_score = float(getattr(config, "AI_BAJA_MIN_SCORE", 0.22))
-        min_url_score = float(getattr(config, "AI_BAJA_MIN_URL_PRIORITY", 0.40))
+        min_score = float(config.AI_BAJA_MIN_SCORE)
+        min_url_score = float(config.AI_BAJA_MIN_URL_PRIORITY)
         max_extra = int(getattr(config, "AI_MAX_EXTRA_BAJA", 20))
 
         candidates = []

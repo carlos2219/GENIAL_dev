@@ -53,6 +53,10 @@ def heuristic_score(document: Dict) -> float:
     if ".gob.mx" in url or ".edu.mx" in url:
         score += 0.05
 
+    # Sin mención explícita de IA el documento no puede alcanzar MEDIA ni ALTA
+    if ai_hits == 0:
+        score = min(score, config.HEURISTIC_MEDIUM_THRESHOLD - 0.01)
+
     return max(0.0, min(score, 1.0))
 
 
@@ -67,8 +71,8 @@ def classify(document: Dict) -> Dict:
     score = heuristic_score(document)
     document["heuristic_score"] = round(score, 4)
 
-    high_t = float(getattr(config, "HEURISTIC_HIGH_THRESHOLD", 0.55))
-    med_t = float(getattr(config, "HEURISTIC_MEDIUM_THRESHOLD", 0.30))
+    high_t = float(config.HEURISTIC_HIGH_THRESHOLD)
+    med_t  = float(config.HEURISTIC_MEDIUM_THRESHOLD)
 
     if score >= high_t:
         label = "ALTA"
