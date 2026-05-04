@@ -52,3 +52,572 @@
 22:24:09 [INFO] government_search — [gov_search] Query: política pública inteligencia artificial educación México gob.mx
 22:24:09 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=pol%C3%ADtica%20p%C3%BAblica%20inteligencia%20artificial%20educaci%C3%B3n%20M%C3%A9xico%20gob.mx 200
 22:24:09 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=pol%C3%ADtica+p%C3%BAblica+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico+gob.mx&limit=1 200
+22:24:10 [INFO] primp — response: https://www.mojeek.com/search?q=pol%C3%ADtica+p%C3%BAblica+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico+gob.mx 200
+22:24:11 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:24:11 [INFO] primp — response: https://search.yahoo.com/search;_ylt=p6bO4u5KEc62rwPtCl9upqI7;_ylu=hfGjDqZYDr_sPtzVvdZrFLcvWhSIqlr46HgG0sYOt8wKLyM?p=pol%C3%ADtica+p%C3%BAblica+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico+gob.mx 200
+22:24:12 [INFO] primp — response: https://search.brave.com/search?q=pol%C3%ADtica+p%C3%BAblica+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico+gob.mx&source=web 429
+22:24:13 [INFO] primp — response: https://yandex.com/search/site/?text=pol%C3%ADtica+p%C3%BAblica+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico+gob.mx&web=1&searchid=3346630 200
+22:24:16 [INFO] government_search — [gov_search] Query: ley inteligencia artificial México decreto congreso
+22:24:16 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=ley%20inteligencia%20artificial%20M%C3%A9xico%20decreto%20congreso 200
+22:24:16 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=ley+inteligencia+artificial+M%C3%A9xico+decreto+congreso&limit=1 200
+22:24:17 [INFO] primp — response: https://search.yahoo.com/search;_ylt=QmIkdlcHXU2CUeJjZk5TpqsO;_ylu=1214x-1Rr5ttViXZfSsaemFjQ2zK3qsH_7IqBF6wMCJHNDI?p=ley+inteligencia+artificial+M%C3%A9xico+decreto+congreso 200
+22:24:17 [INFO] primp — response: https://search.brave.com/search?q=ley+inteligencia+artificial+M%C3%A9xico+decreto+congreso&source=web 429
+22:24:18 [INFO] primp — response: https://yandex.com/search/site/?text=ley+inteligencia+artificial+M%C3%A9xico+decreto+congreso&web=1&searchid=6394637 200
+22:24:21 [INFO] government_search — [gov_search] Query: SEP secretaría educación inteligencia artificial lineamientos México
+22:24:21 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=SEP%20secretar%C3%ADa%20educaci%C3%B3n%20inteligencia%20artificial%20lineamientos%20M%C3%A9xico 200
+22:24:22 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=SEP+secretar%C3%ADa+educaci%C3%B3n+inteligencia+artificial+lineamientos+M%C3%A9xico&limit=1 200
+22:24:22 [INFO] primp — response: https://search.yahoo.com/search;_ylt=wkPnnAqEpOZFFSrtnIEdBa8_;_ylu=N2coekhXVU35P6gOZH5uM7fNLz4eo2x2Xd3_nvaNWRvOdb8?p=SEP+secretar%C3%ADa+educaci%C3%B3n+inteligencia+artificial+lineamientos+M%C3%A9xico 200
+22:24:24 [INFO] primp — response: https://www.mojeek.com/search?q=SEP+secretar%C3%ADa+educaci%C3%B3n+inteligencia+artificial+lineamientos+M%C3%A9xico 200
+22:24:27 [INFO] government_search — [gov_search] Query: CONAHCYT inteligencia artificial programa estrategia México
+22:24:27 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=CONAHCYT%20inteligencia%20artificial%20programa%20estrategia%20M%C3%A9xico 200
+22:24:27 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=CONAHCYT+inteligencia+artificial+programa+estrategia+M%C3%A9xico&limit=1 200
+22:24:28 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:24:28 [INFO] primp — response: https://search.brave.com/search?q=CONAHCYT+inteligencia+artificial+programa+estrategia+M%C3%A9xico&source=web 429
+22:24:29 [INFO] primp — response: https://search.yahoo.com/search;_ylt=Z8AlEYBvK0tGj_3oJwHIz5FW;_ylu=TLUg4PC5vNqJ9PiJNnFXL8rI3KDNH0niG-5R3h_B_q7IObM?p=CONAHCYT+inteligencia+artificial+programa+estrategia+M%C3%A9xico 200
+22:24:30 [INFO] primp — response: https://yandex.com/search/site/?text=CONAHCYT+inteligencia+artificial+programa+estrategia+M%C3%A9xico&web=1&searchid=9908843 200
+22:24:33 [INFO] government_search — [gov_search] Query: regulación inteligencia artificial universidades México gobierno
+22:24:33 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=regulaci%C3%B3n%20inteligencia%20artificial%20universidades%20M%C3%A9xico%20gobierno 200
+22:24:34 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=regulaci%C3%B3n+inteligencia+artificial+universidades+M%C3%A9xico+gobierno&limit=1 200
+22:24:34 [INFO] primp — response: https://search.brave.com/search?q=regulaci%C3%B3n+inteligencia+artificial+universidades+M%C3%A9xico+gobierno&source=web 429
+22:24:35 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:24:36 [INFO] primp — response: https://www.mojeek.com/search?q=regulaci%C3%B3n+inteligencia+artificial+universidades+M%C3%A9xico+gobierno 200
+22:24:39 [INFO] government_search — [gov_search] Query: DOF inteligencia artificial acuerdo decreto México
+22:24:39 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=DOF%20inteligencia%20artificial%20acuerdo%20decreto%20M%C3%A9xico 200
+22:24:40 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=DOF+inteligencia+artificial+acuerdo+decreto+M%C3%A9xico&limit=1 200
+22:24:41 [INFO] primp — response: https://yandex.com/search/site/?text=DOF+inteligencia+artificial+acuerdo+decreto+M%C3%A9xico&web=1&searchid=5850008 200
+22:24:43 [INFO] government_search — [gov_search] Query: marco regulatorio IA educación superior México
+22:24:44 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=marco+regulatorio+IA+educaci%C3%B3n+superior+M%C3%A9xico&limit=1 200
+22:24:44 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=marco%20regulatorio%20IA%20educaci%C3%B3n%20superior%20M%C3%A9xico 200
+22:24:44 [INFO] primp — response: https://search.yahoo.com/search;_ylt=kX89486qsRfo-0PMlNfZdAKo;_ylu=xKUlRInXGqJ6TJP4Yu8SR9M9m4QiXN62_4IX2rv6O6LJMoM?p=marco+regulatorio+IA+educaci%C3%B3n+superior+M%C3%A9xico 200
+22:24:46 [INFO] primp — response: https://yandex.com/search/site/?text=marco+regulatorio+IA+educaci%C3%B3n+superior+M%C3%A9xico&web=1&searchid=6543245 200
+22:24:48 [INFO] government_search — [gov_search] Query: ENIA estrategia nacional inteligencia artificial
+22:24:49 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=ENIA%20estrategia%20nacional%20inteligencia%20artificial 200
+22:24:49 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=ENIA+estrategia+nacional+inteligencia+artificial&limit=1 200
+22:24:51 [INFO] primp — response: https://www.mojeek.com/search?q=ENIA+estrategia+nacional+inteligencia+artificial 200
+22:24:53 [INFO] government_search — [gov_search] Query: acuerdo ministerial inteligencia artificial educación México
+22:24:54 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=acuerdo%20ministerial%20inteligencia%20artificial%20educaci%C3%B3n%20M%C3%A9xico 200
+22:24:54 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=acuerdo+ministerial+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico&limit=1 200
+22:24:54 [INFO] primp — response: https://search.yahoo.com/search;_ylt=UwfUrbc6pjM8d47ZrhtfDYHN;_ylu=HKbjcvdPvTuzbhXgYCWNt11xbpcKGj4kvvFDLsIo91NJROA?p=acuerdo+ministerial+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico 200
+22:24:56 [INFO] primp — response: https://yandex.com/search/site/?text=acuerdo+ministerial+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico&web=1&searchid=9513745 200
+22:24:58 [INFO] government_search — [gov_search] DDG: 2 resultados crudos
+22:24:58 [INFO] government_search — [gov_search] Crawleando semilla: https://www.gob.mx/agenda-digital
+22:24:58 [INFO] site_crawler — [crawler] Crawleando https://www.gob.mx (Gobierno de México)
+22:25:33 [INFO] site_crawler — [crawler] Gobierno de México: 0 URLs encontradas
+22:25:34 [INFO] government_search — [gov_search] Crawleando semilla: https://www.gob.mx/sep
+22:25:34 [INFO] site_crawler — [crawler] Crawleando https://www.gob.mx (Gobierno de México)
+22:26:18 [INFO] site_crawler — [crawler] Gobierno de México: 0 URLs encontradas
+22:26:19 [INFO] government_search — [gov_search] Crawleando semilla: https://conahcyt.mx
+22:26:19 [INFO] site_crawler — [crawler] Crawleando https://conahcyt.mx (Gobierno de México)
+22:27:20 [WARNING] site_crawler — [crawler] Timeout (60s) alcanzado para Gobierno de México — abortando crawl
+22:27:20 [INFO] site_crawler — [crawler] Gobierno de México: 0 URLs encontradas
+22:27:21 [INFO] government_search — [gov_search] Crawleando semilla: https://www.dof.gob.mx
+22:27:21 [INFO] site_crawler — [crawler] Crawleando https://www.dof.gob.mx (Gobierno de México)
+22:28:21 [WARNING] site_crawler — [crawler] Timeout (60s) alcanzado para Gobierno de México — abortando crawl
+22:28:21 [INFO] site_crawler — [crawler] Gobierno de México: 0 URLs encontradas
+22:28:22 [INFO] government_search — [gov_search] Crawleando semilla: https://www.inai.org.mx
+22:28:22 [INFO] site_crawler — [crawler] Crawleando https://www.inai.org.mx (Gobierno de México)
+22:28:35 [INFO] site_crawler — [crawler] Gobierno de México: 0 URLs encontradas
+22:28:36 [INFO] government_search — [gov_search] Crawleando semilla: https://www.ift.org.mx
+22:28:36 [INFO] site_crawler — [crawler] Crawleando https://www.ift.org.mx (Gobierno de México)
+22:28:50 [INFO] site_crawler — [crawler] Gobierno de México: 24 URLs encontradas
+22:28:51 [INFO] government_search — [gov_search] Crawleando semilla: https://www.economia.gob.mx
+22:28:51 [INFO] site_crawler — [crawler] Crawleando https://www.economia.gob.mx (Gobierno de México)
+22:29:52 [WARNING] site_crawler — [crawler] Timeout (60s) alcanzado para Gobierno de México — abortando crawl
+22:29:52 [INFO] site_crawler — [crawler] Gobierno de México: 0 URLs encontradas
+22:29:53 [INFO] government_search — [gov_search] Crawleando semilla: https://www.sesna.gob.mx
+22:29:53 [INFO] site_crawler — [crawler] Crawleando https://www.sesna.gob.mx (Gobierno de México)
+22:30:05 [INFO] site_crawler — [crawler] Gobierno de México: 24 URLs encontradas
+22:30:06 [INFO] government_search — [gov_search] Crawleando semilla: https://www.presidencia.gob.mx
+22:30:06 [INFO] site_crawler — [crawler] Crawleando https://www.presidencia.gob.mx (Gobierno de México)
+22:31:07 [WARNING] site_crawler — [crawler] Timeout (60s) alcanzado para Gobierno de México — abortando crawl
+22:31:07 [INFO] site_crawler — [crawler] Gobierno de México: 0 URLs encontradas
+22:31:08 [INFO] government_search — [gov_search] Semillas: 0 URLs de portales gov
+22:31:08 [INFO] government_search — [gov_search] Tras filtro: 2 documentos
+22:31:08 [INFO] __main__ — [PROGRESO] FASE 1 completada: 2 docs | Tiempo: 7m42s
+22:31:08 [INFO] __main__ — [PROGRESO] >> FASE 2/3 - Busqueda universitaria | Tiempo: 7m42s
+22:31:09 [INFO] university_search — [uni_search] 1097 universidades descartadas por dominio no .edu.mx y no prioritarias
+22:31:09 [INFO] university_search — [uni_search] 1110 universidades con dominio válido de 3426 filas
+22:31:09 [INFO] university_search — ============================================================
+22:31:09 [INFO] university_search — FASE 2 — Búsqueda en universidades
+22:31:09 [INFO] university_search — ============================================================
+22:31:09 [INFO] university_search — [uni_search] 11 universidades prioritarias + 1100 del CSV
+22:31:09 [INFO] university_search — [uni_search] Límite aplicado: 5 universidades
+22:31:09 [INFO] university_search — [uni_search] Procesando: Tecnológico de Monterrey (tec.mx) [PRIORITARIA]
+22:31:09 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Atec.mx%20%22inteligencia%20artificial%22%20lineamientos%20OR%20reglamento%20OR%20pol%C3%ADtica%20OR%20gu%C3%ADa 200
+22:31:09 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Atec.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&limit=1 200
+22:31:10 [INFO] primp — response: https://search.yahoo.com/search;_ylt=YREEXs46SP_Bg7V3Vla9TgsT;_ylu=8yE6rlijFwXuzcxxw9g9z7v5guf70HHi-WLNBAGn7hyiRz8?p=site%3Atec.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa 200
+22:31:12 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Atec.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&web=1&searchid=2873507 200
+22:31:16 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Atec.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&limit=1 200
+22:31:17 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Atec.mx%20%22uso%20de%20IA%22%20OR%20%22uso%20de%20inteligencia%20artificial%22%20acad%C3%A9mico%20normativa 200
+22:31:18 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Atec.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa 403
+22:31:20 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Atec.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&web=1&searchid=9359978 200
+22:31:22 [INFO] primp — response: https://search.brave.com/search?q=site%3Atec.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&source=web 429
+22:31:23 [INFO] primp — response: https://html.duckduckgo.com/html/ 200
+22:31:26 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Atec.mx%20inteligencia%20artificial%20lineamientos%20estudiantes%20docentes 200
+22:31:26 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Atec.mx+inteligencia+artificial+lineamientos+estudiantes+docentes&limit=1 200
+22:31:26 [INFO] primp — response: https://search.brave.com/search?q=site%3Atec.mx+inteligencia+artificial+lineamientos+estudiantes+docentes&source=web 429
+22:31:30 [INFO] primp — response: https://search.yahoo.com/search;_ylt=ank3MqHBrjrQKabYJj6HeGqm;_ylu=mvQFhy1zB-GhR1ux7j-YdgNPxpliwrGTpRYgTiUcCM2QBBE?p=site%3Atec.mx+inteligencia+artificial+lineamientos+estudiantes+docentes 200
+22:31:31 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Atec.mx+inteligencia+artificial+lineamientos+estudiantes+docentes&web=1&searchid=9791028 200
+22:31:34 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Atec.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&limit=1 200
+22:31:35 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Atec.mx%20pol%C3%ADtica%20OR%20lineamientos%20%22IA%20generativa%22%20OR%20%22ChatGPT%22%20OR%20%22inteligencia%20artificial%22%202024%202025 200
+22:31:37 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Atec.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025 403
+22:31:39 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:31:40 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Atec.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&web=1&searchid=2262070 200
+22:31:40 [INFO] primp — response: https://search.brave.com/search?q=site%3Atec.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&source=web 429
+22:31:41 [INFO] primp — response: https://search.yahoo.com/search;_ylt=mllVKovmRFyJgvjqbXyzXH7k;_ylu=hc8_eM0GBYTnIuXtomv-_a_Nx9ey7FG2ymK0ox1tElY3Jz8?p=site%3Atec.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025 200
+22:31:44 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Atec.mx%20%22inteligencia%20artificial%22%20AND%20%28lineamientos%20OR%20pol%C3%ADtica%20OR%20resoluci%C3%B3n%20OR%20gu%C3%ADa%29 200
+22:31:45 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Atec.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&limit=1 200
+22:31:45 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:31:46 [INFO] primp — response: https://search.brave.com/search?q=site%3Atec.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&source=web 429
+22:31:47 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Atec.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&web=1&searchid=9430310 200
+22:31:48 [INFO] primp — response: https://search.yahoo.com/search;_ylt=NZwA9V8HpnbAYRFsZ6UhnCuD;_ylu=iEbPt7enXR0CYDek84dOPI5uVAYM8aYueFeF4mNNnGIAE8A?p=site%3Atec.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29 200
+22:31:52 [INFO] ddgs.ddgs — Error in engine yahoo: DDGSException("DecodeError: DecodeError('Body collection error: error decoding response body')")
+22:31:53 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Atec.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29 403
+22:31:56 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Atec.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&limit=1 200
+22:31:57 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Atec.mx%20%22IA%22%20%28%C3%A9tica%20OR%20%22uso%20acad%C3%A9mico%22%20OR%20regulaci%C3%B3n%20OR%20pedag%C3%B3gico%29 200
+22:31:58 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Atec.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29 403
+22:31:59 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:31:59 [INFO] primp — response: https://search.brave.com/search?q=site%3Atec.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&source=web 429
+22:32:00 [INFO] primp — response: https://search.yahoo.com/search;_ylt=O_7X-YN5gdHQS9UlZA-zitHb;_ylu=BFKq6Aqpd8VdyL1on9AvVjHj-USQyR5BDUDBUb1-Ndma1BE?p=site%3Atec.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29 200
+22:32:01 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Atec.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&web=1&searchid=8786681 200
+22:32:05 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&limit=1 200
+22:32:05 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Atec.mx%20%22Integridad%20acad%C3%A9mica%22%20OR%20%22Uso%20de%20IA%20generativa%22%20OR%20%22Consejo%20Universitario%22%20OR%20%22Reglamento%20de%20evaluaci%C3%B3n%22 200
+22:32:06 [INFO] primp — response: https://search.brave.com/search?q=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&source=web 429
+22:32:06 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22 403
+22:32:07 [INFO] primp — response: https://search.yahoo.com/search;_ylt=aqBFOVlFsjfNNJffvcabgtEc;_ylu=s57asMmQp_uWs4ny5CT1up9eeJUNre7GWUYBvTJfNT0-Hz4?p=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22 200
+22:32:08 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&web=1&searchid=8078012 200
+22:32:09 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:32:09 [WARNING] university_search — [uni_search] DDG error (intento 1): No results found.. Esperando 5s
+22:32:14 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Atec.mx%20%22Integridad%20acad%C3%A9mica%22%20OR%20%22Uso%20de%20IA%20generativa%22%20OR%20%22Consejo%20Universitario%22%20OR%20%22Reglamento%20de%20evaluaci%C3%B3n%22 200
+22:32:14 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&limit=1 200
+22:32:15 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:32:15 [INFO] primp — response: https://search.brave.com/search?q=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&source=web 429
+22:32:16 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&web=1&searchid=2037738 200
+22:32:17 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22 403
+22:32:17 [INFO] primp — response: https://search.yahoo.com/search;_ylt=vvuzv23uFir7NK_btECwlQmi;_ylu=YH4fCrk1LCtWxMC9Kx35wvB2YBvhup_OBgWaUqvxCPMHFaI?p=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22 200
+22:32:18 [WARNING] university_search — [uni_search] DDG error (intento 2): No results found.. Esperando 10s
+22:32:28 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&limit=1 200
+22:32:29 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Atec.mx%20%22Integridad%20acad%C3%A9mica%22%20OR%20%22Uso%20de%20IA%20generativa%22%20OR%20%22Consejo%20Universitario%22%20OR%20%22Reglamento%20de%20evaluaci%C3%B3n%22 200
+22:32:30 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&web=1&searchid=7078075 200
+22:32:30 [INFO] primp — response: https://search.yahoo.com/search;_ylt=jFfo2F0QW4HZPDRX-fYkM2W-;_ylu=gtrdpdemqaRUhDo6EGHqnpvbe372M9LFDr9_1erlUB76UEo?p=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22 200
+22:32:31 [INFO] primp — response: https://search.brave.com/search?q=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&source=web 429
+22:32:32 [INFO] primp — response: https://html.duckduckgo.com/html/ 200
+22:32:33 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Atec.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22 403
+22:32:35 [INFO] site_crawler — [crawler] Crawleando https://tec.mx (Tecnológico de Monterrey)
+22:33:43 [WARNING] site_crawler — [crawler] Timeout (60s) alcanzado para Tecnológico de Monterrey — abortando crawl
+22:33:43 [INFO] site_crawler — [crawler] Tecnológico de Monterrey: 2 URLs encontradas
+22:33:43 [INFO] university_search — [PROGRESO FASE 2] 1/5 universidades (20%) — Transcurrido: 2m34s — ETA: ~10m19s — Docs acumulados: 31
+22:33:44 [INFO] university_search — [uni_search] Procesando: UNAM (unam.mx) [PRIORITARIA]
+22:33:45 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aunam.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&limit=1 200
+22:33:45 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aunam.mx%20%22inteligencia%20artificial%22%20lineamientos%20OR%20reglamento%20OR%20pol%C3%ADtica%20OR%20gu%C3%ADa 200
+22:33:46 [INFO] primp — response: https://search.brave.com/search?q=site%3Aunam.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&source=web 429
+22:33:47 [INFO] primp — response: https://search.yahoo.com/search;_ylt=jszv7ZjYn3uQOe1Uj2kOlbXl;_ylu=sRxoEpPuZmVIRUpKERrUL6J1SncGH6MlOFwaNIvg6NpUdu0?p=site%3Aunam.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa 200
+22:33:49 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aunam.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&web=1&searchid=2256229 200
+22:33:50 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:33:51 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aunam.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa 403
+22:33:55 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aunam.mx%20%22uso%20de%20IA%22%20OR%20%22uso%20de%20inteligencia%20artificial%22%20acad%C3%A9mico%20normativa 200
+22:33:55 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aunam.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&limit=1 200
+22:33:56 [INFO] primp — response: https://search.yahoo.com/search;_ylt=JAtNVWZ0yjKNoM19jJKPyRqi;_ylu=l5S2OaoHoaqfWxZoVzozsU6LV8HOJ6snHIC87RPlU0_lPkE?p=site%3Aunam.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa 200
+22:33:56 [INFO] primp — response: https://search.brave.com/search?q=site%3Aunam.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&source=web 429
+22:33:58 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aunam.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&web=1&searchid=1222745 200
+22:33:58 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aunam.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa 403
+22:34:00 [INFO] primp — response: https://html.duckduckgo.com/html/ 200
+22:34:03 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aunam.mx%20inteligencia%20artificial%20lineamientos%20estudiantes%20docentes 200
+22:34:04 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aunam.mx+inteligencia+artificial+lineamientos+estudiantes+docentes&limit=1 200
+22:34:04 [INFO] primp — response: https://search.yahoo.com/search;_ylt=h3dJsHsN5bKYy-0iyLKrbZG3;_ylu=FWacqNcfn-u9d2ClhVQs0ybitj2-2JZcOXvewwBo030Gj24?p=site%3Aunam.mx+inteligencia+artificial+lineamientos+estudiantes+docentes 200
+22:34:05 [INFO] primp — response: https://search.brave.com/search?q=site%3Aunam.mx+inteligencia+artificial+lineamientos+estudiantes+docentes&source=web 429
+22:34:06 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aunam.mx+inteligencia+artificial+lineamientos+estudiantes+docentes&web=1&searchid=8365635 200
+22:34:07 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:34:08 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aunam.mx+inteligencia+artificial+lineamientos+estudiantes+docentes 200
+22:34:11 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aunam.mx%20pol%C3%ADtica%20OR%20lineamientos%20%22IA%20generativa%22%20OR%20%22ChatGPT%22%20OR%20%22inteligencia%20artificial%22%202024%202025 200
+22:34:12 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aunam.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&limit=1 200
+22:34:14 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aunam.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025 403
+22:34:14 [INFO] primp — response: https://search.yahoo.com/search;_ylt=tYeN47ltwaq2t2kPkzB84iKQ;_ylu=nV9WHJKBCxeAhjjtEyqeQyPxdTcB27BCXmFRzx78oOj1g_Q?p=site%3Aunam.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025 200
+22:34:18 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aunam.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&web=1&searchid=2599046 200
+22:34:18 [INFO] primp — response: https://search.brave.com/search?q=site%3Aunam.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&source=web 429
+22:34:19 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:34:22 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aunam.mx%20%22inteligencia%20artificial%22%20AND%20%28lineamientos%20OR%20pol%C3%ADtica%20OR%20resoluci%C3%B3n%20OR%20gu%C3%ADa%29 200
+22:34:22 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aunam.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&limit=1 200
+22:34:23 [INFO] primp — response: https://search.brave.com/search?q=site%3Aunam.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&source=web 429
+22:34:24 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:34:24 [INFO] primp — response: https://search.yahoo.com/search;_ylt=zUDq6OduwrTbGKia9-i6Wd3E;_ylu=MWpY-YvNotA5p0mCGP_q9FW87SK14AhcRujm_464uHgB794?p=site%3Aunam.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29 200
+22:34:25 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aunam.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29 403
+22:34:26 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aunam.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&web=1&searchid=1805525 200
+22:34:29 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aunam.mx%20%22IA%22%20%28%C3%A9tica%20OR%20%22uso%20acad%C3%A9mico%22%20OR%20regulaci%C3%B3n%20OR%20pedag%C3%B3gico%29 200
+22:34:29 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aunam.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&limit=1 200
+22:34:30 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aunam.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29 403
+22:34:31 [INFO] primp — response: https://search.yahoo.com/search;_ylt=54usDCvk4FnRZ-ZwH3SV2byX;_ylu=7KHWctfCzIN9nazQ3Ed8wa-gV_d68L52i1LnvLTwgWX1Pj4?p=site%3Aunam.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29 200
+22:34:31 [INFO] primp — response: https://search.brave.com/search?q=site%3Aunam.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&source=web 429
+22:34:32 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aunam.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&web=1&searchid=1127534 200
+22:34:36 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aunam.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&limit=1 200
+22:34:36 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aunam.mx%20%22Integridad%20acad%C3%A9mica%22%20OR%20%22Uso%20de%20IA%20generativa%22%20OR%20%22Consejo%20Universitario%22%20OR%20%22Reglamento%20de%20evaluaci%C3%B3n%22 200
+22:34:37 [INFO] primp — response: https://search.yahoo.com/search;_ylt=11eYcwGRhwO34wuks26Eab_0;_ylu=aUB9S9SuR00Cs9IUF1M5CC23DyW0YW1jERtNlKX4-lqkuFo?p=site%3Aunam.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22 200
+22:34:38 [INFO] primp — response: https://search.brave.com/search?q=site%3Aunam.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&source=web 429
+22:34:39 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aunam.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22 403
+22:34:40 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aunam.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&web=1&searchid=5772281 200
+22:34:42 [INFO] site_crawler — [crawler] Crawleando https://www.unam.mx (UNAM)
+22:35:43 [WARNING] site_crawler — [crawler] Timeout (60s) alcanzado para UNAM — abortando crawl
+22:35:43 [INFO] site_crawler — [crawler] UNAM: 0 URLs encontradas
+22:35:43 [INFO] university_search — [PROGRESO FASE 2] 2/5 universidades (40%) — Transcurrido: 4m34s — ETA: ~6m51s — Docs acumulados: 74
+22:35:44 [INFO] university_search — [uni_search] Procesando: IPN (ipn.mx) [PRIORITARIA]
+22:35:44 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aipn.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&limit=1 200
+22:35:45 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aipn.mx%20%22inteligencia%20artificial%22%20lineamientos%20OR%20reglamento%20OR%20pol%C3%ADtica%20OR%20gu%C3%ADa 200
+22:35:46 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aipn.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&web=1&searchid=1074056 200
+22:35:47 [INFO] primp — response: https://search.brave.com/search?q=site%3Aipn.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&source=web 429
+22:35:47 [INFO] primp — response: https://search.yahoo.com/search;_ylt=QDxfhK0uejW1ixxnX16u9gWB;_ylu=yOE9SCwjw3rcK8BSZ4BaTLMSaYN4AtyREWJU-poLWQPrNHs?p=site%3Aipn.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa 200
+22:35:51 [INFO] primp — response: https://html.duckduckgo.com/html/ 200
+22:35:54 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aipn.mx%20%22uso%20de%20IA%22%20OR%20%22uso%20de%20inteligencia%20artificial%22%20acad%C3%A9mico%20normativa 200
+22:35:54 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aipn.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&limit=1 200
+22:35:55 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aipn.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&web=1&searchid=2007860 200
+22:35:57 [INFO] primp — response: https://search.yahoo.com/search;_ylt=GBOSEfUimiJJJB4zVS2FIkqj;_ylu=ulcYuf1FSl7Wmtd8UeQUNDp6lg4G80eFGvGaRmJHxfZdlbo?p=site%3Aipn.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa 200
+22:35:58 [INFO] primp — response: https://search.brave.com/search?q=site%3Aipn.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&source=web 429
+22:35:58 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aipn.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa 403
+22:35:59 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:35:59 [WARNING] university_search — [uni_search] DDG error (intento 1): No results found.. Esperando 5s
+22:36:05 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aipn.mx%20%22uso%20de%20IA%22%20OR%20%22uso%20de%20inteligencia%20artificial%22%20acad%C3%A9mico%20normativa 200
+22:36:05 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aipn.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&limit=1 200
+22:36:05 [INFO] primp — response: https://search.yahoo.com/search;_ylt=JODAuR95lTgIu4IFy2ymn9ie;_ylu=riZN5hnBJSghvf75lqw-OKLH0nUlqp6cfKMouRV6j1WiPX4?p=site%3Aipn.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa 200
+22:36:06 [INFO] primp — response: https://search.brave.com/search?q=site%3Aipn.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&source=web 429
+22:36:07 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aipn.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa 403
+22:36:08 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aipn.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&web=1&searchid=8723884 200
+22:36:11 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aipn.mx%20inteligencia%20artificial%20lineamientos%20estudiantes%20docentes 200
+22:36:11 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aipn.mx+inteligencia+artificial+lineamientos+estudiantes+docentes&limit=1 200
+22:36:12 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aipn.mx+inteligencia+artificial+lineamientos+estudiantes+docentes 200
+22:36:13 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aipn.mx+inteligencia+artificial+lineamientos+estudiantes+docentes&web=1&searchid=7706899 200
+22:36:14 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:36:14 [INFO] primp — response: https://search.brave.com/search?q=site%3Aipn.mx+inteligencia+artificial+lineamientos+estudiantes+docentes&source=web 429
+22:36:16 [INFO] primp — response: https://search.yahoo.com/search;_ylt=OTcHRAYtWnOsGWYKW-IfmND2;_ylu=vw7yjDERsnPs5XQ87OkfK3iwMsiyYX8ux1cs-Auuyquf2DY?p=site%3Aipn.mx+inteligencia+artificial+lineamientos+estudiantes+docentes 200
+22:36:21 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aipn.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&limit=1 200
+22:36:21 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aipn.mx%20pol%C3%ADtica%20OR%20lineamientos%20%22IA%20generativa%22%20OR%20%22ChatGPT%22%20OR%20%22inteligencia%20artificial%22%202024%202025 200
+22:36:22 [INFO] primp — response: https://search.yahoo.com/search;_ylt=wz1PzNnMa-lDTo8IARCABa07;_ylu=0n94lH1yqfsEJsb9nlcChFiSQ0Nh3_EEZ6_Tbzz7qQTq1tQ?p=site%3Aipn.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025 200
+22:36:23 [INFO] primp — response: https://search.brave.com/search?q=site%3Aipn.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&source=web 429
+22:36:23 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aipn.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025 403
+22:36:25 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aipn.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&web=1&searchid=8527490 200
+22:36:28 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aipn.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&limit=1 200
+22:36:28 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aipn.mx%20%22inteligencia%20artificial%22%20AND%20%28lineamientos%20OR%20pol%C3%ADtica%20OR%20resoluci%C3%B3n%20OR%20gu%C3%ADa%29 200
+22:36:29 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aipn.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29 403
+22:36:30 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:36:31 [INFO] primp — response: https://search.brave.com/search?q=site%3Aipn.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&source=web 429
+22:36:36 [INFO] ddgs.ddgs — Error in engine yahoo: TimeoutException(TimeoutError('error sending request for url (https://search.yahoo.com/search;_ylt=hXwHCYZMXDipHlxwr0HxayKB;_ylu=UWr2U5ELQVX76r8HRO_i_HMKnoZi6DwJnY46bxNJtOEVXJc?p=site%3Aipn.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29)', 'https://search.yahoo.com/search;_ylt=hXwHCYZMXDipHlxwr0HxayKB;_ylu=UWr2U5ELQVX76r8HRO_i_HMKnoZi6DwJnY46bxNJtOEVXJc?p=site%3Aipn.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29'))
+22:36:38 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aipn.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&web=1&searchid=8572980 200
+22:36:39 [WARNING] university_search — [uni_search] DDG error (intento 1): ('error sending request for url (https://search.yahoo.com/search;_ylt=hXwHCYZMXDipHlxwr0HxayKB;_ylu=UWr2U5ELQVX76r8HRO_i_HMKnoZi6DwJnY46bxNJtOEVXJc?p=site%3Aipn.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29)', 'https://search.yahoo.com/search;_ylt=hXwHCYZMXDipHlxwr0HxayKB;_ylu=UWr2U5ELQVX76r8HRO_i_HMKnoZi6DwJnY46bxNJtOEVXJc?p=site%3Aipn.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29'). Esperando 5s
+22:36:45 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aipn.mx%20%22inteligencia%20artificial%22%20AND%20%28lineamientos%20OR%20pol%C3%ADtica%20OR%20resoluci%C3%B3n%20OR%20gu%C3%ADa%29 200
+22:36:45 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aipn.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&limit=1 200
+22:36:46 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aipn.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&web=1&searchid=1312754 200
+22:36:48 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aipn.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29 403
+22:36:48 [INFO] primp — response: https://search.brave.com/search?q=site%3Aipn.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&source=web 429
+22:36:50 [INFO] primp — response: https://search.yahoo.com/search;_ylt=zzZigoCNu5JswVetYSQ4dUV8;_ylu=I39oWJq0OFSffYj-mcPwOW1gCj4sXEKtA6ARBcHGT_58WZM?p=site%3Aipn.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29 200
+22:36:59 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aipn.mx%20%22IA%22%20%28%C3%A9tica%20OR%20%22uso%20acad%C3%A9mico%22%20OR%20regulaci%C3%B3n%20OR%20pedag%C3%B3gico%29 200
+22:37:00 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aipn.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&limit=1 200
+22:37:00 [INFO] primp — response: https://search.brave.com/search?q=site%3Aipn.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&source=web 429
+22:37:01 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aipn.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29 403
+22:37:03 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aipn.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&web=1&searchid=6471410 200
+22:37:04 [INFO] primp — response: https://search.yahoo.com/search;_ylt=ljxng9ZVb6A22lIbMMPco3eA;_ylu=AE5AniFrwoz6S5R_gApiGZcW5AovprOq0jjwVbjjMijTtnk?p=site%3Aipn.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29 200
+22:37:08 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aipn.mx%20%22Integridad%20acad%C3%A9mica%22%20OR%20%22Uso%20de%20IA%20generativa%22%20OR%20%22Consejo%20Universitario%22%20OR%20%22Reglamento%20de%20evaluaci%C3%B3n%22 200
+22:37:08 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aipn.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&limit=1 200
+22:37:10 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aipn.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22 403
+22:37:11 [INFO] primp — response: https://search.yahoo.com/search;_ylt=8609Eg4s9k_uxdhx8qAJH8Hn;_ylu=T3Xu0UwG9W6ud_mPcoAEa2Fm7gj3SbBS7b-IoicWIlWbrjU?p=site%3Aipn.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22 200
+22:37:12 [INFO] primp — response: https://search.brave.com/search?q=site%3Aipn.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&source=web 429
+22:37:13 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aipn.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&web=1&searchid=1232908 200
+22:37:16 [INFO] site_crawler — [crawler] Crawleando https://www.ipn.mx (IPN)
+22:38:16 [WARNING] site_crawler — [crawler] Timeout (60s) alcanzado para IPN — abortando crawl
+22:38:16 [INFO] site_crawler — [crawler] IPN: 26 URLs encontradas
+22:38:16 [INFO] university_search — [PROGRESO FASE 2] 3/5 universidades (60%) — Transcurrido: 7m07s — ETA: ~4m45s — Docs acumulados: 135
+22:38:17 [INFO] university_search — [uni_search] Procesando: Universidad Panamericana (up.edu.mx) [PRIORITARIA]
+22:38:17 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aup.edu.mx%20%22inteligencia%20artificial%22%20lineamientos%20OR%20reglamento%20OR%20pol%C3%ADtica%20OR%20gu%C3%ADa 200
+22:38:18 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aup.edu.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&limit=1 200
+22:38:19 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:38:19 [INFO] primp — response: https://search.brave.com/search?q=site%3Aup.edu.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&source=web 429
+22:38:20 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aup.edu.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa 403
+22:38:20 [INFO] primp — response: https://search.yahoo.com/search;_ylt=Y0vSRvYOF8gtQz-gV_P_ePhZ;_ylu=hsxhoJ0XtQB59-h7-J-ESVuYsrjatCV32HqVybB5Se6iUE8?p=site%3Aup.edu.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa 200
+22:38:22 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aup.edu.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&web=1&searchid=7165735 200
+22:38:22 [WARNING] university_search — [uni_search] DDG error (intento 1): No results found.. Esperando 5s
+22:38:27 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aup.edu.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&limit=1 200
+22:38:27 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aup.edu.mx%20%22inteligencia%20artificial%22%20lineamientos%20OR%20reglamento%20OR%20pol%C3%ADtica%20OR%20gu%C3%ADa 200
+22:38:28 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aup.edu.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa 403
+22:38:28 [INFO] primp — response: https://search.brave.com/search?q=site%3Aup.edu.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&source=web 429
+22:38:29 [INFO] primp — response: https://search.yahoo.com/search;_ylt=2AUkGmGqowQYRDFE-gxmXjv1;_ylu=aQYRvZ1ccgIIZQgu3WpziAuQqB30KV8B7ecEJxz4pcF_Zdg?p=site%3Aup.edu.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa 200
+22:38:30 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aup.edu.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&web=1&searchid=4873914 200
+22:38:33 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aup.edu.mx%20%22uso%20de%20IA%22%20OR%20%22uso%20de%20inteligencia%20artificial%22%20acad%C3%A9mico%20normativa 200
+22:38:34 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aup.edu.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&limit=1 200
+22:38:34 [INFO] primp — response: https://search.yahoo.com/search;_ylt=sNHpTfraMzxbITK13bF8T81j;_ylu=cBnXuqGV5sGKPZ0H7dMwyZhwy_aAFX3r-zwqA4XPQUjVQJ8?p=site%3Aup.edu.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa 200
+22:38:35 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aup.edu.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa 403
+22:38:36 [INFO] primp — response: https://html.duckduckgo.com/html/ 200
+22:38:37 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aup.edu.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&web=1&searchid=6280730 200
+22:38:38 [INFO] primp — response: https://search.brave.com/search?q=site%3Aup.edu.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&source=web 429
+22:38:41 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aup.edu.mx+inteligencia+artificial+lineamientos+estudiantes+docentes&limit=1 200
+22:38:41 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aup.edu.mx%20inteligencia%20artificial%20lineamientos%20estudiantes%20docentes 200
+22:38:42 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aup.edu.mx+inteligencia+artificial+lineamientos+estudiantes+docentes&web=1&searchid=6144039 200
+22:38:44 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:38:46 [INFO] primp — response: https://search.yahoo.com/search;_ylt=C1AColVLWRc4rZTPeT88C5uS;_ylu=1JLH8GL2RW6oNOvM5N49zKnsZSsUtb3bN6JPopnNvm8ZG5k?p=site%3Aup.edu.mx+inteligencia+artificial+lineamientos+estudiantes+docentes 200
+22:38:51 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aup.edu.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&limit=1 200
+22:38:51 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aup.edu.mx%20pol%C3%ADtica%20OR%20lineamientos%20%22IA%20generativa%22%20OR%20%22ChatGPT%22%20OR%20%22inteligencia%20artificial%22%202024%202025 200
+22:38:51 [INFO] primp — response: https://search.brave.com/search?q=site%3Aup.edu.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&source=web 429
+22:38:52 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aup.edu.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025 403
+22:38:53 [INFO] primp — response: https://search.yahoo.com/search;_ylt=A4DhBk5XbLBBRJBDQoPzkGt3;_ylu=MMF1QvS4yMsF12pfVPltZQb2P1rV0FEcqjJcxT-akCIqllk?p=site%3Aup.edu.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025 200
+22:38:54 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aup.edu.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&web=1&searchid=2238223 200
+22:38:57 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aup.edu.mx%20%22inteligencia%20artificial%22%20AND%20%28lineamientos%20OR%20pol%C3%ADtica%20OR%20resoluci%C3%B3n%20OR%20gu%C3%ADa%29 200
+22:38:57 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aup.edu.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&limit=1 200
+22:38:58 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aup.edu.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29 403
+22:38:58 [INFO] primp — response: https://search.yahoo.com/search;_ylt=bg_QUAFUrVw3pc7Gx2bjk7KH;_ylu=Rt6sfJpASXw_Q5ct9jQkO5apLpZTEAwj4oyNMozd7-PAhlA?p=site%3Aup.edu.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29 200
+22:39:00 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aup.edu.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&web=1&searchid=5969996 200
+22:39:01 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:39:01 [INFO] primp — response: https://search.brave.com/search?q=site%3Aup.edu.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&source=web 429
+22:39:04 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aup.edu.mx%20%22IA%22%20%28%C3%A9tica%20OR%20%22uso%20acad%C3%A9mico%22%20OR%20regulaci%C3%B3n%20OR%20pedag%C3%B3gico%29 200
+22:39:04 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&limit=1 200
+22:39:04 [INFO] primp — response: https://search.brave.com/search?q=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&source=web 429
+22:39:05 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:39:06 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&web=1&searchid=1279088 200
+22:39:06 [INFO] primp — response: https://search.yahoo.com/search;_ylt=7UtY4d3cYq1ZBVK4-6DtIqdv;_ylu=uxA5T8xpcqGrq8CbJSkddXHAgyT-th5wGxqtBSvf52Sw8bE?p=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29 200
+22:39:08 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29 403
+22:39:08 [WARNING] university_search — [uni_search] DDG error (intento 1): No results found.. Esperando 5s
+22:39:13 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aup.edu.mx%20%22IA%22%20%28%C3%A9tica%20OR%20%22uso%20acad%C3%A9mico%22%20OR%20regulaci%C3%B3n%20OR%20pedag%C3%B3gico%29 200
+22:39:13 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&limit=1 200
+22:39:13 [INFO] primp — response: https://search.brave.com/search?q=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&source=web 429
+22:39:14 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:39:15 [INFO] primp — response: https://search.yahoo.com/search;_ylt=VRvgoJWksE5YaJznMikPq7OE;_ylu=7TY45-GxAkaxbwK--MraCnsIlsueTss1wkJpXZDBcG1ZUCg?p=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29 200
+22:39:16 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&web=1&searchid=9001087 200
+22:39:17 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29 403
+22:39:17 [WARNING] university_search — [uni_search] DDG error (intento 2): No results found.. Esperando 10s
+22:39:27 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aup.edu.mx%20%22IA%22%20%28%C3%A9tica%20OR%20%22uso%20acad%C3%A9mico%22%20OR%20regulaci%C3%B3n%20OR%20pedag%C3%B3gico%29 200
+22:39:27 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&limit=1 200
+22:39:28 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29 403
+22:39:28 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:39:29 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&web=1&searchid=7416239 200
+22:39:30 [INFO] primp — response: https://search.yahoo.com/search;_ylt=GPU3dkfmaGkVJri2-fpBSs1A;_ylu=1B_hPrDHe14u2Bi0AkdMO_brljbMaeaKtHfQVQK2tvXl7b0?p=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29 200
+22:39:30 [INFO] primp — response: https://search.brave.com/search?q=site%3Aup.edu.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&source=web 429
+22:39:30 [WARNING] university_search — [uni_search] DDG error (intento 3): No results found.. Esperando 15s
+22:39:48 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aup.edu.mx%20%22Integridad%20acad%C3%A9mica%22%20OR%20%22Uso%20de%20IA%20generativa%22%20OR%20%22Consejo%20Universitario%22%20OR%20%22Reglamento%20de%20evaluaci%C3%B3n%22 200
+22:39:49 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aup.edu.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&limit=1 200
+22:39:49 [INFO] primp — response: https://search.brave.com/search?q=site%3Aup.edu.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&source=web 429
+22:39:50 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aup.edu.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&web=1&searchid=6201581 200
+22:39:50 [INFO] primp — response: https://search.yahoo.com/search;_ylt=VsCCzcjqyhFSYunERzz7Rn8F;_ylu=9Ex9oRPtekRtKSkCAi4Lf7KKS85afuAniCEPjRU7CbjyUlo?p=site%3Aup.edu.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22 200
+22:39:52 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aup.edu.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22 403
+22:39:53 [INFO] primp — response: https://html.duckduckgo.com/html/ 200
+22:39:56 [INFO] site_crawler — [crawler] Crawleando https://www.up.edu.mx (Universidad Panamericana)
+22:40:56 [WARNING] site_crawler — [crawler] Timeout (60s) alcanzado para Universidad Panamericana — abortando crawl
+22:40:56 [INFO] site_crawler — [crawler] Universidad Panamericana: 0 URLs encontradas
+22:40:56 [INFO] university_search — [PROGRESO FASE 2] 4/5 universidades (80%) — Transcurrido: 9m47s — ETA: ~2m26s — Docs acumulados: 145
+22:40:57 [INFO] university_search — [uni_search] Procesando: ITAM (itam.mx) [PRIORITARIA]
+22:40:57 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aitam.mx%20%22inteligencia%20artificial%22%20lineamientos%20OR%20reglamento%20OR%20pol%C3%ADtica%20OR%20gu%C3%ADa 200
+22:40:57 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aitam.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&limit=1 200
+22:40:58 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aitam.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa 403
+22:40:59 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:40:59 [INFO] primp — response: https://search.yahoo.com/search;_ylt=yHgWy0Cd_Zb2TMEcCjrWqX4Z;_ylu=Q_RHGJ2NcaOHkFQmqMLg7QYG53w2urLUGZhCsJz_hT8TiV8?p=site%3Aitam.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa 200
+22:41:01 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aitam.mx+%22inteligencia+artificial%22+lineamientos+OR+reglamento+OR+pol%C3%ADtica+OR+gu%C3%ADa&web=1&searchid=8906413 200
+22:41:04 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aitam.mx%20%22uso%20de%20IA%22%20OR%20%22uso%20de%20inteligencia%20artificial%22%20acad%C3%A9mico%20normativa 200
+22:41:04 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aitam.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&limit=1 200
+22:41:04 [INFO] primp — response: https://search.brave.com/search?q=site%3Aitam.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&source=web 429
+22:41:05 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aitam.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa&web=1&searchid=2276551 200
+22:41:06 [INFO] primp — response: https://search.yahoo.com/search;_ylt=Eh6i-wDiBdb2b_HBjjiAdtnT;_ylu=tlfWPiIsUIG2XCuqyhqe4UfQp2PNjxBjDakzFSGiPffhQZA?p=site%3Aitam.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa 200
+22:41:08 [INFO] primp — response: https://html.duckduckgo.com/html/ 200
+22:41:08 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aitam.mx+%22uso+de+IA%22+OR+%22uso+de+inteligencia+artificial%22+acad%C3%A9mico+normativa 403
+22:41:11 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aitam.mx%20inteligencia%20artificial%20lineamientos%20estudiantes%20docentes 200
+22:41:11 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aitam.mx+inteligencia+artificial+lineamientos+estudiantes+docentes&limit=1 200
+22:41:12 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:41:13 [INFO] primp — response: https://search.brave.com/search?q=site%3Aitam.mx+inteligencia+artificial+lineamientos+estudiantes+docentes&source=web 429
+22:41:13 [INFO] primp — response: https://search.yahoo.com/search;_ylt=pde6K9KxBqc1dzKKAjPsrOlX;_ylu=RgP6sLh7n3mxCu0oFmNsGV3pDhM4rJaHwQe6rlK906vijxM?p=site%3Aitam.mx+inteligencia+artificial+lineamientos+estudiantes+docentes 200
+22:41:15 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aitam.mx+inteligencia+artificial+lineamientos+estudiantes+docentes 200
+22:41:16 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aitam.mx+inteligencia+artificial+lineamientos+estudiantes+docentes&web=1&searchid=2052489 200
+22:41:19 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aitam.mx%20pol%C3%ADtica%20OR%20lineamientos%20%22IA%20generativa%22%20OR%20%22ChatGPT%22%20OR%20%22inteligencia%20artificial%22%202024%202025 200
+22:41:19 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aitam.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&limit=1 200
+22:41:20 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:41:21 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aitam.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025 403
+22:41:21 [INFO] primp — response: https://search.yahoo.com/search;_ylt=-8rceiYWj_-oRnZfJOTZbRYc;_ylu=Pe2wYl1I3gkXHPrS3c1Z2mv34gDiqs_PDzxmRqa9C-_vnzs?p=site%3Aitam.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025 200
+22:41:22 [INFO] primp — response: https://search.brave.com/search?q=site%3Aitam.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&source=web 429
+22:41:23 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aitam.mx+pol%C3%ADtica+OR+lineamientos+%22IA+generativa%22+OR+%22ChatGPT%22+OR+%22inteligencia+artificial%22+2024+2025&web=1&searchid=7878321 200
+22:41:26 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aitam.mx%20%22inteligencia%20artificial%22%20AND%20%28lineamientos%20OR%20pol%C3%ADtica%20OR%20resoluci%C3%B3n%20OR%20gu%C3%ADa%29 200
+22:41:26 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aitam.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&limit=1 200
+22:41:26 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:41:27 [INFO] primp — response: https://search.yahoo.com/search;_ylt=jzVTiwdNcuvNBkGn5UcAjpEw;_ylu=DxjA9hVhyT3weoWeCLavbnGo7QsCOnK_S3B1QlOPaGhRmF8?p=site%3Aitam.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29 200
+22:41:28 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aitam.mx+%22inteligencia+artificial%22+AND+%28lineamientos+OR+pol%C3%ADtica+OR+resoluci%C3%B3n+OR+gu%C3%ADa%29&web=1&searchid=9404675 200
+22:41:31 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aitam.mx%20%22IA%22%20%28%C3%A9tica%20OR%20%22uso%20acad%C3%A9mico%22%20OR%20regulaci%C3%B3n%20OR%20pedag%C3%B3gico%29 200
+22:41:32 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aitam.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&limit=1 200
+22:41:32 [INFO] primp — response: https://search.brave.com/search?q=site%3Aitam.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&source=web 429
+22:41:33 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aitam.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29&web=1&searchid=4409330 200
+22:41:34 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:41:34 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aitam.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29 403
+22:41:35 [INFO] primp — response: https://search.yahoo.com/search;_ylt=T8Aih65hm0oWCHt5EnWeHa__;_ylu=gRRQtw3xSu8lBjCz_bcX2XDqZu5umHvVKpMfKgG2muoL3OY?p=site%3Aitam.mx+%22IA%22+%28%C3%A9tica+OR+%22uso+acad%C3%A9mico%22+OR+regulaci%C3%B3n+OR+pedag%C3%B3gico%29 200
+22:41:38 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aitam.mx%20%22Integridad%20acad%C3%A9mica%22%20OR%20%22Uso%20de%20IA%20generativa%22%20OR%20%22Consejo%20Universitario%22%20OR%20%22Reglamento%20de%20evaluaci%C3%B3n%22 200
+22:41:38 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=site%3Aitam.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&limit=1 200
+22:41:39 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:41:39 [INFO] primp — response: https://search.brave.com/search?q=site%3Aitam.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&source=web 429
+22:41:40 [INFO] primp — response: https://search.yahoo.com/search;_ylt=j0Uv85dsEsQeMz85DjGhTb4h;_ylu=_xq5hC8YXRCconnS1lWSi2LPZVXv2_hIw11tK8rCIPaRaYc?p=site%3Aitam.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22 200
+22:41:41 [INFO] primp — response: https://www.mojeek.com/search?q=site%3Aitam.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22 403
+22:41:42 [INFO] primp — response: https://yandex.com/search/site/?text=site%3Aitam.mx+%22Integridad+acad%C3%A9mica%22+OR+%22Uso+de+IA+generativa%22+OR+%22Consejo+Universitario%22+OR+%22Reglamento+de+evaluaci%C3%B3n%22&web=1&searchid=4344841 200
+22:41:45 [INFO] site_crawler — [crawler] Crawleando https://www.itam.mx (ITAM)
+22:42:47 [WARNING] site_crawler — [crawler] Timeout (60s) alcanzado para ITAM — abortando crawl
+22:42:47 [INFO] site_crawler — [crawler] ITAM: 13 URLs encontradas
+22:42:47 [INFO] university_search — [PROGRESO FASE 2] 5/5 universidades (100%) — Transcurrido: 11m38s — ETA: ~0m00s — Docs acumulados: 188
+22:42:48 [INFO] university_search — [uni_search] Total crudo: 188 documentos
+22:42:48 [INFO] university_search — [uni_search] Tras filtro: 156 documentos
+22:42:48 [INFO] __main__ — [PROGRESO] FASE 2 completada: 156 docs | Tiempo: 19m22s
+22:42:48 [INFO] __main__ — [PROGRESO] >> FASE 3/3 - Busqueda abierta | Tiempo: 19m22s
+22:42:48 [INFO] open_search — ============================================================
+22:42:48 [INFO] open_search — FASE 3 — Búsqueda abierta exploratoria
+22:42:48 [INFO] open_search — ============================================================
+22:42:48 [INFO] open_search — [open_search] Query: México lineamientos inteligencia artificial educación superior universidad filetype:pdf
+22:42:48 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20lineamientos%20inteligencia%20artificial%20educaci%C3%B3n%20superior%20universidad%20filetype%3Apdf 200
+22:42:49 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+lineamientos+inteligencia+artificial+educaci%C3%B3n+superior+universidad+filetype%3Apdf&limit=1 200
+22:42:49 [INFO] primp — response: https://search.yahoo.com/search;_ylt=DR0YvM2fl_7GfCLo3PPC2xdb;_ylu=I_ZOof_BIsFdI16V14wmciiLHeNw7TWOYoMtJk1B3GL9dWc?p=M%C3%A9xico+lineamientos+inteligencia+artificial+educaci%C3%B3n+superior+universidad+filetype%3Apdf 200
+22:42:50 [INFO] primp — response: https://search.brave.com/search?q=M%C3%A9xico+lineamientos+inteligencia+artificial+educaci%C3%B3n+superior+universidad+filetype%3Apdf&source=web 429
+22:42:51 [INFO] primp — response: https://yandex.com/search/site/?text=M%C3%A9xico+lineamientos+inteligencia+artificial+educaci%C3%B3n+superior+universidad+filetype%3Apdf&web=1&searchid=6702084 200
+22:42:54 [INFO] open_search — [open_search] Query: México reglamento uso de inteligencia artificial universidad estudiantes docentes filetype:pdf
+22:42:54 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20reglamento%20uso%20de%20inteligencia%20artificial%20universidad%20estudiantes%20docentes%20filetype%3Apdf 200
+22:42:54 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+reglamento+uso+de+inteligencia+artificial+universidad+estudiantes+docentes+filetype%3Apdf&limit=1 200
+22:42:55 [INFO] primp — response: https://www.mojeek.com/search?q=M%C3%A9xico+reglamento+uso+de+inteligencia+artificial+universidad+estudiantes+docentes+filetype%3Apdf 403
+22:42:56 [INFO] primp — response: https://search.brave.com/search?q=M%C3%A9xico+reglamento+uso+de+inteligencia+artificial+universidad+estudiantes+docentes+filetype%3Apdf&source=web 429
+22:42:57 [INFO] primp — response: https://yandex.com/search/site/?text=M%C3%A9xico+reglamento+uso+de+inteligencia+artificial+universidad+estudiantes+docentes+filetype%3Apdf&web=1&searchid=2998053 200
+22:42:59 [INFO] open_search — [open_search] Query: México acuerdo institucional inteligencia artificial universidad consejo universitario
+22:43:00 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20acuerdo%20institucional%20inteligencia%20artificial%20universidad%20consejo%20universitario 200
+22:43:00 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+acuerdo+institucional+inteligencia+artificial+universidad+consejo+universitario&limit=1 200
+22:43:01 [INFO] primp — response: https://html.duckduckgo.com/html/ 200
+22:43:04 [INFO] open_search — [open_search] Query: México política académica IA generativa institución educativa
+22:43:04 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20pol%C3%ADtica%20acad%C3%A9mica%20IA%20generativa%20instituci%C3%B3n%20educativa 200
+22:43:05 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+pol%C3%ADtica+acad%C3%A9mica+IA+generativa+instituci%C3%B3n+educativa&limit=1 200
+22:43:05 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:43:07 [INFO] primp — response: https://www.mojeek.com/search?q=M%C3%A9xico+pol%C3%ADtica+acad%C3%A9mica+IA+generativa+instituci%C3%B3n+educativa 200
+22:43:10 [INFO] open_search — [open_search] Query: México guía institucional inteligencia artificial docencia investigación universidad
+22:43:10 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20gu%C3%ADa%20institucional%20inteligencia%20artificial%20docencia%20investigaci%C3%B3n%20universidad 200
+22:43:10 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+gu%C3%ADa+institucional+inteligencia+artificial+docencia+investigaci%C3%B3n+universidad&limit=1 200
+22:43:11 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:43:11 [INFO] primp — response: https://search.brave.com/search?q=M%C3%A9xico+gu%C3%ADa+institucional+inteligencia+artificial+docencia+investigaci%C3%B3n+universidad&source=web 429
+22:43:12 [INFO] primp — response: https://search.yahoo.com/search;_ylt=Qz5wRQBFyITmY2peEecxebY0;_ylu=V768qFEFQCQwFsWi07pfhLU7tCPwooqzZwKSuEFIZSiQ0Ro?p=M%C3%A9xico+gu%C3%ADa+institucional+inteligencia+artificial+docencia+investigaci%C3%B3n+universidad 200
+22:43:13 [INFO] primp — response: https://yandex.com/search/site/?text=M%C3%A9xico+gu%C3%ADa+institucional+inteligencia+artificial+docencia+investigaci%C3%B3n+universidad&web=1&searchid=6583633 200
+22:43:16 [INFO] open_search — [open_search] Query: México código de ética inteligencia artificial universidad
+22:43:16 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20c%C3%B3digo%20de%20%C3%A9tica%20inteligencia%20artificial%20universidad 200
+22:43:17 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+c%C3%B3digo+de+%C3%A9tica+inteligencia+artificial+universidad&limit=1 200
+22:43:17 [INFO] primp — response: https://search.brave.com/search?q=M%C3%A9xico+c%C3%B3digo+de+%C3%A9tica+inteligencia+artificial+universidad&source=web 429
+22:43:18 [INFO] primp — response: https://yandex.com/search/site/?text=M%C3%A9xico+c%C3%B3digo+de+%C3%A9tica+inteligencia+artificial+universidad&web=1&searchid=6578931 200
+22:43:20 [INFO] open_search — [open_search] Query: México protocolo uso responsable de inteligencia artificial educación superior
+22:43:21 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20protocolo%20uso%20responsable%20de%20inteligencia%20artificial%20educaci%C3%B3n%20superior 200
+22:43:21 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+protocolo+uso+responsable+de+inteligencia+artificial+educaci%C3%B3n+superior&limit=1 200
+22:43:21 [INFO] primp — response: https://search.brave.com/search?q=M%C3%A9xico+protocolo+uso+responsable+de+inteligencia+artificial+educaci%C3%B3n+superior&source=web 429
+22:43:23 [INFO] primp — response: https://www.mojeek.com/search?q=M%C3%A9xico+protocolo+uso+responsable+de+inteligencia+artificial+educaci%C3%B3n+superior 200
+22:43:26 [INFO] open_search — [open_search] Query: México marco regulatorio inteligencia artificial educación superior
+22:43:26 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20marco%20regulatorio%20inteligencia%20artificial%20educaci%C3%B3n%20superior 200
+22:43:26 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+marco+regulatorio+inteligencia+artificial+educaci%C3%B3n+superior&limit=1 200
+22:43:27 [INFO] primp — response: https://search.yahoo.com/search;_ylt=E830mmYet4fgsL0DBcIyQEra;_ylu=56ynAm7L4CHoEptt28JIrrbLELV74DBu8Xn6RtQSPVhLZRQ?p=M%C3%A9xico+marco+regulatorio+inteligencia+artificial+educaci%C3%B3n+superior 200
+22:43:28 [INFO] primp — response: https://yandex.com/search/site/?text=M%C3%A9xico+marco+regulatorio+inteligencia+artificial+educaci%C3%B3n+superior&web=1&searchid=4878049 200
+22:43:31 [INFO] open_search — [open_search] Query: México DOF inteligencia artificial educación lineamientos
+22:43:31 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20DOF%20inteligencia%20artificial%20educaci%C3%B3n%20lineamientos 200
+22:43:31 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+DOF+inteligencia+artificial+educaci%C3%B3n+lineamientos&limit=1 200
+22:43:32 [INFO] primp — response: https://search.yahoo.com/search;_ylt=1VaZMaX3A83uGCemQ87BqJhk;_ylu=s_EK5jItF5BmRYe0xA2iMoDC23lVlTQqf6DnzgNKsvA8vSw?p=M%C3%A9xico+DOF+inteligencia+artificial+educaci%C3%B3n+lineamientos 200
+22:43:34 [INFO] primp — response: https://www.mojeek.com/search?q=M%C3%A9xico+DOF+inteligencia+artificial+educaci%C3%B3n+lineamientos 200
+22:43:37 [INFO] open_search — [open_search] Query: México iniciativa ley inteligencia artificial educación superior
+22:43:37 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20iniciativa%20ley%20inteligencia%20artificial%20educaci%C3%B3n%20superior 200
+22:43:37 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+iniciativa+ley+inteligencia+artificial+educaci%C3%B3n+superior&limit=1 200
+22:43:39 [INFO] primp — response: https://www.mojeek.com/search?q=M%C3%A9xico+iniciativa+ley+inteligencia+artificial+educaci%C3%B3n+superior 200
+22:43:42 [INFO] open_search — [open_search] Total crudo: 1 resultados
+22:43:42 [INFO] open_search — [open_search] Tras filtro: 1 documentos
+22:43:42 [INFO] __main__ — [PROGRESO] FASE 3 completada: 1 docs | Tiempo: 20m15s
+22:43:42 [INFO] __main__ — [main] Total crudo acumulado: 159 URLs | Tiempo: 20m15s
+22:43:42 [INFO] deduplicator — [dedup-url] 159 → 158
+22:43:42 [INFO] __main__ — [main] Tras dedup URL: 158 documentos únicos | Tiempo: 20m15s
+22:43:42 [INFO] __main__ — [PROGRESO] >> Extraccion de contenido (158 docs) | Tiempo: 20m15s
+22:43:42 [INFO] __main__ — [main] Extrayendo contenido de 158 documentos (4 hilos)...
+22:44:35 [INFO] __main__ — [main] Extraídos 10/158
+22:44:47 [INFO] __main__ — [main] Extraídos 20/158
+22:44:49 [INFO] __main__ — [main] Extraídos 30/158
+22:44:53 [INFO] __main__ — [main] Extraídos 40/158
+22:45:23 [INFO] __main__ — [main] Extraídos 50/158
+22:47:13 [INFO] __main__ — [main] Extraídos 60/158
+22:48:40 [INFO] __main__ — [main] Extraídos 70/158
+22:48:57 [INFO] __main__ — [main] Extraídos 80/158
+22:49:01 [INFO] __main__ — [main] Extraídos 90/158
+22:49:05 [INFO] __main__ — [main] Extraídos 100/158
+22:49:18 [INFO] __main__ — [main] Extraídos 110/158
+22:49:25 [INFO] __main__ — [main] Extraídos 120/158
+22:49:31 [INFO] __main__ — [main] Extraídos 130/158
+22:49:34 [INFO] __main__ — [main] Extraídos 140/158
+22:49:40 [INFO] __main__ — [main] Extraídos 150/158
+22:50:14 [INFO] __main__ — [main] Extracción completa: 158 documentos
+22:50:14 [INFO] __main__ — [main] Errores de extracción: 10
+22:50:14 [INFO] __main__ — [PROGRESO] Extraccion completada | Tiempo: 26m48s
+22:50:14 [INFO] __main__ — [PROGRESO] >> Clasificacion heuristica | Tiempo: 26m48s
+22:50:14 [INFO] __main__ — [main] Heurística → ALTA: 30 | MEDIA: 38 | BAJA: 90
+22:50:14 [INFO] deduplicator — [dedup] URL: 158 → 158
+22:50:14 [INFO] deduplicator — [dedup] contenido: 158 → 156
+22:50:14 [INFO] __main__ — [main] Tras dedup contenido: 156 documentos
+22:50:14 [INFO] __main__ — [PROGRESO] >> Clasificacion IA (66 candidatos) | Tiempo: 26m48s
+22:50:14 [INFO] ai_classifier — [ai_classifier] Clasificando 66 docs con IA (ALTA+MEDIA=66, BAJA extra=0)
+22:50:22 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:50:27 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:50:31 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:50:35 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:50:39 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:50:44 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:50:48 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:50:54 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:50:57 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:01 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:06 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:10 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:14 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:19 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:22 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:28 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:33 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:37 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:41 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:45 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:48 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:51 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:56 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:51:59 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:52:04 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:52:08 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:52:11 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:52:16 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:52:22 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:52:25 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:52:28 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:52:33 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:52:42 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:52:46 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:52:50 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:52:53 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:52:57 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:53:00 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:53:07 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:53:13 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:53:19 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:53:22 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:53:25 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:53:29 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:53:33 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:53:37 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:53:40 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:53:45 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:53:50 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:53:54 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:53:58 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:01 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:05 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:11 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:14 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:21 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:24 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:29 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:33 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:36 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:40 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:44 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:47 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:50 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:53 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:58 [INFO] httpx — HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+22:54:59 [INFO] __main__ — [PROGRESO] Clasificacion IA completada | Tiempo: 31m32s
+22:54:59 [INFO] __main__ — [main] Construyendo matriz normativa...
+22:54:59 [INFO] matrix_builder — [matrix] Construyendo matriz desde 156 documentos
+22:54:59 [INFO] matrix_builder — [matrix] 17 normativas identificadas
+22:54:59 [INFO] __main__ — [main] Normativas confirmadas: 17
+22:54:59 [INFO] excel_exporter — [excel] Generando Excel: C:\Users\carlo\OneDrive - Instituto Tecnologico y de Estudios Superiores de Monterrey\Desktop\Carlos Auquilla\Proyectos\GENIAL\GENIAL_dev\output\normativa_ia_mexico_20260503_2223.xlsx
+22:54:59 [INFO] excel_exporter — [excel] 17 normativas | 156 documentos totales
+22:54:59 [INFO] excel_exporter — [excel] Guardado en: C:\Users\carlo\OneDrive - Instituto Tecnologico y de Estudios Superiores de Monterrey\Desktop\Carlos Auquilla\Proyectos\GENIAL\GENIAL_dev\output\normativa_ia_mexico_20260503_2223.xlsx
+22:55:00 [INFO] __main__ — [main] JSON de respaldo: C:\Users\carlo\OneDrive - Instituto Tecnologico y de Estudios Superiores de Monterrey\Desktop\Carlos Auquilla\Proyectos\GENIAL\GENIAL_dev\output\documentos_procesados.json
+22:55:00 [INFO] __main__ — ======================================================================
+22:55:00 [INFO] __main__ —   Pipeline completado en 1893.7s
+22:55:00 [INFO] __main__ —   Excel generado: C:\Users\carlo\OneDrive - Instituto Tecnologico y de Estudios Superiores de Monterrey\Desktop\Carlos Auquilla\Proyectos\GENIAL\GENIAL_dev\output\normativa_ia_mexico_20260503_2223.xlsx
+22:55:00 [INFO] __main__ —   Normativas en matriz: 17
+22:55:00 [INFO] __main__ — ======================================================================
