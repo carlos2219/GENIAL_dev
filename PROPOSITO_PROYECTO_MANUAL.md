@@ -3,7 +3,7 @@
 Este documento resume exclusivamente la información del archivo `Manual-Investigadores.pdf` para que un agente entienda el propósito y las reglas del proyecto.
 
 ## 1) Objetivo general
-Analizar la adopción normativa, legal y ética de la Inteligencia Artificial en los sistemas educativos de Latinoamérica y el Caribe.
+Analizar la adopción normativa, legal y ética de la Inteligencia Artificial en los sistemas educativos de Latinoamérica y el Caribe, en el caso de este proyecto nos centraremos en México exclusivamente.
 
 ## 2) Observaciones adicionales del investigador asignado
 - El investigador asignado es Carlos Auquilla.
@@ -37,9 +37,10 @@ Palabras clave base sugeridas:
 - [País] + "Ética de Inteligencia Artificial"
 - [País] + "Guía Pedagógica de Inteligencia Artificial"
 
-### Fase 2: Búsqueda exhaustiva en universidades
-- Entrar al sitio de cada universidad.
-- Usar el buscador interno del sitio.
+### Fase 2: Búsqueda en universidades (externa + rastreo heurístico)
+- Ejecutar consultas externas por dominio (`site:`) para ubicar normativa relevante.
+- Probar rutas conocidas en el sitio (normativa, reglamentos, lineamientos, IA).
+- Extraer enlaces de esas rutas y de la página principal usando heurísticas.
 - Verificar documentos normativos, legales y éticos de IA o equivalentes.
 
 ### Fase 3: Búsqueda genérica adicional (Google)
@@ -90,30 +91,17 @@ Valores controlados relevantes:
 - Administrativo y de gestión: procesos institucionales y servicios educativos.
 - Técnico e infraestructura: hardware, software, conectividad e interoperabilidad.
 
-## 7) Reporte semanal requerido (ISA)
-Debe incluir:
-- Resumen cuantitativo (países censados, registros nuevos, distribución directo/indirecto).
-- Hallazgos relevantes por dominio.
-- Barreras detectadas (legales, políticas/organizativas, técnicas).
-- Dificultades metodológicas.
-- Plan de trabajo para la semana siguiente.
-
-## 8) Entregables finales obligatorios
+## 7) Entregables finales obligatorios
 - Matriz de datos consolidada (Excel).
-- Informe de resumen (Word) con:
-  - Número de normas censadas.
-  - Países con mayor producción legislativa.
-  - Principales temáticas cubiertas.
-- Archivo ZIP con guías/normas encontradas y descargadas.
 
-## 9) Regla de ausencia de evidencia
+## 8) Regla de ausencia de evidencia
 Si no se encuentra normativa específica, se debe registrar explícitamente como:
 - "No Indica" o
 - "Sin normativa específica detectada"
 
 Esta regla evita sesgos en el conteo final.
 
-## 10) Instrucción operativa para agentes
+## 9) Instrucción operativa para agentes
 Un agente que ejecute este proyecto debe priorizar:
 - Cobertura sistemática por fases (1 a 4).
 - Registro estructurado y consistente en la matriz.

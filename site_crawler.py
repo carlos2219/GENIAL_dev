@@ -3,8 +3,8 @@ site_crawler.py — Crawling interno de sitios universitarios y gubernamentales
 
 Para cada dominio:
   1. Prueba rutas conocidas (/normativa, /reglamentos, etc.)
-  2. Parsea el HTML en busca de enlaces a PDFs y documentos institucionales
-  3. Sigue enlaces un nivel más profundo si contienen keywords normativas
+    2. Parsea el HTML de esas rutas (y de la raíz) en busca de enlaces relevantes
+    3. No usa buscador interno del sitio ni recorre múltiples niveles de navegación
 """
 
 import logging
@@ -125,13 +125,14 @@ def crawl_domain(
     max_seconds: int = 60,
 ) -> List[Dict]:
     """
-    Crawlea un dominio universitario/gubernamental.
+    Rastrea un dominio universitario/gubernamental con heurísticas acotadas.
 
     1. Prueba rutas conocidas de UNIVERSITY_CRAWL_PATHS
     2. Por cada ruta accesible, extrae enlaces relevantes
-    3. Agrega PDFs y páginas normativas encontradas
+    3. Revisa también la página raíz para extraer enlaces relevantes
 
     Retorna lista de documentos pre-poblados (sin texto extraído aún).
+    No utiliza buscador interno ni exploración exhaustiva del sitio.
     El crawl se detiene si supera max_seconds (default 60s).
     """
     found: List[Dict] = []

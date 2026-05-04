@@ -3,7 +3,7 @@ university_search.py — FASE 2: Búsqueda en universidades
 
 Para cada universidad del CSV:
   a) Búsqueda externa DDG con site: operator
-  b) Crawling interno de rutas normativas conocidas
+    b) Rastreo heurístico de rutas normativas conocidas y página raíz
 """
 
 import logging

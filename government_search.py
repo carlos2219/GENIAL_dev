@@ -3,7 +3,7 @@ government_search.py — FASE 1: Búsqueda en fuentes gubernamentales
 
 Combina:
   1. Búsqueda DDG con queries de normativa gubernamental mexicana
-  2. Acceso directo a URLs semilla de portales de gobierno
+    2. Rastreo heurístico de URLs semilla de portales de gobierno
 """
 
 import logging
@@ -61,7 +61,7 @@ def _ddg_search(query: str, max_results: int = config.MAX_RESULTS_PER_QUERY) -> 
 # ─── Crawl de URLs semilla gubernamentales ────────────────────────────────────
 
 def _crawl_gov_seeds() -> List[Dict]:
-    """Accede a portales gubernamentales y extrae enlaces relevantes."""
+    """Rastrea semillas gubernamentales y extrae enlaces relevantes."""
     from site_crawler import crawl_domain
 
     docs: List[Dict] = []
