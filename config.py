@@ -159,6 +159,8 @@ GOVERNMENT_SEED_URLS = [
     "https://www.economia.gob.mx",
     "https://www.sesna.gob.mx",
     "https://www.presidencia.gob.mx",
+    "https://ceide.unam.mx",            # UNAM CEIDE — recomendaciones IA generativa
+    "https://www.sep.gob.mx/en/sep1/normateca",  # Normateca SEP
 ]
 GOVERNMENT_PRIORITY_DOMAINS = [
     ".gob.mx", "dof.gob.mx", "sep.gob.mx", "conahcyt.mx",

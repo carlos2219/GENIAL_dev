@@ -41,9 +41,9 @@ Responde EXCLUSIVAMENTE con este JSON (sin markdown, sin comentarios):
   "dominio": "pedagógico" | "administrativo" | "protección de datos" | "ética" | "técnico" | "no aplica",
   "vinculo": "directo" | "indirecto" | "no aplica",
   "dedicacion_texto": "articulado completo" | "sección/capítulo" | "mención breve" | "no aplica",
-  "titulo_norma": "<título oficial del documento o 'No disponible'>",
-  "organismo_emisor": "<nombre del organismo que emite la norma o 'No disponible'>",
-  "fecha_publicacion": "<fecha en formato YYYY-MM-DD o 'No disponible'>",
+  "titulo_norma": "<título oficial del documento o 'No Indica'>",
+  "organismo_emisor": "<nombre del organismo que emite la norma o 'No Indica'>",
+  "fecha_publicacion": "<fecha en formato YYYY-MM-DD o 'No Indica' si no se encuentra>",
   "ambito": "nacional" | "institucional" | "no aplica",
   "observaciones": "<ver instrucciones abajo>"
 }}
@@ -99,9 +99,9 @@ _EMPTY_CLASSIFICATION = {
     "dominio": "no aplica",
     "vinculo": "no aplica",
     "dedicacion_texto": "no aplica",
-    "titulo_norma": "No disponible",
-    "organismo_emisor": "No disponible",
-    "fecha_publicacion": "No disponible",
+    "titulo_norma": "No Indica",
+    "organismo_emisor": "No Indica",
+    "fecha_publicacion": "No Indica",
     "ambito": "no aplica",
     "observaciones": "Clasificación no disponible (API no configurada o error).",
 }
@@ -277,8 +277,11 @@ def classify_batch_with_ai(
         f"BAJA extra={len(extra_baja)})"
     )
 
-    for doc in to_classify:
+    total_to_classify = len(to_classify)
+    for idx, doc in enumerate(to_classify, 1):
         doc["ai_classification"] = classify_with_ai(doc)
+        if idx % 10 == 0 or idx == total_to_classify:
+            logger.info(f"[ai_classifier] Progreso IA: {idx}/{total_to_classify} docs clasificados")
         time.sleep(delay_between)
 
     for doc in skip:

@@ -74,7 +74,15 @@ def _crawl_gov_seeds() -> List[Dict]:
             max_docs=8,
         )
         for d in results:
-            if _topic_match(d.get("url", ""), d.get("title", ""), d.get("snippet", "")):
+            url = d.get("url", "")
+            if not url or is_excluded(url):
+                continue
+            # Solo filtrar por keywords normativas; NO requerir keywords de IA en este
+            # punto porque el contenido aún no ha sido extraído. El clasificador
+            # heurístico aplicará el gate de IA después de la extracción.
+            combined = (url + " " + d.get("title", "")).lower()
+            policy_hits = sum(1 for kw in config.PRIORITY_URL_KEYWORDS if kw in combined)
+            if policy_hits >= 1 or url.lower().endswith(".pdf"):
                 docs.append(d)
         time.sleep(1.0)
 
