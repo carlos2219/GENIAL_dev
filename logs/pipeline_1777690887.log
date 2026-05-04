@@ -1,0 +1,62 @@
+22:01:27 [INFO] __main__ — ======================================================================
+22:01:27 [INFO] __main__ —   GENIAL — Sistema de Levantamiento Normativo IA en Educación México
+22:01:27 [INFO] __main__ — ======================================================================
+22:01:27 [INFO] __main__ —   Investigador: Carlos Auquilla
+22:01:27 [INFO] __main__ —   Modelo IA:    gpt-4o-mini
+22:01:27 [INFO] __main__ —   API OpenAI:   Configurada
+22:01:27 [INFO] __main__ — ======================================================================
+22:01:27 [INFO] __main__ — [PROGRESO] ▶ FASE 1/3 — Búsqueda gubernamental | Tiempo: 0m00s
+22:01:27 [INFO] government_search — ============================================================
+22:01:27 [INFO] government_search — FASE 1 — Búsqueda gubernamental
+22:01:27 [INFO] government_search — ============================================================
+22:01:27 [INFO] government_search — [gov_search] Query: México ley de inteligencia artificial
+22:01:28 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20ley%20de%20inteligencia%20artificial 200
+22:01:28 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+ley+de+inteligencia+artificial&limit=1 200
+22:01:29 [INFO] primp — response: https://html.duckduckgo.com/html/ 200
+22:01:32 [INFO] government_search — [gov_search] Query: México decreto inteligencia artificial
+22:01:32 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20decreto%20inteligencia%20artificial 200
+22:01:32 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+decreto+inteligencia+artificial&limit=1 200
+22:01:33 [INFO] primp — response: https://search.brave.com/search?q=M%C3%A9xico+decreto+inteligencia+artificial&source=web 200
+22:01:36 [INFO] government_search — [gov_search] Query: México guía ética de inteligencia artificial
+22:01:36 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20gu%C3%ADa%20%C3%A9tica%20de%20inteligencia%20artificial 200
+22:01:36 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+gu%C3%ADa+%C3%A9tica+de+inteligencia+artificial&limit=1 200
+22:01:38 [INFO] primp — response: https://www.mojeek.com/search?q=M%C3%A9xico+gu%C3%ADa+%C3%A9tica+de+inteligencia+artificial 200
+22:01:41 [INFO] government_search — [gov_search] Query: México estrategia nacional de inteligencia artificial
+22:01:41 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20estrategia%20nacional%20de%20inteligencia%20artificial 200
+22:01:42 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+estrategia+nacional+de+inteligencia+artificial&limit=1 200
+22:01:43 [INFO] primp — response: https://html.duckduckgo.com/html/ 200
+22:01:45 [INFO] government_search — [gov_search] Query: México resolución rectoral inteligencia artificial
+22:01:45 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20resoluci%C3%B3n%20rectoral%20inteligencia%20artificial 200
+22:01:46 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+resoluci%C3%B3n+rectoral+inteligencia+artificial&limit=1 200
+22:01:46 [INFO] primp — response: https://html.duckduckgo.com/html/ 202
+22:01:47 [INFO] primp — response: https://search.yahoo.com/search;_ylt=HKBXK-1HEdT8xWacabXfKd93;_ylu=GIY69Me2Hvuj7RzW4gdH00-kNEjmBvwuwiKc8FhQiJqt6TM?p=M%C3%A9xico+resoluci%C3%B3n+rectoral+inteligencia+artificial 200
+22:01:48 [INFO] primp — response: https://yandex.com/search/site/?text=M%C3%A9xico+resoluci%C3%B3n+rectoral+inteligencia+artificial&web=1&searchid=2970072 200
+22:01:51 [INFO] government_search — [gov_search] Query: México lineamiento académico inteligencia artificial
+22:01:51 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20lineamiento%20acad%C3%A9mico%20inteligencia%20artificial 200
+22:01:52 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+lineamiento+acad%C3%A9mico+inteligencia+artificial&limit=1 200
+22:01:53 [INFO] primp — response: https://search.yahoo.com/search;_ylt=a76YLFVjvmq3q9EvJgbvlYx0;_ylu=R8QQ9y3v6Gc6u2DsiVcBo4pd_qcD8XP232yK-XFVYfK1q9M?p=M%C3%A9xico+lineamiento+acad%C3%A9mico+inteligencia+artificial 200
+22:01:54 [INFO] primp — response: https://search.brave.com/search?q=M%C3%A9xico+lineamiento+acad%C3%A9mico+inteligencia+artificial&source=web 200
+22:01:56 [INFO] government_search — [gov_search] Query: México ética de inteligencia artificial educación
+22:01:57 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20%C3%A9tica%20de%20inteligencia%20artificial%20educaci%C3%B3n 200
+22:01:57 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+%C3%A9tica+de+inteligencia+artificial+educaci%C3%B3n&limit=1 200
+22:01:57 [INFO] primp — response: https://search.yahoo.com/search;_ylt=EapJwbJcEiD16X2mDKMU77Y0;_ylu=698DSLJtlxrCv4LGmREqzXvTvzFM1rgCidfzgOH4Xr570qU?p=M%C3%A9xico+%C3%A9tica+de+inteligencia+artificial+educaci%C3%B3n 200
+22:01:59 [INFO] primp — response: https://yandex.com/search/site/?text=M%C3%A9xico+%C3%A9tica+de+inteligencia+artificial+educaci%C3%B3n&web=1&searchid=4940887 200
+22:02:02 [INFO] government_search — [gov_search] Query: México guía pedagógica de inteligencia artificial
+22:02:02 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=M%C3%A9xico%20gu%C3%ADa%20pedag%C3%B3gica%20de%20inteligencia%20artificial 200
+22:02:02 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=M%C3%A9xico+gu%C3%ADa+pedag%C3%B3gica+de+inteligencia+artificial&limit=1 200
+22:02:04 [INFO] primp — response: https://www.mojeek.com/search?q=M%C3%A9xico+gu%C3%ADa+pedag%C3%B3gica+de+inteligencia+artificial 200
+22:02:07 [INFO] government_search — [gov_search] Query: política pública inteligencia artificial educación México gob.mx
+22:02:07 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=pol%C3%ADtica%20p%C3%BAblica%20inteligencia%20artificial%20educaci%C3%B3n%20M%C3%A9xico%20gob.mx 200
+22:02:07 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=pol%C3%ADtica+p%C3%BAblica+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico+gob.mx&limit=1 200
+22:02:08 [INFO] primp — response: https://search.yahoo.com/search;_ylt=SrR9eAspTgefcCcPhw3aXXOE;_ylu=ZUNG-hp1osqENujv0DE9zoxKkgEQDYijILvyBiQlqMEcI8g?p=pol%C3%ADtica+p%C3%BAblica+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico+gob.mx 200
+22:02:11 [INFO] primp — response: https://www.mojeek.com/search?q=pol%C3%ADtica+p%C3%BAblica+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico+gob.mx 200
+22:02:13 [INFO] government_search — [gov_search] Query: ley inteligencia artificial México decreto congreso
+22:02:14 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=ley%20inteligencia%20artificial%20M%C3%A9xico%20decreto%20congreso 200
+22:02:14 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=ley+inteligencia+artificial+M%C3%A9xico+decreto+congreso&limit=1 200
+22:02:15 [INFO] primp — response: https://search.yahoo.com/search;_ylt=KgaTjazvrRp8m1WNl24Dg32A;_ylu=D6YonqC9qq8WrkmK4EfvJ-qe5LfAs4ddqB_rp3q4ZTmyrbA?p=ley+inteligencia+artificial+M%C3%A9xico+decreto+congreso 200
+22:02:16 [INFO] primp — response: https://yandex.com/search/site/?text=ley+inteligencia+artificial+M%C3%A9xico+decreto+congreso&web=1&searchid=3610215 200
+22:02:19 [INFO] government_search — [gov_search] Query: SEP secretaría educación inteligencia artificial lineamientos México
+22:02:19 [INFO] primp — response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=SEP%20secretar%C3%ADa%20educaci%C3%B3n%20inteligencia%20artificial%20lineamientos%20M%C3%A9xico 200
+22:02:19 [INFO] primp — response: https://grokipedia.com/api/typeahead?query=SEP+secretar%C3%ADa+educaci%C3%B3n+inteligencia+artificial+lineamientos+M%C3%A9xico&limit=1 200
+22:02:20 [INFO] primp — response: https://yandex.com/search/site/?text=SEP+secretar%C3%ADa+educaci%C3%B3n+inteligencia+artificial+lineamientos+M%C3%A9xico&web=1&searchid=9421516 200
+22:02:23 [INFO] government_search — [gov_search] Query: CONAHCYT inteligencia artificial programa estrategia México

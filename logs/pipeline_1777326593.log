@@ -1,0 +1,160 @@
+16:49:53 [INFO] __main__ — ======================================================================
+16:49:53 [INFO] __main__ —   GENIAL — Sistema de Levantamiento Normativo IA en Educación México
+16:49:53 [INFO] __main__ — ======================================================================
+16:49:53 [INFO] __main__ —   Investigador: Carlos Auquilla
+16:49:53 [INFO] __main__ —   Modelo IA:    gpt-4o-mini
+16:49:53 [INFO] __main__ —   API OpenAI:   NO configurada (solo heurística)
+16:49:53 [INFO] __main__ — ======================================================================
+16:49:53 [INFO] government_search — ============================================================
+16:49:53 [INFO] government_search — FASE 1 — Búsqueda gubernamental
+16:49:53 [INFO] government_search — ============================================================
+16:49:53 [INFO] government_search — [gov_search] Query: estrategia nacional inteligencia artificial México 2023 2024
+16:49:53 [DEBUG] rustls.webpki.anchors — add_parsable_certificates processed 37 valid and 0 invalid certs
+16:49:53 [DEBUG] reqwest.connect — starting new connection: https://www.bing.com/
+16:49:53 [DEBUG] hyper_util.client.legacy.connect.http — connecting to 190.98.160.130:443
+16:49:53 [DEBUG] hyper_util.client.legacy.connect.http — connected to 190.98.160.130:443
+16:49:53 [DEBUG] rustls.client.hs — No cached session for DnsName("www.bing.com")
+16:49:53 [DEBUG] rustls.client.hs — Not resuming any session
+16:49:53 [DEBUG] rustls.client.hs — Browser emulation: Some(BrowserEmulator { browser_type: Safari, version: BrowserVersion { major: 26, minor: 3, patch: 0 }, extension_order_seed: Some(25952), cipher_suites: Some([TLS13_AES_128_GCM_SHA256, TLS13_AES_256_GCM_SHA384, TLS13_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, CipherSuite(0x9d), CipherSuite(0x9c), CipherSuite(0x35), CipherSuite(0x2f), CipherSuite(0xc008), CipherSuite(0xc012), CipherSuite(0xa)]), signature_algorithms: Some([ECDSA_NISTP256_SHA256, RSA_PSS_SHA256, RSA_PKCS1_SHA256, ECDSA_NISTP384_SHA384, RSA_PSS_SHA384, RSA_PSS_SHA384, RSA_PKCS1_SHA384, RSA_PSS_SHA512, RSA_PKCS1_SHA512, RSA_PKCS1_SHA1]), named_groups: Some([X25519MLKEM768, X25519, secp256r1, secp384r1]), os_type: Some(IOS), include_status_request_v2: false })
+16:49:53 [DEBUG] rustls.client.hs — Using extension_order_seed: 10720
+16:49:53 [DEBUG] rustls.client.hs — Browser emulation: Some(BrowserEmulator { browser_type: Safari, version: BrowserVersion { major: 26, minor: 3, patch: 0 }, extension_order_seed: Some(25952), cipher_suites: Some([TLS13_AES_128_GCM_SHA256, TLS13_AES_256_GCM_SHA384, TLS13_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, CipherSuite(0x9d), CipherSuite(0x9c), CipherSuite(0x35), CipherSuite(0x2f), CipherSuite(0xc008), CipherSuite(0xc012), CipherSuite(0xa)]), signature_algorithms: Some([ECDSA_NISTP256_SHA256, RSA_PSS_SHA256, RSA_PKCS1_SHA256, ECDSA_NISTP384_SHA384, RSA_PSS_SHA384, RSA_PSS_SHA384, RSA_PKCS1_SHA384, RSA_PSS_SHA512, RSA_PKCS1_SHA512, RSA_PKCS1_SHA1]), named_groups: Some([X25519MLKEM768, X25519, secp256r1, secp384r1]), os_type: Some(IOS), include_status_request_v2: false })
+16:49:53 [DEBUG] rustls.client.hs — Cipher suites count: 20
+16:49:53 [DEBUG] rustls.client.hs —   [0] TLS13_AES_128_GCM_SHA256
+16:49:53 [DEBUG] rustls.client.hs —   [1] TLS13_AES_256_GCM_SHA384
+16:49:53 [DEBUG] rustls.client.hs —   [2] TLS13_CHACHA20_POLY1305_SHA256
+16:49:53 [DEBUG] rustls.client.hs —   [3] TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+16:49:53 [DEBUG] rustls.client.hs —   [4] TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+16:49:53 [DEBUG] rustls.client.hs —   [5] TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+16:49:53 [DEBUG] rustls.client.hs —   [6] TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+16:49:53 [DEBUG] rustls.client.hs —   [7] TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+16:49:53 [DEBUG] rustls.client.hs —   [8] TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+16:49:53 [DEBUG] rustls.client.hs —   [9] TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+16:49:53 [DEBUG] rustls.client.hs —   [10] TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+16:49:53 [DEBUG] rustls.client.hs —   [11] TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+16:49:53 [DEBUG] rustls.client.hs —   [12] TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+16:49:53 [DEBUG] rustls.client.hs —   [13] CipherSuite(0x9d)
+16:49:53 [DEBUG] rustls.client.hs —   [14] CipherSuite(0x9c)
+16:49:53 [DEBUG] rustls.client.hs —   [15] CipherSuite(0x35)
+16:49:53 [DEBUG] rustls.client.hs —   [16] CipherSuite(0x2f)
+16:49:53 [DEBUG] rustls.client.hs —   [17] CipherSuite(0xc008)
+16:49:53 [DEBUG] rustls.client.hs —   [18] CipherSuite(0xc012)
+16:49:53 [DEBUG] rustls.client.hs —   [19] CipherSuite(0xa)
+16:49:53 [DEBUG] rustls.client.hs — Final cipher suites for ClientHello: [TLS13_AES_128_GCM_SHA256, TLS13_AES_256_GCM_SHA384, TLS13_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, CipherSuite(0x9d), CipherSuite(0x9c), CipherSuite(0x35), CipherSuite(0x2f), CipherSuite(0xc008), CipherSuite(0xc012), CipherSuite(0xa)]
+16:49:53 [DEBUG] rustls.client.hs — Using ciphersuite TLS13_AES_256_GCM_SHA384
+16:49:53 [DEBUG] rustls.client.tls13 — Not resuming
+16:49:53 [DEBUG] rustls.client.tls13 — TLS1.3 encrypted extensions: ServerExtensions { server_name_ack: (), selected_protocol: SingleProtocolName(ProtocolName(6832)), unknown_extensions: {10}, .. }
+16:49:53 [DEBUG] rustls.client.hs — ALPN protocol is Some(b"h2")
+16:49:53 [DEBUG] h2.client — binding client connection
+16:49:53 [DEBUG] h2.client — client connection bound
+16:49:53 [DEBUG] h2.client — handshake2: settings header_table_size=None, enable_push=Some(false), initial_window_size=Some(2097152), max_frame_size=None, max_header_list_size=None
+16:49:53 [DEBUG] h2.client — handshake2: sending initial settings frame
+16:49:53 [DEBUG] h2.codec.framed_write — send frame=Settings { flags: (0x0), enable_push: 0, max_concurrent_streams: 100, initial_window_size: 2097152, no_rfc7540_priorities: 1 }
+16:49:53 [DEBUG] h2.frame.settings — encoding SETTINGS; len=24, order=SettingsOrder { ids: [EnablePush, MaxConcurrentStreams, InitialWindowSize, NoRfc7540Priorities] }, header_table_size=None, enable_push=Some(0), initial_window_size=Some(2097152), max_frame_size=None, max_header_list_size=None
+16:49:53 [DEBUG] h2.frame.settings — encoding setting; val=EnablePush(0)
+16:49:53 [DEBUG] h2.frame.settings — encoding setting; val=MaxConcurrentStreams(100)
+16:49:53 [DEBUG] h2.frame.settings — encoding setting; val=InitialWindowSize(2097152)
+16:49:53 [DEBUG] h2.frame.settings — encoding setting; val=NoRfc7540Priorities(1)
+16:49:53 [DEBUG] h2.proto.connection — Connection; peer=Client
+16:49:53 [DEBUG] hyper_util.client.legacy.pool — pooling idle connection for ("https", www.bing.com)
+16:49:53 [DEBUG] h2.codec.framed_write — send frame=WindowUpdate { stream_id: StreamId(0), size_increment: 10420225 }
+16:49:53 [DEBUG] h2.codec.framed_write — send frame=Headers { stream_id: StreamId(1), flags: (0x5: END_HEADERS | END_STREAM) }
+16:49:53 [DEBUG] h2.codec.framed_read — received frame=Settings { flags: (0x0), header_table_size: 4096, max_concurrent_streams: 100, initial_window_size: 65535, max_frame_size: 16384, max_header_list_size: 32768 }
+16:49:53 [DEBUG] h2.codec.framed_write — send frame=Settings { flags: (0x1: ACK) }
+16:49:53 [DEBUG] h2.frame.settings — encoding SETTINGS; len=0, order=SettingsOrder { ids: [HeaderTableSize, EnablePush, MaxConcurrentStreams, InitialWindowSize, MaxFrameSize, MaxHeaderListSize, EnableConnectProtocol, NoRfc7540Priorities] }, header_table_size=None, enable_push=None, initial_window_size=None, max_frame_size=None, max_header_list_size=None
+16:49:53 [DEBUG] h2.codec.framed_read — received frame=Settings { flags: (0x1: ACK) }
+16:49:53 [DEBUG] h2.proto.settings — received settings ACK; applying Settings { flags: (0x0), enable_push: 0, max_concurrent_streams: 100, initial_window_size: 2097152, no_rfc7540_priorities: 1 }
+16:49:53 [DEBUG] h2.codec.framed_read — received frame=Headers { stream_id: StreamId(1), flags: (0x4: END_HEADERS) }
+16:49:53 [DEBUG] cookie_store.cookie_store — inserting secure cookie 'MUID'
+16:49:53 [DEBUG] cookie_store.cookie_store — inserting Set-Cookie 'Cookie { cookie_string: Some("MUIDB=11408D5230D264CF2A1B9A1A31F5654C; expires=Sat, 22-May-2027 21:49:53 GMT; path=/; HttpOnly"), name: Indexed(0, 5), value: Indexed(6, 38), expires: Some(DateTime(2027-05-22 21:49:53.0 +00:00:00)), max_age: None, domain: None, path: Some(Indexed(84, 85)), secure: None, http_only: Some(true), same_site: None, partitioned: None }'
+16:49:53 [DEBUG] cookie_store.cookie_store — inserting Set-Cookie 'Cookie { cookie_string: Some("_EDGE_S=F=1&SID=08CC9A38421D6A6125E38D70433A6BD5; domain=.bing.com; path=/; HttpOnly"), name: Indexed(0, 7), value: Indexed(8, 48), expires: None, max_age: None, domain: Some(Indexed(57, 66)), path: Some(Indexed(73, 74)), secure: None, http_only: Some(true), same_site: None, partitioned: None }'
+16:49:53 [DEBUG] cookie_store.cookie_store — inserting Set-Cookie 'Cookie { cookie_string: Some("_EDGE_V=1; domain=.bing.com; expires=Sat, 22-May-2027 21:49:53 GMT; path=/; HttpOnly"), name: Indexed(0, 7), value: Indexed(8, 9), expires: Some(DateTime(2027-05-22 21:49:53.0 +00:00:00)), max_age: None, domain: Some(Indexed(18, 27)), path: Some(Indexed(73, 74)), secure: None, http_only: Some(true), same_site: None, partitioned: None }'
+16:49:53 [DEBUG] cookie_store.cookie_store — inserting secure cookie '__Host-XY'
+16:49:53 [DEBUG] cookie_store.cookie_store — inserting Set-Cookie 'Cookie { cookie_string: Some("SRCHHPGUSR=V=CfDJ8IykvUS-IVVNrph3fqYz1xLvssBFKdL4CnsBX8lbTPFD8l1EYgbJXTgzYTLpiRtTqd-QKB3IOPcyPyox4QEqJYo_KkshAhmv-okBbwP0RtKbTF9y1qXH9yAacfEBl2f4odDjXUbFClbNOfgw6nMB7tk&SRCHLANG=en&IG=30B944280F3A48D3B9FE573D4A0767E2; domain=.bing.com; expires=Thu, 27-Apr-2028 21:49:53 GMT; path=/"), name: Indexed(0, 10), value: Indexed(11, 216), expires: Some(DateTime(2028-04-27 21:49:53.0 +00:00:00)), max_age: None, domain: Some(Indexed(225, 234)), path: Some(Indexed(280, 281)), secure: None, http_only: None, same_site: None, partitioned: None }'
+16:49:53 [DEBUG] cookie_store.cookie_store — inserting Set-Cookie 'Cookie { cookie_string: Some("SRCHD=AF=NOFORM; domain=.bing.com; expires=Thu, 27-Apr-2028 21:49:53 GMT; path=/"), name: Indexed(0, 5), value: Indexed(6, 15), expires: Some(DateTime(2028-04-27 21:49:53.0 +00:00:00)), max_age: None, domain: Some(Indexed(24, 33)), path: Some(Indexed(79, 80)), secure: None, http_only: None, same_site: None, partitioned: None }'
+16:49:53 [DEBUG] cookie_store.cookie_store — inserting Set-Cookie 'Cookie { cookie_string: Some("SRCHUID=V=2&GUID=62D81A9840434EDCB8F3D0B935FCF141&dmnchg=1; domain=.bing.com; expires=Thu, 27-Apr-2028 21:49:53 GMT; path=/"), name: Indexed(0, 7), value: Indexed(8, 58), expires: Some(DateTime(2028-04-27 21:49:53.0 +00:00:00)), max_age: None, domain: Some(Indexed(67, 76)), path: Some(Indexed(122, 123)), secure: None, http_only: None, same_site: None, partitioned: None }'
+16:49:53 [DEBUG] cookie_store.cookie_store — inserting Set-Cookie 'Cookie { cookie_string: Some("SRCHUSR=DOB=20260427; domain=.bing.com; expires=Thu, 27-Apr-2028 21:49:53 GMT; path=/"), name: Indexed(0, 7), value: Indexed(8, 20), expires: Some(DateTime(2028-04-27 21:49:53.0 +00:00:00)), max_age: None, domain: Some(Indexed(29, 38)), path: Some(Indexed(84, 85)), secure: None, http_only: None, same_site: None, partitioned: None }'
+16:49:53 [DEBUG] cookie_store.cookie_store — inserting Set-Cookie 'Cookie { cookie_string: Some("_SS=SID=08CC9A38421D6A6125E38D70433A6BD5; domain=.bing.com; path=/"), name: Indexed(0, 3), value: Indexed(4, 40), expires: None, max_age: None, domain: Some(Indexed(49, 58)), path: Some(Indexed(65, 66)), secure: None, http_only: None, same_site: None, partitioned: None }'
+16:49:53 [DEBUG] cookie_store.cookie_store — inserting Set-Cookie 'Cookie { cookie_string: Some("ak_bmsc=48D90986B2F97FB67D98EB25C63F6AC6~000000000000000000000000000000~YAAQfqBivvsSxb2dAQAA6Zbr0B/SBltKThou7lTVLTTdrbiMGhz1r2JyER+DnTnr0XjDDkkINvLL+ZeDiRTD9cF/lbTFtoVFG228Pa1rA452A1pLJzdii73hODomZpU+uysgJyAtlPfPFWKkiIOBcX5vtq1MDk00LQcYkMjHyXhreYMJOwDeo9c7VP1rDDyQ1j4NO+CsHXThGMLF5QogsIenG26zpVqfqvAW/xno4E7/1TQdE2y9umzSa5IU+BpO9RQsBnoioWbLpOmUV0eQMPlEG1hZbp+TMsE7s7h/V9amrdopodSWahGDiO0+K2PGm5UyfAp9czDlCJUkblnSx0IAnBcPAHDSSRHgTB26gIH13ffoafHexv+dL0AJQMxUjqJXKautwId5; Domain=.bing.com; Path=/; Expires=Mon, 27 Apr 2026 23:49:53 GMT; Max-Age=7200; HttpOnly"), name: Indexed(0, 7), value: Indexed(8, 468), expires: Some(DateTime(2026-04-27 23:49:53.0 +00:00:00)), max_age: Some(Duration { seconds: 7200, nanoseconds: 0 }), domain: Some(Indexed(477, 486)), path: Some(Indexed(493, 494)), secure: None, http_only: Some(true), same_site: None, partitioned: None }'
+16:49:53 [INFO] primp — response: https://www.bing.com/search?q=estrategia+nacional+inteligencia+artificial+M%C3%A9xico+2023+2024 200
+16:49:53 [DEBUG] duckduckgo_search.DDGS — _get_url() https://www.bing.com/search?q=estrategia+nacional+inteligencia+artificial+M%C3%A9xico+2023+2024 200
+16:49:53 [DEBUG] h2.codec.framed_read — received frame=Data { stream_id: StreamId(1) }
+16:49:54 [DEBUG] h2.codec.framed_read — received frame=Data { stream_id: StreamId(1) }
+16:49:54 [DEBUG] h2.codec.framed_read — received frame=Data { stream_id: StreamId(1) }
+16:49:54 [DEBUG] h2.codec.framed_read — received frame=Data { stream_id: StreamId(1) }
+16:49:54 [DEBUG] h2.codec.framed_read — received frame=Data { stream_id: StreamId(1) }
+16:49:54 [DEBUG] h2.codec.framed_read — received frame=Data { stream_id: StreamId(1) }
+16:49:54 [DEBUG] h2.codec.framed_read — received frame=Data { stream_id: StreamId(1) }
+16:49:54 [DEBUG] h2.codec.framed_read — received frame=Data { stream_id: StreamId(1), flags: (0x1: END_STREAM) }
+16:49:56 [INFO] government_search — [gov_search] Query: política pública inteligencia artificial educación México gob.mx
+16:49:56 [DEBUG] reqwest.connect — starting new connection: https://www.bing.com/
+16:49:56 [DEBUG] h2.codec.framed_write — send frame=GoAway { error_code: NO_ERROR, last_stream_id: StreamId(0) }
+16:49:56 [DEBUG] h2.proto.connection — Connection::poll; connection error error=GoAway(b"", NO_ERROR, Library)
+16:49:56 [DEBUG] rustls.common_state — Sending warning alert CloseNotify
+16:49:56 [DEBUG] hyper_util.client.legacy.connect.http — connecting to 190.98.160.130:443
+16:49:56 [DEBUG] hyper_util.client.legacy.connect.http — connected to 190.98.160.130:443
+16:49:56 [DEBUG] rustls.client.hs — No cached session for DnsName("www.bing.com")
+16:49:56 [DEBUG] rustls.client.hs — Not resuming any session
+16:49:56 [DEBUG] rustls.client.hs — Browser emulation: Some(BrowserEmulator { browser_type: Firefox, version: BrowserVersion { major: 146, minor: 0, patch: 0 }, extension_order_seed: Some(39612), cipher_suites: Some([TLS13_AES_128_GCM_SHA256, TLS13_CHACHA20_POLY1305_SHA256, TLS13_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, CipherSuite(0x9c), CipherSuite(0x9d), CipherSuite(0x2f), CipherSuite(0x35)]), signature_algorithms: Some([ECDSA_NISTP256_SHA256, ECDSA_NISTP384_SHA384, ECDSA_NISTP521_SHA512, RSA_PSS_SHA256, RSA_PSS_SHA384, RSA_PSS_SHA512, RSA_PKCS1_SHA256, RSA_PKCS1_SHA384, RSA_PKCS1_SHA512, ECDSA_SHA1_Legacy, RSA_PKCS1_SHA1]), named_groups: Some([X25519MLKEM768, X25519, secp256r1, secp384r1, secp521r1, FFDHE2048, FFDHE3072]), os_type: None, include_status_request_v2: false })
+16:49:56 [DEBUG] rustls.client.hs — Using extension_order_seed: 38838
+16:49:56 [DEBUG] rustls.client.hs — Browser emulation: Some(BrowserEmulator { browser_type: Firefox, version: BrowserVersion { major: 146, minor: 0, patch: 0 }, extension_order_seed: Some(39612), cipher_suites: Some([TLS13_AES_128_GCM_SHA256, TLS13_CHACHA20_POLY1305_SHA256, TLS13_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, CipherSuite(0x9c), CipherSuite(0x9d), CipherSuite(0x2f), CipherSuite(0x35)]), signature_algorithms: Some([ECDSA_NISTP256_SHA256, ECDSA_NISTP384_SHA384, ECDSA_NISTP521_SHA512, RSA_PSS_SHA256, RSA_PSS_SHA384, RSA_PSS_SHA512, RSA_PKCS1_SHA256, RSA_PKCS1_SHA384, RSA_PKCS1_SHA512, ECDSA_SHA1_Legacy, RSA_PKCS1_SHA1]), named_groups: Some([X25519MLKEM768, X25519, secp256r1, secp384r1, secp521r1, FFDHE2048, FFDHE3072]), os_type: None, include_status_request_v2: false })
+16:49:56 [DEBUG] rustls.client.hs — Cipher suites count: 17
+16:49:56 [DEBUG] rustls.client.hs —   [0] TLS13_AES_128_GCM_SHA256
+16:49:56 [DEBUG] rustls.client.hs —   [1] TLS13_CHACHA20_POLY1305_SHA256
+16:49:56 [DEBUG] rustls.client.hs —   [2] TLS13_AES_256_GCM_SHA384
+16:49:56 [DEBUG] rustls.client.hs —   [3] TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+16:49:56 [DEBUG] rustls.client.hs —   [4] TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+16:49:56 [DEBUG] rustls.client.hs —   [5] TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+16:49:56 [DEBUG] rustls.client.hs —   [6] TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+16:49:56 [DEBUG] rustls.client.hs —   [7] TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+16:49:56 [DEBUG] rustls.client.hs —   [8] TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+16:49:56 [DEBUG] rustls.client.hs —   [9] TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+16:49:56 [DEBUG] rustls.client.hs —   [10] TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+16:49:56 [DEBUG] rustls.client.hs —   [11] TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+16:49:56 [DEBUG] rustls.client.hs —   [12] TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+16:49:56 [DEBUG] rustls.client.hs —   [13] CipherSuite(0x9c)
+16:49:56 [DEBUG] rustls.client.hs —   [14] CipherSuite(0x9d)
+16:49:56 [DEBUG] rustls.client.hs —   [15] CipherSuite(0x2f)
+16:49:56 [DEBUG] rustls.client.hs —   [16] CipherSuite(0x35)
+16:49:56 [DEBUG] rustls.client.hs — Final cipher suites for ClientHello: [TLS13_AES_128_GCM_SHA256, TLS13_CHACHA20_POLY1305_SHA256, TLS13_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, CipherSuite(0x9c), CipherSuite(0x9d), CipherSuite(0x2f), CipherSuite(0x35)]
+16:49:56 [DEBUG] rustls.client.hs — Using ciphersuite TLS13_AES_256_GCM_SHA384
+16:49:56 [DEBUG] rustls.client.tls13 — Not resuming
+16:49:56 [DEBUG] rustls.client.tls13 — TLS1.3 encrypted extensions: ServerExtensions { server_name_ack: (), selected_protocol: SingleProtocolName(ProtocolName(6832)), unknown_extensions: {10}, .. }
+16:49:56 [DEBUG] rustls.client.hs — ALPN protocol is Some(b"h2")
+16:49:56 [DEBUG] h2.client — binding client connection
+16:49:56 [DEBUG] h2.client — client connection bound
+16:49:56 [DEBUG] h2.client — handshake2: settings header_table_size=Some(65536), enable_push=Some(false), initial_window_size=Some(131072), max_frame_size=Some(16384), max_header_list_size=None
+16:49:56 [DEBUG] h2.client — handshake2: sending initial settings frame
+16:49:56 [DEBUG] h2.codec.framed_write — send frame=Settings { flags: (0x0), header_table_size: 65536, enable_push: 0, initial_window_size: 131072, max_frame_size: 16384 }
+16:49:56 [DEBUG] h2.frame.settings — encoding SETTINGS; len=24, order=SettingsOrder { ids: [HeaderTableSize, EnablePush, InitialWindowSize, MaxFrameSize] }, header_table_size=Some(65536), enable_push=Some(0), initial_window_size=Some(131072), max_frame_size=Some(16384), max_header_list_size=None
+16:49:56 [DEBUG] h2.frame.settings — encoding setting; val=HeaderTableSize(65536)
+16:49:56 [DEBUG] h2.frame.settings — encoding setting; val=EnablePush(0)
+16:49:56 [DEBUG] h2.frame.settings — encoding setting; val=InitialWindowSize(131072)
+16:49:56 [DEBUG] h2.frame.settings — encoding setting; val=MaxFrameSize(16384)
+16:49:56 [DEBUG] h2.proto.connection — Connection; peer=Client
+16:49:56 [DEBUG] hyper_util.client.legacy.pool — pooling idle connection for ("https", www.bing.com)
+16:49:56 [DEBUG] h2.codec.framed_write — send frame=WindowUpdate { stream_id: StreamId(0), size_increment: 12517377 }
+16:49:56 [DEBUG] h2.codec.framed_write — send frame=Headers { stream_id: StreamId(3), flags: (0x25: END_HEADERS | END_STREAM | PRIORITY), stream_dep: StreamDependency { dependency_id: StreamId(0), weight: 41, is_exclusive: false } }
+16:49:57 [DEBUG] h2.codec.framed_read — received frame=Settings { flags: (0x0), header_table_size: 4096, max_concurrent_streams: 100, initial_window_size: 65535, max_frame_size: 16384, max_header_list_size: 32768 }
+16:49:57 [DEBUG] h2.codec.framed_write — send frame=Settings { flags: (0x1: ACK) }
+16:49:57 [DEBUG] h2.frame.settings — encoding SETTINGS; len=0, order=SettingsOrder { ids: [HeaderTableSize, EnablePush, MaxConcurrentStreams, InitialWindowSize, MaxFrameSize, MaxHeaderListSize, EnableConnectProtocol, NoRfc7540Priorities] }, header_table_size=None, enable_push=None, initial_window_size=None, max_frame_size=None, max_header_list_size=None
+16:49:57 [DEBUG] h2.codec.framed_read — received frame=Settings { flags: (0x1: ACK) }
+16:49:57 [DEBUG] h2.proto.settings — received settings ACK; applying Settings { flags: (0x0), header_table_size: 65536, enable_push: 0, initial_window_size: 131072, max_frame_size: 16384 }
+16:49:57 [DEBUG] h2.codec.framed_read — received frame=Headers { stream_id: StreamId(3), flags: (0x4: END_HEADERS) }
+16:49:57 [DEBUG] h2.codec.framed_read — received frame=Data { stream_id: StreamId(3) }
+16:49:57 [DEBUG] cookie_store.cookie_store — inserting secure cookie 'MUID'
+16:49:57 [DEBUG] cookie_store.cookie_store — inserting Set-Cookie 'Cookie { cookie_string: Some("MUIDB=12D4C266A2B566B6095AD52EA34F6733; expires=Sat, 22-May-2027 21:49:56 GMT; path=/; HttpOnly"), name: Indexed(0, 5), value: Indexed(6, 38), expires: Some(DateTime(2027-05-22 21:49:56.0 +00:00:00)), max_age: None, domain: None, path: Some(Indexed(84, 85)), secure: None, http_only: Some(true), same_site: None, partitioned: None }'
+16:49:57 [DEBUG] cookie_store.cookie_store — inserting Set-Cookie 'Cookie { cookie_string: Some("_EDGE_S=F=1&SID=1ADACAAB479269A4270ADDE346686813; domain=.bing.com; path=/; HttpOnly"), name: Indexed(0, 7), value: Indexed(8, 48), expires: None, max_age: None, domain: Some(Indexed(57, 66)), path: Some(Indexed(73, 74)), secure: None, http_only: Some(true), same_site: None, partitioned: None }'
+16:49:57 [DEBUG] cookie_store.cookie_store — inserting Set-Cookie 'Cookie { cookie_string: Some("_EDGE_V=1; domain=.bing.com; expires=Sat, 22-May-2027 21:49:56 GMT; path=/; HttpOnly"), name: Indexed(0, 7), value: Indexed(8, 9), expires: Some(DateTime(2027-05-22 21:49:56.0 +00:00:00)), max_age: None, domain: Some(Indexed(18, 27)), path: Some(Indexed(73, 74)), secure: None, http_only: Some(true), same_site: None, partitioned: None }'
+16:49:57 [DEBUG] cookie_store.cookie_store — inserting secure cookie '__Host-XY'
+16:49:57 [DEBUG] cookie_store.cookie_store — inserting secure cookie 'SRCHHPGUSR'
+16:49:57 [DEBUG] cookie_store.cookie_store — inserting secure cookie 'SRCHD'
+16:49:57 [DEBUG] cookie_store.cookie_store — inserting secure cookie 'SRCHUID'
+16:49:57 [DEBUG] cookie_store.cookie_store — inserting secure cookie 'SRCHUSR'
+16:49:57 [DEBUG] cookie_store.cookie_store — inserting secure cookie '_SS'
+16:49:57 [DEBUG] cookie_store.cookie_store — inserting Set-Cookie 'Cookie { cookie_string: Some("ak_bmsc=EAC98A3D2935F015ABBEBE2A22F6148D~000000000000000000000000000000~YAAQhaBivqMMGM+dAQAAeqPr0B+YPTNp/vgP8NVlFraFfaucAcG/Sml/CoQG36/ko/qV16k5tnG5hgbmTCIB+KEPJwCBhOXQgSTIZiysPVZTUPbxVZQ929A4vX+O19GVi0J6VMH7/f4j3pCoViqtcKUX7RALA9BPkwlhMtB0KmPvZ5yVM7wqY1ccKQygkut7vRQwsoY6yOE3CPUyHqPqeGSDbjbw4oLQf0NDTJp4AtysyVZxDMHfeL1MJwV2fxhpocNvkhhPqg38f9fr+KF3grwRmNybwKaJgMi96QgSztQdPak1vOaErM76wMsjvogFP1qeg5P9VSEpU45Of9XgnsQtXTYAAe5PjcEqbBK6NoiUi3oXlZZY4uybmFb7Sxysv+p9TiJiGEgwHA==; Domain=.bing.com; Path=/; Expires=Mon, 27 Apr 2026 23:49:56 GMT; Max-Age=7200; HttpOnly"), name: Indexed(0, 7), value: Indexed(8, 472), expires: Some(DateTime(2026-04-27 23:49:56.0 +00:00:00)), max_age: Some(Duration { seconds: 7200, nanoseconds: 0 }), domain: Some(Indexed(481, 490)), path: Some(Indexed(497, 498)), secure: None, http_only: Some(true), same_site: None, partitioned: None }'
+16:49:57 [INFO] primp — response: https://www.bing.com/search?q=pol%C3%ADtica+p%C3%BAblica+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico+gob.mx 200
+16:49:57 [DEBUG] duckduckgo_search.DDGS — _get_url() https://www.bing.com/search?q=pol%C3%ADtica+p%C3%BAblica+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico+gob.mx 200
+16:49:57 [DEBUG] h2.codec.framed_read — received frame=Data { stream_id: StreamId(3) }
+16:49:57 [DEBUG] h2.codec.framed_read — received frame=Data { stream_id: StreamId(3) }
+16:49:57 [DEBUG] h2.codec.framed_read — received frame=Data { stream_id: StreamId(3) }
+16:49:57 [DEBUG] h2.codec.framed_read — received frame=Data { stream_id: StreamId(3) }

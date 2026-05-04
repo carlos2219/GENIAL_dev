@@ -1,0 +1,30 @@
+17:54:54 [INFO] __main__ — ======================================================================
+17:54:54 [INFO] __main__ —   GENIAL — Sistema de Levantamiento Normativo IA en Educación México
+17:54:54 [INFO] __main__ — ======================================================================
+17:54:54 [INFO] __main__ —   Investigador: Carlos Auquilla
+17:54:54 [INFO] __main__ —   Modelo IA:    gpt-4o-mini
+17:54:54 [INFO] __main__ —   API OpenAI:   Configurada
+17:54:54 [INFO] __main__ — ======================================================================
+17:54:54 [INFO] government_search — ============================================================
+17:54:54 [INFO] government_search — FASE 1 — Búsqueda gubernamental
+17:54:54 [INFO] government_search — ============================================================
+17:54:54 [INFO] government_search — [gov_search] Query: estrategia nacional inteligencia artificial México 2023 2024
+17:54:54 [INFO] primp — response: https://www.bing.com/search?q=estrategia+nacional+inteligencia+artificial+M%C3%A9xico+2023+2024 200
+17:54:57 [INFO] government_search — [gov_search] Query: política pública inteligencia artificial educación México gob.mx
+17:54:57 [INFO] primp — response: https://www.bing.com/search?q=pol%C3%ADtica+p%C3%BAblica+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico+gob.mx 200
+17:55:00 [INFO] government_search — [gov_search] Query: ley inteligencia artificial México decreto congreso
+17:55:01 [INFO] primp — response: https://www.bing.com/search?q=ley+inteligencia+artificial+M%C3%A9xico+decreto+congreso 200
+17:55:03 [INFO] government_search — [gov_search] Query: SEP secretaría educación inteligencia artificial lineamientos México
+17:55:04 [INFO] primp — response: https://www.bing.com/search?q=SEP+secretar%C3%ADa+educaci%C3%B3n+inteligencia+artificial+lineamientos+M%C3%A9xico 200
+17:55:06 [INFO] government_search — [gov_search] Query: CONAHCYT inteligencia artificial programa estrategia México
+17:55:07 [INFO] primp — response: https://www.bing.com/search?q=CONAHCYT+inteligencia+artificial+programa+estrategia+M%C3%A9xico 200
+17:55:10 [INFO] government_search — [gov_search] Query: regulación inteligencia artificial universidades México gobierno
+17:55:10 [INFO] primp — response: https://www.bing.com/search?q=regulaci%C3%B3n+inteligencia+artificial+universidades+M%C3%A9xico+gobierno 200
+17:55:13 [INFO] government_search — [gov_search] Query: DOF inteligencia artificial acuerdo decreto México
+17:55:14 [INFO] primp — response: https://www.bing.com/search?q=DOF+inteligencia+artificial+acuerdo+decreto+M%C3%A9xico 200
+17:55:17 [INFO] government_search — [gov_search] Query: marco regulatorio IA educación superior México
+17:55:18 [INFO] primp — response: https://www.bing.com/search?q=marco+regulatorio+IA+educaci%C3%B3n+superior+M%C3%A9xico 200
+17:55:21 [INFO] government_search — [gov_search] Query: ENIA estrategia nacional inteligencia artificial
+17:55:21 [INFO] primp — response: https://www.bing.com/search?q=ENIA+estrategia+nacional+inteligencia+artificial 200
+17:55:24 [INFO] government_search — [gov_search] Query: acuerdo ministerial inteligencia artificial educación México
+17:55:24 [INFO] primp — response: https://www.bing.com/search?q=acuerdo+ministerial+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico 200

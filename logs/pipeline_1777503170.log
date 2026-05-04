@@ -1,0 +1,19 @@
+17:52:50 [INFO] __main__ — ======================================================================
+17:52:50 [INFO] __main__ —   GENIAL — Sistema de Levantamiento Normativo IA en Educación México
+17:52:50 [INFO] __main__ — ======================================================================
+17:52:50 [INFO] __main__ —   Investigador: Carlos Auquilla
+17:52:50 [INFO] __main__ —   Modelo IA:    gpt-4o-mini
+17:52:50 [INFO] __main__ —   API OpenAI:   NO configurada (solo heurística)
+17:52:50 [INFO] __main__ — ======================================================================
+17:52:50 [INFO] government_search — ============================================================
+17:52:50 [INFO] government_search — FASE 1 — Búsqueda gubernamental
+17:52:50 [INFO] government_search — ============================================================
+17:52:50 [INFO] government_search — [gov_search] Query: estrategia nacional inteligencia artificial México 2023 2024
+17:52:51 [INFO] primp — response: https://www.bing.com/search?q=estrategia+nacional+inteligencia+artificial+M%C3%A9xico+2023+2024 200
+17:52:54 [INFO] government_search — [gov_search] Query: política pública inteligencia artificial educación México gob.mx
+17:52:54 [INFO] primp — response: https://www.bing.com/search?q=pol%C3%ADtica+p%C3%BAblica+inteligencia+artificial+educaci%C3%B3n+M%C3%A9xico+gob.mx 200
+17:52:57 [INFO] government_search — [gov_search] Query: ley inteligencia artificial México decreto congreso
+17:52:58 [INFO] primp — response: https://www.bing.com/search?q=ley+inteligencia+artificial+M%C3%A9xico+decreto+congreso 200
+17:52:59 [INFO] primp — response: https://www.bing.com/search?q=ley+inteligencia+artificial+M%C3%A9xico+decreto+congreso&first=11&FORM=PERE 200
+17:53:00 [INFO] primp — response: https://www.bing.com/search?q=ley+inteligencia+artificial+M%C3%A9xico+decreto+congreso&first=21&FORM=PERE1 200
+17:53:01 [INFO] primp — response: https://www.bing.com/search?q=ley+inteligencia+artificial+M%C3%A9xico+decreto+congreso&first=31&FORM=PERE2 200
