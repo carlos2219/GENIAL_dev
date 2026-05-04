@@ -122,3 +122,67 @@ def remove_url_duplicates_only(documents: List[Dict]) -> List[Dict]:
             result.append(doc)
     logger.info(f"[dedup-url] {len(documents)} → {len(result)}")
     return result
+
+
+def load_known_urls_from_excel(excel_path: str) -> set:
+    """
+    Carga las URLs de la hoja 'Registro de Normativa' del Excel de la matriz
+    definitiva y las retorna como un conjunto de URLs normalizadas.
+
+    Úsalas como skip-list en pre-extracción para no re-procesar documentos
+    que ya forman parte de la matriz final.
+    """
+    try:
+        import openpyxl
+        wb = openpyxl.load_workbook(excel_path, read_only=True, data_only=True)
+        sheet_name = "Registro de Normativa"
+        if sheet_name not in wb.sheetnames:
+            logger.warning(f"[dedup] Hoja '{sheet_name}' no encontrada en {excel_path}")
+            return set()
+
+        ws = wb[sheet_name]
+        rows = list(ws.iter_rows(values_only=True))
+        if not rows:
+            return set()
+
+        headers = [str(h).strip() if h else "" for h in rows[0]]
+        # Buscar columna de URL flexible (URL Oficial, url_oficial, URL, etc.)
+        url_col = None
+        for candidate in ("URL Oficial", "url_oficial", "URL", "Url Oficial"):
+            if candidate in headers:
+                url_col = headers.index(candidate)
+                break
+
+        if url_col is None:
+            logger.warning("[dedup] No se encontró columna de URL en el Excel de matriz")
+            return set()
+
+        known: set = set()
+        for row in rows[1:]:
+            url = row[url_col] if row[url_col] else ""
+            if url and str(url).strip():
+                known.add(normalize_url(str(url).strip()))
+
+        logger.info(f"[dedup] {len(known)} URLs conocidas cargadas desde {excel_path}")
+        return known
+
+    except ImportError:
+        logger.warning("[dedup] openpyxl no instalado; no se puede cargar skip-list del Excel")
+        return set()
+    except Exception as e:
+        logger.warning(f"[dedup] Error cargando Excel skip-list: {e}")
+        return set()
+
+
+def filter_known_urls(documents: List[Dict], known_urls: set) -> List[Dict]:
+    """
+    Elimina de la lista los documentos cuya URL normalizada
+    ya existe en el conjunto known_urls (skip-list del Excel definitivo).
+    """
+    if not known_urls:
+        return documents
+    filtered = [d for d in documents if normalize_url(d.get("url", "")) not in known_urls]
+    skipped = len(documents) - len(filtered)
+    if skipped:
+        logger.info(f"[dedup] {skipped} documentos omitidos (ya en matriz definitiva)")
+    return filtered

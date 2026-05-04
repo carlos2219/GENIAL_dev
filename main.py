@@ -190,6 +190,15 @@ def run_pipeline(
     all_raw = deduplicator.remove_url_duplicates_only(all_raw)
     logger.info(f"[main] Tras dedup URL: {len(all_raw)} documentos únicos | Tiempo: {_elapsed()}")
 
+    # Filtrar URLs ya presentes en la matriz definitiva (skip-list del Excel)
+    known_excel = Path(config.KNOWN_MATRIX_EXCEL)
+    if known_excel.exists():
+        known_urls = deduplicator.load_known_urls_from_excel(str(known_excel))
+        all_raw = deduplicator.filter_known_urls(all_raw, known_urls)
+        logger.info(f"[main] Tras skip-list Excel: {len(all_raw)} documentos | Tiempo: {_elapsed()}")
+    else:
+        logger.info("[main] Sin Excel de skip-list (KNOWN_MATRIX_EXCEL no encontrado)")
+
     # ─── EXTRACCIÓN DE CONTENIDO ───────────────────────────────────────────────
     logger.info(f"[PROGRESO] >> Extraccion de contenido ({len(all_raw)} docs) | Tiempo: {_elapsed()}")
     all_extracted = _extract_all(all_raw)
@@ -287,6 +296,10 @@ def _parse_args():
         help="Procesar solo las primeras N universidades del CSV"
     )
     parser.add_argument(
+        "--all-universities", action="store_true",
+        help="Procesar TODAS las universidades del CSV (ignora el límite seguro definido en config.DEFINITIVE_RUN_MAX_UNIVERSITIES)"
+    )
+    parser.add_argument(
         "--output", type=str, default=None,
         metavar="RUTA",
         help="Ruta del archivo Excel de salida"
@@ -310,12 +323,25 @@ if __name__ == "__main__":
     if args.researcher:
         config.RESEARCHER_NAME = args.researcher
 
+    # Determinar límite de universidades:
+    # 1. --max-universities N  → usa N explícitamente
+    # 2. --all-universities    → sin límite (None)
+    # 3. ninguno               → usa el límite seguro definido en config
+    if args.max_universities is not None:
+        effective_max = args.max_universities
+    elif getattr(args, "all_universities", False):
+        effective_max = None
+    else:
+        effective_max = getattr(config, "DEFINITIVE_RUN_MAX_UNIVERSITIES", None)
+        if effective_max:
+            logger.info(f"[main] Límite seguro aplicado: {effective_max} universidades (usa --all-universities para el listado completo)")
+
     output = run_pipeline(
         skip_government=args.skip_government,
         skip_universities=args.skip_universities,
         skip_open=args.skip_open,
         skip_ai=args.skip_ai,
-        max_universities=args.max_universities,
+        max_universities=effective_max,
         output_path=args.output,
         verbose=args.verbose,
     )

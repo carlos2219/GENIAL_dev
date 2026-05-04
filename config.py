@@ -14,6 +14,10 @@ OUTPUT_DIR = BASE_DIR / "output"
 CACHE_DIR  = BASE_DIR / "cache"
 LOG_DIR    = BASE_DIR / "logs"
 
+# Excel con los registros definitivos ya clasificados.
+# Si existe, sus URLs se usan como skip-list para no reprocesar documentos.
+KNOWN_MATRIX_EXCEL = BASE_DIR / "Matriz_Normativa_IA_Educacion_LATAM.xlsx"
+
 for _d in [OUTPUT_DIR, CACHE_DIR, LOG_DIR]:
     _d.mkdir(exist_ok=True)
 
@@ -28,8 +32,8 @@ SIN_NORMATIVA_LABEL = "Sin normativa específica detectada"
 # ─── OpenAI ───────────────────────────────────────────────────────────────────
 OPENAI_API_KEY   = os.getenv("OPENAI_API_KEY", "")
 OPENAI_MODEL     = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
-OPENAI_MAX_TOKENS = 900
-OPENAI_INPUT_CHARS = 5500
+OPENAI_MAX_TOKENS = 600      # JSON estructurado; respuestas típicas 300-450 tokens
+OPENAI_INPUT_CHARS = 3500    # Reducido de 5500 para ahorrar ~30% en tokens de entrada
 
 # Ampliación controlada de cobertura IA para documentos borderline
 AI_INCLUDE_BORDERLINE_BAJA = True

@@ -50,24 +50,42 @@ def load_universities(csv_path=config.CSV_PATH) -> pd.DataFrame:
         for u in getattr(config, "PRIORITY_UNIVERSITIES", [])
     }
 
-    # Aceptar solo dominios .edu.mx o dominios prioritarios conocidos
+    # Aceptar cualquier dominio .mx (edu.mx, gob.mx, com.mx, org.mx, *.mx)
+    # o dominios prioritarios conocidos.  Los dominios excluidos explícitamente
+    # (facebook.com, etc.) se filtran por is_excluded() en fases posteriores.
     def _is_valid_university_domain(domain: str) -> bool:
-        return domain.endswith(".edu.mx") or domain in priority_domains
+        if domain in priority_domains:
+            return True
+        return domain.endswith(".mx")
 
     before = len(valid)
     valid = valid[valid["_domain"].apply(_is_valid_university_domain)].copy()
     skipped = before - len(valid)
     if skipped:
         logger.info(
-            f"[uni_search] {skipped} universidades descartadas por dominio no .edu.mx "
+            f"[uni_search] {skipped} universidades descartadas por dominio no .mx "
             f"y no prioritarias"
         )
 
     # Deduplicar por dominio (un dominio puede aparecer varias veces en el CSV)
     valid = valid.drop_duplicates(subset=["_domain"])
 
-    logger.info(f"[uni_search] {len(valid)} universidades con dominio válido de {len(df)} filas")
-    return valid.reset_index(drop=True)
+    # Universidades sin url_oficial: búsqueda solo por nombre
+    no_url_mask = df["url_oficial"].isin(["", "nan"])
+    no_url_df   = df[no_url_mask][["universidad", "estado_fuente"]].copy() if "estado_fuente" in df.columns else df[no_url_mask][["universidad"]].copy()
+    no_url_df   = no_url_df[no_url_df["universidad"].str.strip().str.len() > 3].drop_duplicates(subset=["universidad"])
+    no_url_df["url_oficial"] = ""
+    no_url_df["_domain"]     = ""
+    no_url_df["is_no_url"]   = True
+    if "estado_fuente" not in no_url_df.columns:
+        no_url_df["estado_fuente"] = ""
+    logger.info(f"[uni_search] {len(no_url_df)} universidades sin URL (búsqueda por nombre)")
+
+    valid["is_no_url"] = False
+    combined = pd.concat([valid, no_url_df], ignore_index=True)
+
+    logger.info(f"[uni_search] {len(valid)} universidades con dominio .mx + {len(no_url_df)} sin URL = {len(combined)} total")
+    return combined.reset_index(drop=True)
 
 
 def _extract_domain(url: str) -> str:
@@ -156,6 +174,59 @@ def _search_university_ddg(name: str, domain: str) -> List[Dict]:
     return docs
 
 
+# ─── Búsqueda por nombre (universidades sin URL oficial) ─────────────────────
+
+_NAME_QUERY_TEMPLATES = [
+    '"{name}" México "inteligencia artificial" lineamientos OR reglamento OR política',
+    '"{name}" México "uso de IA" OR "IA generativa" académico normativa',
+]
+
+
+def _search_university_by_name(name: str) -> List[Dict]:
+    """
+    Búsqueda DDG por nombre de universidad para entradas sin url_oficial.
+    No usa site: operator; acepta solo resultados con dominio .mx o .edu.mx.
+    """
+    docs: List[Dict] = []
+
+    for template in _NAME_QUERY_TEMPLATES:
+        query = template.format(name=name)
+        logger.debug(f"[uni_search] (sin-url) {name} — query: {query}")
+        raw = _ddg_search(query, max_results=5)
+
+        for r in raw:
+            url   = r.get("href", "") or r.get("url", "")
+            title = r.get("title", "")
+            body  = r.get("body", "")
+
+            if not url or is_excluded(url):
+                continue
+
+            # Solo aceptar dominios .mx (o .edu.mx implícito) para evitar ruido internacional
+            result_domain = _extract_domain(url)
+            if not result_domain.endswith(".mx"):
+                continue
+
+            docs.append({
+                "url": url,
+                "title": title,
+                "snippet": body[:400],
+                "source_type": "university_name_search",
+                "university_name": name,
+                "university_domain": result_domain,
+                "query_used": query,
+                "extracted_text": "",
+                "extraction_error": None,
+                "heuristic_score": 0.0,
+                "heuristic_label": "BAJA",
+                "ai_classification": None,
+            })
+
+        time.sleep(config.SEARCH_DELAY_SECONDS)
+
+    return docs
+
+
 # ─── Procesamiento de una universidad ────────────────────────────────────────
 
 def _process_university(row: pd.Series) -> List[Dict]:
@@ -164,7 +235,11 @@ def _process_university(row: pd.Series) -> List[Dict]:
     url    = row.get("url_oficial", "")
     domain = row.get("_domain", "")
 
-    if not domain:
+    # ── Caso sin URL: búsqueda solo por nombre ─────────────────────────────
+    if not domain or row.get("is_no_url", False):
+        if name.strip():
+            logger.info(f"[uni_search] Procesando (sin URL): {name}")
+            return _search_university_by_name(name)
         return []
 
     is_priority = bool(row.get("is_priority", False))
