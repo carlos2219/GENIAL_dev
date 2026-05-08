@@ -44,7 +44,7 @@ AI_MAX_EXTRA_BAJA = 20
 # ─── Búsqueda ─────────────────────────────────────────────────────────────────
 MAX_RESULTS_PER_QUERY    = 10   # resultados por query DDG
 MAX_URLS_PER_UNIVERSITY  = 6    # URLs máx por universidad
-MAX_UNIVERSITIES         = None # None = todas; int = límite (útil para testing)
+MAX_UNIVERSITIES         = 50   # TEST: 50 universidades — cambiar a None para run completo
 SEARCH_DELAY_SECONDS     = 1.5  # pausa entre búsquedas (evita bloqueos DDG)
 CRAWL_NON_PRIORITY       = True   # crawl para todas; no-prioritarias usan límites reducidos
 CRAWL_NON_PRIORITY_MAX_DOCS    = 2   # URLs máx por universidad no prioritaria
