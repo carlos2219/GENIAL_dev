@@ -139,12 +139,14 @@ def crawl_domain(
     seen_urls: Set[str] = set()
     crawl_start = time.time()
 
-    # Normalizar dominio
+    # Normalizar dominio; preservar la ruta semilla si viene en el URL
     if not domain.startswith("http"):
         base_url = f"https://{domain}"
+        seed_path = "/"
     else:
         parsed = urlparse(domain)
         base_url = f"{parsed.scheme}://{parsed.netloc}"
+        seed_path = parsed.path.rstrip("/") or "/"
 
     logger.info(f"[crawler] Crawleando {base_url} ({university_name})")
 
@@ -168,8 +170,12 @@ def crawl_domain(
             "ai_classification": None,
         })
 
+    # Si la URL semilla tenía una ruta específica, anteponerla a las rutas a probar
+    extra_paths = [seed_path] if seed_path and seed_path != "/" and seed_path not in config.UNIVERSITY_CRAWL_PATHS else []
+    crawl_paths = extra_paths + list(config.UNIVERSITY_CRAWL_PATHS)
+
     # Fase 1: Intentar rutas conocidas
-    for path in config.UNIVERSITY_CRAWL_PATHS:
+    for path in crawl_paths:
         if len(found) >= max_docs * 3:
             break
 
@@ -198,14 +204,22 @@ def crawl_domain(
 
         time.sleep(0.5)
 
-    # Fase 2: Página raíz (buscar sección de normativa)
-    if len(found) < max_docs and (time.time() - crawl_start) < max_seconds:
-        root_html = _fetch_html(base_url)
+    # Fase 2: Página raíz y página semilla (buscar sección de normativa)
+    pages_to_scan = [base_url]
+    if seed_path and seed_path != "/":
+        seed_full_url = base_url.rstrip("/") + seed_path
+        if seed_full_url not in seen_urls:
+            pages_to_scan.append(seed_full_url)
+
+    for scan_url in pages_to_scan:
+        if len(found) >= max_docs or (time.time() - crawl_start) >= max_seconds:
+            break
+        root_html = _fetch_html(scan_url)
         if root_html:
-            root_links = _extract_links(root_html, base_url)
+            root_links = _extract_links(root_html, scan_url)
             for link in root_links:
                 if _is_relevant_link(link) and len(found) < max_docs * 3:
-                    _add_doc(link["url"], link["title"], "/")
+                    _add_doc(link["url"], link["title"], scan_url)
 
     logger.info(f"[crawler] {university_name}: {len(found)} URLs encontradas")
     return found[:max_docs * 3]

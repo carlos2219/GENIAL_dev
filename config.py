@@ -46,7 +46,7 @@ MAX_RESULTS_PER_QUERY    = 10   # resultados por query DDG
 MAX_URLS_PER_UNIVERSITY  = 6    # URLs máx por universidad
 MAX_UNIVERSITIES         = None # None = todas; int = límite (útil para testing)
 SEARCH_DELAY_SECONDS     = 2.5  # pausa entre búsquedas (evita bloqueos DDG)
-MAX_WORKERS              = 4    # hilos paralelos para extracción
+MAX_WORKERS              = 16   # hilos paralelos para extracción
 
 # Perfil de sesión larga (enfocado a normativa de IA en México)
 DEFINITIVE_RUN_MAX_UNIVERSITIES = 45
@@ -57,7 +57,7 @@ TOPIC_MUST_INCLUDE_AI = True
 TOPIC_MIN_POLICY_HITS = 1
 
 # ─── HTTP ─────────────────────────────────────────────────────────────────────
-REQUEST_TIMEOUT   = 20          # segundos
+REQUEST_TIMEOUT   = 10          # segundos
 MAX_PDF_SIZE_MB   = 15
 MAX_TEXT_CHARS_HTML = 12_000    # chars de texto a retener de HTML
 MAX_TEXT_CHARS_PDF  = 10_000    # chars de texto a retener de PDF

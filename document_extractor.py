@@ -51,12 +51,19 @@ def _make_session() -> requests.Session:
     return session
 
 
-_SESSION = _make_session()
+import threading
+_thread_local = threading.local()
+
+
+def _get_session() -> requests.Session:
+    """Retorna una sesión HTTP por hilo (thread-safe)."""
+    if not hasattr(_thread_local, "session"):
+        _thread_local.session = _make_session()
+    return _thread_local.session
 
 
 def _reset_session():
-    global _SESSION
-    _SESSION = _make_session()
+    _thread_local.session = _make_session()
 
 
 # ─── Extracción HTML ──────────────────────────────────────────────────────────
@@ -161,7 +168,7 @@ def extract_document(url: str, retries: int = 2) -> Dict:
             url_lower = url.lower().split("?")[0]
             is_pdf_url = url_lower.endswith(".pdf")
 
-            response = _SESSION.get(
+            response = _get_session().get(
                 url,
                 timeout=config.REQUEST_TIMEOUT,
                 stream=True,
