@@ -45,7 +45,10 @@ AI_MAX_EXTRA_BAJA = 20
 MAX_RESULTS_PER_QUERY    = 10   # resultados por query DDG
 MAX_URLS_PER_UNIVERSITY  = 6    # URLs máx por universidad
 MAX_UNIVERSITIES         = None # None = todas; int = límite (útil para testing)
-SEARCH_DELAY_SECONDS     = 2.5  # pausa entre búsquedas (evita bloqueos DDG)
+SEARCH_DELAY_SECONDS     = 1.5  # pausa entre búsquedas (evita bloqueos DDG)
+CRAWL_NON_PRIORITY       = True   # crawl para todas; no-prioritarias usan límites reducidos
+CRAWL_NON_PRIORITY_MAX_DOCS    = 2   # URLs máx por universidad no prioritaria
+CRAWL_NON_PRIORITY_MAX_SECONDS = 15  # timeout de crawl para no-prioritarias
 MAX_WORKERS              = 16   # hilos paralelos para extracción
 
 # Perfil de sesión larga (enfocado a normativa de IA en México)
@@ -212,12 +215,8 @@ UNIVERSITY_CRAWL_PATHS = [
 ]
 UNIVERSITY_QUERY_TEMPLATES = [
     'site:{domain} "inteligencia artificial" lineamientos OR reglamento OR política OR guía',
-    'site:{domain} "uso de IA" OR "uso de inteligencia artificial" académico normativa',
-    'site:{domain} inteligencia artificial lineamientos estudiantes docentes',
-    'site:{domain} política OR lineamientos "IA generativa" OR "ChatGPT" OR "inteligencia artificial" 2024 2025',
-    'site:{domain} "inteligencia artificial" AND (lineamientos OR política OR resolución OR guía)',
-    'site:{domain} "IA" (ética OR "uso académico" OR regulación OR pedagógico)',
-    'site:{domain} "Integridad académica" OR "Uso de IA generativa" OR "Consejo Universitario" OR "Reglamento de evaluación"',
+    'site:{domain} "uso de IA" OR "IA generativa" académico normativa OR protocolo OR estatuto',
+    'site:{domain} "Integridad académica" OR "Consejo Universitario" OR "Reglamento de evaluación" inteligencia artificial',
 ]
 
 # ─── Búsqueda abierta ─────────────────────────────────────────────────────────

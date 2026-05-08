@@ -253,12 +253,23 @@ def _process_university(row: pd.Series) -> List[Dict]:
 
     # b) Crawling interno
     base_url = url if url.startswith("http") else f"https://{domain}"
-    crawl_docs = crawl_domain(
-        domain=base_url,
-        university_name=name,
-        source_type="university",
-        max_docs=max_urls,
-    )
+    if is_priority:
+        crawl_docs = crawl_domain(
+            domain=base_url,
+            university_name=name,
+            source_type="university",
+            max_docs=max_urls,
+        )
+    elif getattr(config, "CRAWL_NON_PRIORITY", False):
+        crawl_docs = crawl_domain(
+            domain=base_url,
+            university_name=name,
+            source_type="university",
+            max_docs=getattr(config, "CRAWL_NON_PRIORITY_MAX_DOCS", 2),
+            max_seconds=getattr(config, "CRAWL_NON_PRIORITY_MAX_SECONDS", 15),
+        )
+    else:
+        crawl_docs = []
 
     return ddg_docs + crawl_docs
 
