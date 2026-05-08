@@ -123,6 +123,7 @@ def crawl_domain(
     source_type: str = "university",
     max_docs: int = config.MAX_URLS_PER_UNIVERSITY,
     max_seconds: int = 60,
+    paths: Optional[List[str]] = None,
 ) -> List[Dict]:
     """
     Rastrea un dominio universitario/gubernamental con heurísticas acotadas.
@@ -171,8 +172,10 @@ def crawl_domain(
         })
 
     # Si la URL semilla tenía una ruta específica, anteponerla a las rutas a probar
-    extra_paths = [seed_path] if seed_path and seed_path != "/" and seed_path not in config.UNIVERSITY_CRAWL_PATHS else []
-    crawl_paths = extra_paths + list(config.UNIVERSITY_CRAWL_PATHS)
+    # Si se pasan paths explícitos (ej: NON_PRIORITY_CRAWL_PATHS), usarlos en lugar del default.
+    base_paths = paths if paths is not None else list(config.UNIVERSITY_CRAWL_PATHS)
+    extra_paths = [seed_path] if seed_path and seed_path != "/" and seed_path not in base_paths else []
+    crawl_paths = extra_paths + base_paths
 
     # Fase 1: Intentar rutas conocidas
     for path in crawl_paths:

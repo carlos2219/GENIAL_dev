@@ -102,11 +102,11 @@ def filter_and_rank(documents: List[Dict], min_score: float = 0.0) -> List[Dict]
 
 
 def _normalize_url(url: str) -> str:
-    """Normaliza URL para comparación (quita trailing slash, parámetros menores)."""
+    """Normaliza URL para comparación — delega a deduplicator.normalize_url
+    para garantizar consistencia entre dedup pre y post-extracción."""
     try:
-        p = urlparse(url.lower().strip())
-        path = p.path.rstrip("/")
-        return f"{p.scheme}://{p.netloc}{path}"
+        from deduplicator import normalize_url
+        return normalize_url(url)
     except Exception:
         return url.lower().strip()
 

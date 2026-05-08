@@ -6,8 +6,12 @@ Para cada universidad del CSV:
     b) Rastreo heurístico de rutas normativas conocidas y página raíz
 """
 
+import hashlib
+import json
 import logging
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Dict, Optional
 from urllib.parse import urlparse
 
@@ -18,6 +22,45 @@ from url_filter import filter_and_rank, is_excluded
 from site_crawler import crawl_domain
 
 logger = logging.getLogger(__name__)
+
+# ─── DDG rate-limit y caché ───────────────────────────────────────────────────
+# Semáforo: garantiza que solo un hilo hace queries DDG a la vez.
+# El delay dentro del semáforo asegura el intervalo mínimo entre queries.
+_DDG_SEMAPHORE = threading.Semaphore(1)
+
+_DDG_CACHE: dict = {}
+_DDG_CACHE_LOCK = threading.Lock()
+_DDG_CACHE_FILE = config.CACHE_DIR / "ddg_search_cache.json"
+
+
+def _load_ddg_cache() -> None:
+    """Carga el caché de búsquedas DDG desde disco al iniciar."""
+    global _DDG_CACHE
+    if not getattr(config, "DDG_CACHE_ENABLED", True):
+        return
+    if _DDG_CACHE_FILE.exists():
+        try:
+            _DDG_CACHE = json.loads(_DDG_CACHE_FILE.read_text(encoding="utf-8"))
+            logger.info(f"[ddg_cache] {len(_DDG_CACHE)} entradas cargadas desde {_DDG_CACHE_FILE.name}")
+        except Exception as e:
+            logger.warning(f"[ddg_cache] Error cargando caché: {e}")
+            _DDG_CACHE = {}
+
+
+def _persist_ddg_cache() -> None:
+    """Persiste el caché a disco (thread-safe)."""
+    if not getattr(config, "DDG_CACHE_ENABLED", True):
+        return
+    with _DDG_CACHE_LOCK:
+        try:
+            _DDG_CACHE_FILE.write_text(
+                json.dumps(_DDG_CACHE, ensure_ascii=False), encoding="utf-8"
+            )
+        except Exception as e:
+            logger.warning(f"[ddg_cache] Error guardando caché: {e}")
+
+
+_load_ddg_cache()
 
 
 # ─── Carga del CSV ────────────────────────────────────────────────────────────
@@ -102,14 +145,14 @@ def _extract_domain(url: str) -> str:
 
 # ─── DDG helper ───────────────────────────────────────────────────────────────
 
-def _ddg_search(query: str, max_results: int = config.MAX_RESULTS_PER_QUERY) -> List[Dict]:
+def _ddg_search_raw(query: str, max_results: int = config.MAX_RESULTS_PER_QUERY) -> List[Dict]:
+    """Query DDG sin rate-limit ni caché. Usar solo a través de _ddg_search."""
     try:
         from ddgs import DDGS
     except ImportError:
         try:
-            # Compatibilidad temporal si solo está instalado el paquete antiguo
             from duckduckgo_search import DDGS
-            logger.warning("[uni_search] Usando duckduckgo_search legacy; instala 'ddgs' para evitar warnings")
+            logger.warning("[uni_search] Usando duckduckgo_search legacy; instala 'ddgs'")
         except ImportError:
             logger.error("[uni_search] ddgs no instalado. Ejecuta: pip install ddgs")
             return []
@@ -124,6 +167,44 @@ def _ddg_search(query: str, max_results: int = config.MAX_RESULTS_PER_QUERY) -> 
             logger.warning(f"[uni_search] DDG error (intento {attempt+1}): {e}. Esperando {wait}s")
             time.sleep(wait)
     return []
+
+
+def _ddg_search(query: str, max_results: int = config.MAX_RESULTS_PER_QUERY) -> List[Dict]:
+    """
+    Query DDG con:
+      - Caché en disco: evita repetir queries entre re-runs.
+      - Semáforo: garantiza que solo un hilo consulta DDG a la vez
+        (rate-limit seguro aunque search_universities corra en paralelo).
+    """
+    cache_key = hashlib.md5(f"{query}|{max_results}".encode()).hexdigest()
+
+    # Consultar caché primero (sin bloquear semáforo)
+    if getattr(config, "DDG_CACHE_ENABLED", True):
+        with _DDG_CACHE_LOCK:
+            if cache_key in _DDG_CACHE:
+                logger.debug(f"[ddg_cache] HIT: {query[:60]}")
+                return _DDG_CACHE[cache_key]
+
+    # Adquirir semáforo: serializa el acceso real a DDG
+    with _DDG_SEMAPHORE:
+        # Doble-check dentro del semáforo (otro hilo pudo haber cacheado)
+        if getattr(config, "DDG_CACHE_ENABLED", True):
+            with _DDG_CACHE_LOCK:
+                if cache_key in _DDG_CACHE:
+                    return _DDG_CACHE[cache_key]
+
+        results = _ddg_search_raw(query, max_results)
+        # El delay va DENTRO del semáforo para que el siguiente hilo
+        # espere el intervalo completo antes de su propia query.
+        time.sleep(config.SEARCH_DELAY_SECONDS)
+
+    # Persistir en caché
+    if getattr(config, "DDG_CACHE_ENABLED", True):
+        with _DDG_CACHE_LOCK:
+            _DDG_CACHE[cache_key] = results
+        _persist_ddg_cache()
+
+    return results
 
 
 # ─── Búsqueda externa por universidad ────────────────────────────────────────
@@ -169,7 +250,8 @@ def _search_university_ddg(name: str, domain: str) -> List[Dict]:
                 "ai_classification": None,
             })
 
-        time.sleep(config.SEARCH_DELAY_SECONDS)
+        # El delay ya ocurre dentro del semáforo en _ddg_search().
+        # No añadir sleep aquí para no duplicarlo.
 
     return docs
 
@@ -222,7 +304,7 @@ def _search_university_by_name(name: str) -> List[Dict]:
                 "ai_classification": None,
             })
 
-        time.sleep(config.SEARCH_DELAY_SECONDS)
+        # El delay ya ocurre dentro del semáforo en _ddg_search().
 
     return docs
 
@@ -252,6 +334,12 @@ def _process_university(row: pd.Series) -> List[Dict]:
     ddg_docs = _search_university_ddg(name, domain)
 
     # b) Crawling interno
+    # Optimización: si DDG ya encontró suficientes URLs para una universidad
+    # no-prioritaria, el crawl adiciona muy poco valor — saltarlo.
+    if not is_priority and len(ddg_docs) >= max_urls:
+        logger.debug(f"[uni_search] Crawl omitido para {name} (DDG trajo {len(ddg_docs)} ≥ {max_urls})")
+        return ddg_docs
+
     base_url = url if url.startswith("http") else f"https://{domain}"
     if is_priority:
         crawl_docs = crawl_domain(
@@ -261,12 +349,15 @@ def _process_university(row: pd.Series) -> List[Dict]:
             max_docs=max_urls,
         )
     elif getattr(config, "CRAWL_NON_PRIORITY", False):
+        # Usar rutas reducidas para no-prioritarias si están configuradas
+        non_priority_paths = getattr(config, "NON_PRIORITY_CRAWL_PATHS", None)
         crawl_docs = crawl_domain(
             domain=base_url,
             university_name=name,
             source_type="university",
             max_docs=getattr(config, "CRAWL_NON_PRIORITY_MAX_DOCS", 2),
             max_seconds=getattr(config, "CRAWL_NON_PRIORITY_MAX_SECONDS", 15),
+            paths=non_priority_paths,
         )
     else:
         crawl_docs = []
@@ -310,35 +401,48 @@ def search_universities(universities_df: Optional[pd.DataFrame] = None) -> List[
         logger.info(f"[uni_search] Límite aplicado: {config.MAX_UNIVERSITIES} universidades")
 
     all_docs: List[Dict] = []
+    all_docs_lock = threading.Lock()
     total_unis = len(combined_df)
     fase2_start = time.time()
-    uni_times: List[float] = []
+    completed_count = [0]  # lista para mutabilidad en closure
 
-    for i, (idx, row) in enumerate(combined_df.iterrows(), start=1):
-        uni_start = time.time()
+    rows = list(combined_df.iterrows())
+
+    def _process_with_progress(args):
+        _, row = args
         docs = _process_university(row)
-        all_docs.extend(docs)
-        uni_elapsed = time.time() - uni_start
-        uni_times.append(uni_elapsed)
+        with all_docs_lock:
+            all_docs.extend(docs)
+            completed_count[0] += 1
+            i = completed_count[0]
+            pct = i / total_unis * 100
+            elapsed_total = time.time() - fase2_start
+            avg_per_uni = elapsed_total / i
+            remaining = avg_per_uni * (total_unis - i)
+            elapsed_min = int(elapsed_total // 60)
+            elapsed_sec = int(elapsed_total % 60)
+            eta_min = int(remaining // 60)
+            eta_sec = int(remaining % 60)
+            logger.info(
+                f"[PROGRESO FASE 2] {i}/{total_unis} universidades ({pct:.0f}%) — "
+                f"Transcurrido: {elapsed_min}m{elapsed_sec:02d}s — "
+                f"ETA: ~{eta_min}m{eta_sec:02d}s — "
+                f"Docs acumulados: {len(all_docs)}"
+            )
+        return docs
 
-        # ── Indicador de progreso ──────────────────────────────────────────
-        pct = i / total_unis * 100
-        elapsed_total = time.time() - fase2_start
-        avg_per_uni = elapsed_total / i
-        remaining = avg_per_uni * (total_unis - i)
-        elapsed_min = int(elapsed_total // 60)
-        elapsed_sec = int(elapsed_total % 60)
-        eta_min = int(remaining // 60)
-        eta_sec = int(remaining % 60)
-        logger.info(
-            f"[PROGRESO FASE 2] {i}/{total_unis} universidades ({pct:.0f}%) — "
-            f"Transcurrido: {elapsed_min}m{elapsed_sec:02d}s — "
-            f"ETA: ~{eta_min}m{eta_sec:02d}s — "
-            f"Docs acumulados: {len(all_docs)}"
-        )
-
-        # Pausa entre universidades
-        time.sleep(0.5)
+    # Paralelo: el semáforo _DDG_SEMAPHORE dentro de _ddg_search() garantiza
+    # que las queries DDG sean secuenciales (1 a la vez con delay).
+    # El crawl de cada universidad corre en paralelo sobre dominios distintos.
+    workers = min(config.MAX_WORKERS, total_unis)
+    logger.info(f"[uni_search] Procesando con {workers} workers paralelos")
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = [executor.submit(_process_with_progress, item) for item in rows]
+        for future in as_completed(futures):
+            try:
+                future.result()
+            except Exception as e:
+                logger.error(f"[uni_search] Error en universidad: {e}")
 
     logger.info(f"[uni_search] Total crudo: {len(all_docs)} documentos")
 

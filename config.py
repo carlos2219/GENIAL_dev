@@ -49,7 +49,16 @@ SEARCH_DELAY_SECONDS     = 1.5  # pausa entre búsquedas (evita bloqueos DDG)
 CRAWL_NON_PRIORITY       = True   # crawl para todas; no-prioritarias usan límites reducidos
 CRAWL_NON_PRIORITY_MAX_DOCS    = 2   # URLs máx por universidad no prioritaria
 CRAWL_NON_PRIORITY_MAX_SECONDS = 15  # timeout de crawl para no-prioritarias
-MAX_WORKERS              = 16   # hilos paralelos para extracción
+MAX_WORKERS              = 16   # hilos paralelos para extracción y Fase 2
+
+# Cache de búsquedas DDG entre runs (evita repetir queries ya hechas)
+DDG_CACHE_ENABLED        = True   # False para deshabilitar en producción limpia
+
+# Pausa entre Fase 2 y Fase 3 (segundos) — actualmente Fase 3 corre antes de Fase 2
+INTER_PHASE_PAUSE_SECONDS = 0    # reservado para ajustes futuros
+
+# Filtro pre-extracción: descartar docs sin señal de IA ni normativa en snippet/URL
+PRE_EXTRACTION_FILTER_ENABLED = True  # False para deshabilitar
 
 # Perfil de sesión larga (enfocado a normativa de IA en México)
 DEFINITIVE_RUN_MAX_UNIVERSITIES = 45
@@ -97,12 +106,15 @@ LOW_SCORE_KEYWORDS = [
     "entrevista", "podcast",
 ]
 AI_KEYWORDS = [
-    "inteligencia artificial", " ia ", "aprendizaje automático",
+    "inteligencia artificial", "aprendizaje automático",
     "aprendizaje automatico", "machine learning", "chatgpt",
-    "chat gpt", "gpt-", "algoritmo", "modelo de lenguaje",
+    "chat gpt", "gpt-", "modelo de lenguaje", "modelo de ia",
     "llm", "deep learning", "minería de datos",
     "ia generativa", "sistema de ia", "sistemas de ia",
+    "ia en educación", "ia en educacion", "uso de ia",
 ]
+# NOTA: ' ia ' (sola, con espacios) fue removida — produce falsos positivos por OCR
+# ('la' leído como 'ia'). 'algoritmo' fue removida — demasiado genérica.
 
 EDU_KEYWORDS = [
     "educación superior", "educacion superior", "universidad", "universidades",
@@ -131,10 +143,11 @@ EXCLUDED_DOMAINS = {
 }
 PRIORITY_URL_KEYWORDS = [
     "normativa", "reglamento", "lineamiento", "politica", "acuerdo",
-    "resolucion", "guia", "transparencia", "marco-juridico",
-    "marco_juridico", "documentos", "consejo", "estatuto", "decreto",
-    "legislacion", "disposicion",
+    "resolucion", "guia", "marco-juridico", "marco_juridico",
+    "estatuto", "decreto", "legislacion", "disposicion", "normatividad",
 ]
+# NOTA: 'transparencia', 'documentos', 'consejo' fueron removidas —
+# capturaban contratos, licitaciones y actas administrativas sin relación con IA.
 
 # ─── Fuentes gubernamentales ──────────────────────────────────────────────────
 GOVERNMENT_QUERIES = [
@@ -213,6 +226,19 @@ UNIVERSITY_CRAWL_PATHS = [
     "/educacion-digital", "/modelo-educativo",
     "/investigacion/ia", "/investigacion/inteligencia-artificial",
 ]
+
+# Rutas reducidas para universidades NO prioritarias.
+# Más cortas que UNIVERSITY_CRAWL_PATHS para respetar el timeout de 15s.
+# Cubre los paths más productivos histórica y heurísticamente.
+NON_PRIORITY_CRAWL_PATHS = [
+    "/normativa", "/normativa/",
+    "/reglamentos", "/reglamentos/",
+    "/transparencia", "/transparencia/",
+    "/lineamientos", "/lineamientos/",
+    "/politicas", "/politicas-institucionales",
+    "/marco-juridico",
+]
+
 UNIVERSITY_QUERY_TEMPLATES = [
     'site:{domain} "inteligencia artificial" lineamientos OR reglamento OR política OR guía',
     'site:{domain} "uso de IA" OR "IA generativa" académico normativa OR protocolo OR estatuto',

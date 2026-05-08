@@ -54,8 +54,10 @@ def normalize_url(url: str) -> str:
 
 
 def _content_hash(text: str) -> str:
-    """Hash SHA-256 de los primeros 2000 caracteres del texto (detecta clones de contenido)."""
-    sample = re.sub(r"\s+", " ", text[:2000]).strip().lower()
+    """Hash SHA-256 de los primeros 4000 caracteres del texto (detecta clones de contenido).
+    4000 chars reduce falsos duplicados entre documentos con cabeceras institucionales
+    idénticas pero contenido normativo diferente (ej: acuerdos de años distintos)."""
+    sample = re.sub(r"\s+", " ", text[:4000]).strip().lower()
     return hashlib.sha256(sample.encode("utf-8", errors="replace")).hexdigest()
 
 

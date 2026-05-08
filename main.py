@@ -161,6 +161,17 @@ def run_pipeline(
     else:
         logger.info("[FASE 1] Omitida")
 
+    # ─── FASE 3: Búsqueda abierta (ANTES de Fase 2) ────────────────────────────
+    # Se ejecuta antes de Fase 2 porque Fase 2 agota las queries DDG durante horas.
+    # Fase 3 tiene solo 10 queries fijas; ejecutarlas con DDG fresco garantiza resultados.
+    if not skip_open:
+        logger.info(f"[PROGRESO] >> FASE 3/3 - Busqueda abierta (pre-Fase2) | Tiempo: {_elapsed()}")
+        open_docs = open_search.search_open()
+        all_raw.extend(open_docs)
+        logger.info(f"[PROGRESO] FASE 3 completada: {len(open_docs)} docs | Tiempo: {_elapsed()}")
+    else:
+        logger.info("[FASE 3] Omitida")
+
     # ─── FASE 2: Universidades ─────────────────────────────────────────────────
     if not skip_universities:
         logger.info(f"[PROGRESO] >> FASE 2/3 - Busqueda universitaria | Tiempo: {_elapsed()}")
@@ -170,15 +181,6 @@ def run_pipeline(
         logger.info(f"[PROGRESO] FASE 2 completada: {len(uni_docs)} docs | Tiempo: {_elapsed()}")
     else:
         logger.info("[FASE 2] Omitida")
-
-    # ─── FASE 3: Búsqueda abierta ──────────────────────────────────────────────
-    if not skip_open:
-        logger.info(f"[PROGRESO] >> FASE 3/3 - Busqueda abierta | Tiempo: {_elapsed()}")
-        open_docs = open_search.search_open()
-        all_raw.extend(open_docs)
-        logger.info(f"[PROGRESO] FASE 3 completada: {len(open_docs)} docs | Tiempo: {_elapsed()}")
-    else:
-        logger.info("[FASE 3] Omitida")
 
     logger.info(f"[main] Total crudo acumulado: {len(all_raw)} URLs | Tiempo: {_elapsed()}")
 
@@ -200,6 +202,28 @@ def run_pipeline(
         logger.info("[main] Sin Excel de skip-list (KNOWN_MATRIX_EXCEL no encontrado)")
 
     # ─── EXTRACCIÓN DE CONTENIDO ───────────────────────────────────────────────
+    # Filtro pre-extracción: descartar docs sin señal de IA ni normativa en snippet/URL.
+    # Conservador — solo descarta cuando las 3 señales son simultáneamente negativas.
+    if getattr(config, "PRE_EXTRACTION_FILTER_ENABLED", False):
+        before_filter = len(all_raw)
+        kept, dropped = [], []
+        for doc in all_raw:
+            url_score = doc.get("url_priority_score", 0.0)
+            combined = (doc.get("title", "") + " " + doc.get("snippet", "")).lower()
+            has_ai_signal = any(kw in combined for kw in config.AI_KEYWORDS)
+            has_policy_signal = any(kw in combined for kw in config.POLICY_KEYWORDS)
+            # Solo descartar si: URL score muy bajo Y sin AI keywords Y sin policy keywords
+            if url_score < 0.1 and not has_ai_signal and not has_policy_signal:
+                dropped.append(doc)
+            else:
+                kept.append(doc)
+        all_raw = kept
+        logger.info(
+            f"[main] Filtro pre-extracción: {len(kept)} conservados, "
+            f"{len(dropped)} descartados (sin señal IA/normativa en snippet+URL) | "
+            f"Tiempo: {_elapsed()}"
+        )
+
     logger.info(f"[PROGRESO] >> Extraccion de contenido ({len(all_raw)} docs) | Tiempo: {_elapsed()}")
     all_extracted = _extract_all(all_raw)
     logger.info(f"[PROGRESO] Extraccion completada | Tiempo: {_elapsed()}")
