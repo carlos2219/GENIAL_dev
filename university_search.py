@@ -158,15 +158,12 @@ def _ddg_search_raw(query: str, max_results: int = config.MAX_RESULTS_PER_QUERY)
             logger.error("[uni_search] ddgs no instalado. Ejecuta: pip install ddgs")
             return []
 
-    for attempt in range(3):
-        try:
-            ddgs = DDGS()
-            results = list(ddgs.text(query, max_results=max_results))
-            return results
-        except Exception as e:
-            wait = 5 * (attempt + 1)
-            logger.warning(f"[uni_search] DDG error (intento {attempt+1}): {e}. Esperando {wait}s")
-            time.sleep(wait)
+    try:
+        ddgs = DDGS()
+        results = list(ddgs.text(query, max_results=max_results))
+        return results
+    except Exception as e:
+        logger.debug(f"[uni_search] DDG error (sin reintento): {e}")
     return []
 
 
