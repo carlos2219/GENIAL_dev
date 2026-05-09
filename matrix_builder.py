@@ -36,6 +36,7 @@ _TIPO_NORMA_MAP = {
     "ley": "Ley",
     "decreto": "Decreto",
     "reglamento": "Reglamento",
+    "resolución": "Resolución",  # alias sin calificador
     "guía ética": "Guía ética",
     "estrategia nacional": "Estrategia nacional",
     "resolución rectoral": "Resolución rectoral",
@@ -45,6 +46,7 @@ _TIPO_NORMA_MAP = {
     "código de ética": "Código de ética",
     "acuerdo institucional": "Acuerdo institucional",
     "otro": "Otro",
+    "no indica": "No especificado",
     "no aplica": "No especificado",
 }
 
@@ -60,6 +62,7 @@ _DOMINIO_MAP = {
     "administrativo": "Administrativo",
     "protección de datos": "Protección de datos",
     "ética": "Ética",
+    "ético": "Ética",           # alias devuelto ocasionalmente por el modelo
     "técnico": "Técnico",
     "no aplica": "No especificado",
     # "mixto" eliminado: el manual prohíbe este valor en la matriz final
@@ -174,22 +177,14 @@ def _build_row(document: Dict) -> Optional[Dict]:
     Retorna None si el documento no debe incluirse en la matriz.
     """
     # ── Validación de dominio oficial mexicano ─────────────────────────────────────────
+    # Acepta cualquier dominio .mx — la validación de fuente mexicana ya ocurrió
+    # upstream en university_search (solo acepta .mx) y url_filter (excluded_domains).
+    # Filtrar aquí solo dominios claramente no mexicanos.
     url_lower = document.get("url", "").lower()
-    priority_domains = {
-        urlparse(u["url_oficial"]).netloc.lower().replace("www.", "")
-        for u in getattr(config, "PRIORITY_UNIVERSITIES", [])
-        if u.get("url_oficial")
-    }
-    is_mexican_official = (
-        ".gob.mx" in url_lower
-        or ".edu.mx" in url_lower
-        or any(d and d in url_lower for d in getattr(config, "GOVERNMENT_PRIORITY_DOMAINS", []))
-        or any(d and d in url_lower for d in priority_domains)
-        or any(d and d in url_lower for d in getattr(config, "EXTRA_ALLOWED_UNIVERSITY_DOMAINS", []))
-    )
+    is_mexican_official = ".mx" in url_lower
     if not is_mexican_official:
         logger.warning(
-            f"[matrix] Descartando URL sin dominio oficial mexicano: {url_lower[:80]}"
+            f"[matrix] Descartando URL sin dominio .mx: {url_lower[:80]}"
         )
         return None
     ai = document.get("ai_classification") or {}
