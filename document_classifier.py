@@ -45,7 +45,8 @@ def heuristic_score(document: Dict) -> float:
     score += min(high_hits   / 3.0, 1.0) * 0.40
     score += min(medium_hits / 3.0, 1.0) * 0.20
     score += min(ai_hits     / 3.0, 1.0) * 0.30
-    score -= min(low_hits    / 5.0, 0.10)
+    # Penalización por señales de convocatoria/noticias (hasta -0.25 para evitar FP)
+    score -= min(low_hits / 3.0, 0.25)
 
     url = document.get("url", "").lower()
     if url.endswith(".pdf") or ".pdf?" in url:

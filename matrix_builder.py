@@ -185,6 +185,7 @@ def _build_row(document: Dict) -> Optional[Dict]:
         or ".edu.mx" in url_lower
         or any(d and d in url_lower for d in getattr(config, "GOVERNMENT_PRIORITY_DOMAINS", []))
         or any(d and d in url_lower for d in priority_domains)
+        or any(d and d in url_lower for d in getattr(config, "EXTRA_ALLOWED_UNIVERSITY_DOMAINS", []))
     )
     if not is_mexican_official:
         logger.warning(

@@ -21,7 +21,7 @@ import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 # ─── Configuración de logging ─────────────────────────────────────────────────
 
@@ -55,6 +55,48 @@ import deduplicator
 import ai_classifier
 import matrix_builder
 import excel_exporter
+
+
+# ─── Checkpoint helpers ───────────────────────────────────────────────────────
+
+def _get_checkpoint_dir() -> Path:
+    """Retorna y crea el directorio de checkpoints de sesión."""
+    d = config.OUTPUT_DIR / "checkpoints"
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+def _save_checkpoint(name: str, data: List[Dict], ckpt_dir: Path) -> None:
+    """Persiste una lista de documentos como checkpoint JSON."""
+    logger = logging.getLogger(__name__)
+    path = ckpt_dir / f"{name}.json"
+    try:
+        safe = [{k: v for k, v in d.items() if k != "_session"} for d in data]
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(safe, f, ensure_ascii=False)
+        logger.info(f"[checkpoint] Guardado '{name}': {len(data)} docs → {path.name}")
+    except Exception as e:
+        logger.warning(f"[checkpoint] Error guardando '{name}': {e}")
+
+
+def _load_checkpoint(name: str, ckpt_dir: Path) -> Optional[List[Dict]]:
+    """Carga un checkpoint JSON. Retorna None si no existe o hay error."""
+    logger = logging.getLogger(__name__)
+    path = ckpt_dir / f"{name}.json"
+    if not path.exists():
+        return None
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+        logger.info(f"[checkpoint] Cargado '{name}': {len(data)} docs ← {path.name}")
+        return data
+    except Exception as e:
+        logger.warning(f"[checkpoint] Error cargando '{name}': {e}")
+        return None
+
+
+def _ckpt_exists(name: str, ckpt_dir: Path) -> bool:
+    return (ckpt_dir / f"{name}.json").exists()
 
 
 # ─── Extracción paralela ──────────────────────────────────────────────────────
@@ -113,6 +155,7 @@ def run_pipeline(
     max_universities: int = None,
     output_path: Path = None,
     verbose: bool = False,
+    resume: bool = False,
 ) -> Path:
     """
     Ejecuta el pipeline completo.
@@ -125,6 +168,7 @@ def run_pipeline(
         max_universities:  Límite de universidades a procesar
         output_path:       Ruta del Excel de salida
         verbose:           Logging detallado
+        resume:            Reanudar desde el último checkpoint disponible
 
     Returns:
         Path del Excel generado.
@@ -146,6 +190,29 @@ def run_pipeline(
     logger.info("=" * 70)
 
     start_time = time.time()
+
+    # ─── Configuración de checkpoints ─────────────────────────────────────────
+    ckpt_dir = _get_checkpoint_dir()
+
+    # Detectar el punto de reanudación disponible más avanzado
+    _resume_from = "search"
+    if resume:
+        if _ckpt_exists("classified_heuristic", ckpt_dir):
+            _resume_from = "ai"
+            logger.info("[resume] Checkpoint detectado → reanudando desde: Clasificación IA")
+        elif _ckpt_exists("extracted", ckpt_dir):
+            _resume_from = "heuristic"
+            logger.info("[resume] Checkpoint detectado → reanudando desde: Clasificación heurística")
+        elif _ckpt_exists("search_complete", ckpt_dir):
+            _resume_from = "extraction"
+            logger.info("[resume] Checkpoint detectado → reanudando desde: Extracción de contenido")
+        else:
+            _resume_from = "search"
+            logger.info("[resume] Sin checkpoint de etapa — cargando fases de búsqueda si existen")
+    # _resume_from ∈ {"search", "extraction", "heuristic", "ai"}
+
+    _run_searches = _resume_from == "search"
+
     all_raw: List[Dict] = []
 
     def _elapsed() -> str:
@@ -153,99 +220,151 @@ def run_pipeline(
         return f"{secs // 60}m{secs % 60:02d}s"
 
     # ─── FASE 1: Gobierno ──────────────────────────────────────────────────────
-    if not skip_government:
-        logger.info(f"[PROGRESO] >> FASE 1/3 - Busqueda gubernamental | Tiempo: {_elapsed()}")
-        gov_docs = government_search.search_government_sources()
+    if not skip_government and _run_searches:
+        _cached = _load_checkpoint("phase1_gov", ckpt_dir) if resume else None
+        if _cached is not None:
+            logger.info("[FASE 1] Cargada desde checkpoint — búsqueda omitida")
+            gov_docs = _cached
+        else:
+            logger.info(f"[PROGRESO] >> FASE 1/3 - Busqueda gubernamental | Tiempo: {_elapsed()}")
+            gov_docs = government_search.search_government_sources()
+            logger.info(f"[PROGRESO] FASE 1 completada: {len(gov_docs)} docs | Tiempo: {_elapsed()}")
+            _save_checkpoint("phase1_gov", gov_docs, ckpt_dir)
         all_raw.extend(gov_docs)
-        logger.info(f"[PROGRESO] FASE 1 completada: {len(gov_docs)} docs | Tiempo: {_elapsed()}")
     else:
         logger.info("[FASE 1] Omitida")
 
     # ─── FASE 3: Búsqueda abierta (ANTES de Fase 2) ────────────────────────────
     # Se ejecuta antes de Fase 2 porque Fase 2 agota las queries DDG durante horas.
     # Fase 3 tiene solo 10 queries fijas; ejecutarlas con DDG fresco garantiza resultados.
-    if not skip_open:
-        logger.info(f"[PROGRESO] >> FASE 3/3 - Busqueda abierta (pre-Fase2) | Tiempo: {_elapsed()}")
-        open_docs = open_search.search_open()
+    if not skip_open and _run_searches:
+        _cached = _load_checkpoint("phase3_open", ckpt_dir) if resume else None
+        if _cached is not None:
+            logger.info("[FASE 3] Cargada desde checkpoint — búsqueda omitida")
+            open_docs = _cached
+        else:
+            logger.info(f"[PROGRESO] >> FASE 3/3 - Busqueda abierta (pre-Fase2) | Tiempo: {_elapsed()}")
+            open_docs = open_search.search_open()
+            logger.info(f"[PROGRESO] FASE 3 completada: {len(open_docs)} docs | Tiempo: {_elapsed()}")
+            _save_checkpoint("phase3_open", open_docs, ckpt_dir)
         all_raw.extend(open_docs)
-        logger.info(f"[PROGRESO] FASE 3 completada: {len(open_docs)} docs | Tiempo: {_elapsed()}")
     else:
         logger.info("[FASE 3] Omitida")
 
     # ─── FASE 2: Universidades ─────────────────────────────────────────────────
-    if not skip_universities:
-        logger.info(f"[PROGRESO] >> FASE 2/3 - Busqueda universitaria | Tiempo: {_elapsed()}")
-        uni_df  = university_search.load_universities()
-        uni_docs = university_search.search_universities(uni_df)
+    if not skip_universities and _run_searches:
+        _cached = _load_checkpoint("phase2_uni", ckpt_dir) if resume else None
+        if _cached is not None:
+            logger.info("[FASE 2] Cargada desde checkpoint completo — búsqueda omitida")
+            uni_docs = _cached
+        else:
+            logger.info(f"[PROGRESO] >> FASE 2/3 - Busqueda universitaria | Tiempo: {_elapsed()}")
+            uni_df   = university_search.load_universities()
+            uni_docs = university_search.search_universities(
+                uni_df,
+                progress_checkpoint=ckpt_dir / "phase2_progress.json",
+            )
+            logger.info(f"[PROGRESO] FASE 2 completada: {len(uni_docs)} docs | Tiempo: {_elapsed()}")
+            _save_checkpoint("phase2_uni", uni_docs, ckpt_dir)
         all_raw.extend(uni_docs)
-        logger.info(f"[PROGRESO] FASE 2 completada: {len(uni_docs)} docs | Tiempo: {_elapsed()}")
     else:
         logger.info("[FASE 2] Omitida")
 
-    logger.info(f"[main] Total crudo acumulado: {len(all_raw)} URLs | Tiempo: {_elapsed()}")
+    # ─── DEDUPLICACIÓN PRE-EXTRACCIÓN + FILTROS ────────────────────────────────
+    if _resume_from in ("search", "extraction"):
+        if _resume_from == "extraction":
+            # Búsquedas ya completadas — cargar search_complete
+            _sc = _load_checkpoint("search_complete", ckpt_dir)
+            if _sc is not None:
+                all_raw = _sc
+                logger.info(f"[main] Search_complete cargado: {len(all_raw)} docs | Tiempo: {_elapsed()}")
+        else:
+            logger.info(f"[main] Total crudo acumulado: {len(all_raw)} URLs | Tiempo: {_elapsed()}")
 
-    if not all_raw:
-        logger.warning("[main] Sin documentos para procesar. Verifica configuración de búsqueda.")
-        return None
+            if not all_raw:
+                logger.warning("[main] Sin documentos para procesar. Verifica configuración de búsqueda.")
+                return None
 
-    # ─── DEDUPLICACIÓN PRE-EXTRACCIÓN ─────────────────────────────────────────
-    all_raw = deduplicator.remove_url_duplicates_only(all_raw)
-    logger.info(f"[main] Tras dedup URL: {len(all_raw)} documentos únicos | Tiempo: {_elapsed()}")
+            # Deduplicación por URL
+            all_raw = deduplicator.remove_url_duplicates_only(all_raw)
+            logger.info(f"[main] Tras dedup URL: {len(all_raw)} documentos únicos | Tiempo: {_elapsed()}")
 
-    # Filtrar URLs ya presentes en la matriz definitiva (skip-list del Excel)
-    known_excel = Path(config.KNOWN_MATRIX_EXCEL)
-    if known_excel.exists():
-        known_urls = deduplicator.load_known_urls_from_excel(str(known_excel))
-        all_raw = deduplicator.filter_known_urls(all_raw, known_urls)
-        logger.info(f"[main] Tras skip-list Excel: {len(all_raw)} documentos | Tiempo: {_elapsed()}")
-    else:
-        logger.info("[main] Sin Excel de skip-list (KNOWN_MATRIX_EXCEL no encontrado)")
+            # Filtrar URLs ya presentes en la matriz definitiva (skip-list del Excel)
+            known_excel = Path(config.KNOWN_MATRIX_EXCEL)
+            if known_excel.exists():
+                known_urls = deduplicator.load_known_urls_from_excel(str(known_excel))
+                all_raw = deduplicator.filter_known_urls(all_raw, known_urls)
+                logger.info(f"[main] Tras skip-list Excel: {len(all_raw)} documentos | Tiempo: {_elapsed()}")
+            else:
+                logger.info("[main] Sin Excel de skip-list (KNOWN_MATRIX_EXCEL no encontrado)")
+
+            # Filtro pre-extracción: descartar docs sin señal de IA ni normativa en snippet/URL.
+            if getattr(config, "PRE_EXTRACTION_FILTER_ENABLED", False):
+                before_filter = len(all_raw)
+                kept, dropped = [], []
+                for doc in all_raw:
+                    url_score = doc.get("url_priority_score", 0.0)
+                    combined = (doc.get("title", "") + " " + doc.get("snippet", "")).lower()
+                    has_ai_signal = any(kw in combined for kw in config.AI_KEYWORDS)
+                    has_policy_signal = any(kw in combined for kw in config.POLICY_KEYWORDS)
+                    if url_score < 0.1 and not has_ai_signal and not has_policy_signal:
+                        dropped.append(doc)
+                    else:
+                        kept.append(doc)
+                all_raw = kept
+                logger.info(
+                    f"[main] Filtro pre-extracción: {len(kept)} conservados, "
+                    f"{len(dropped)} descartados (sin señal IA/normativa en snippet+URL) | "
+                    f"Tiempo: {_elapsed()}"
+                )
+
+            _save_checkpoint("search_complete", all_raw, ckpt_dir)
 
     # ─── EXTRACCIÓN DE CONTENIDO ───────────────────────────────────────────────
-    # Filtro pre-extracción: descartar docs sin señal de IA ni normativa en snippet/URL.
-    # Conservador — solo descarta cuando las 3 señales son simultáneamente negativas.
-    if getattr(config, "PRE_EXTRACTION_FILTER_ENABLED", False):
-        before_filter = len(all_raw)
-        kept, dropped = [], []
-        for doc in all_raw:
-            url_score = doc.get("url_priority_score", 0.0)
-            combined = (doc.get("title", "") + " " + doc.get("snippet", "")).lower()
-            has_ai_signal = any(kw in combined for kw in config.AI_KEYWORDS)
-            has_policy_signal = any(kw in combined for kw in config.POLICY_KEYWORDS)
-            # Solo descartar si: URL score muy bajo Y sin AI keywords Y sin policy keywords
-            if url_score < 0.1 and not has_ai_signal and not has_policy_signal:
-                dropped.append(doc)
-            else:
-                kept.append(doc)
-        all_raw = kept
-        logger.info(
-            f"[main] Filtro pre-extracción: {len(kept)} conservados, "
-            f"{len(dropped)} descartados (sin señal IA/normativa en snippet+URL) | "
-            f"Tiempo: {_elapsed()}"
-        )
-
-    logger.info(f"[PROGRESO] >> Extraccion de contenido ({len(all_raw)} docs) | Tiempo: {_elapsed()}")
-    all_extracted = _extract_all(all_raw)
-    logger.info(f"[PROGRESO] Extraccion completada | Tiempo: {_elapsed()}")
+    if _resume_from in ("search", "extraction"):
+        logger.info(f"[PROGRESO] >> Extraccion de contenido ({len(all_raw)} docs) | Tiempo: {_elapsed()}")
+        all_extracted = _extract_all(all_raw)
+        logger.info(f"[PROGRESO] Extraccion completada | Tiempo: {_elapsed()}")
+        _save_checkpoint("extracted", all_extracted, ckpt_dir)
+    elif _resume_from == "heuristic":
+        all_extracted = _load_checkpoint("extracted", ckpt_dir) or []
+        logger.info(f"[main] Extracción cargada desde checkpoint: {len(all_extracted)} docs")
+    else:
+        all_extracted = []  # no se necesita; clasificación heurística ya está en checkpoint
 
     # ─── CLASIFICACIÓN HEURÍSTICA ──────────────────────────────────────────────
-    logger.info(f"[PROGRESO] >> Clasificacion heuristica | Tiempo: {_elapsed()}")
-    all_classified = document_classifier.classify_batch(all_extracted)
+    if _resume_from in ("search", "extraction", "heuristic"):
+        logger.info(f"[PROGRESO] >> Clasificacion heuristica | Tiempo: {_elapsed()}")
+        all_classified = document_classifier.classify_batch(all_extracted)
 
-    alta  = sum(1 for d in all_classified if d.get("heuristic_label") == "ALTA")
-    media = sum(1 for d in all_classified if d.get("heuristic_label") == "MEDIA")
-    baja  = sum(1 for d in all_classified if d.get("heuristic_label") == "BAJA")
-    logger.info(f"[main] Heurística → ALTA: {alta} | MEDIA: {media} | BAJA: {baja}")
+        alta  = sum(1 for d in all_classified if d.get("heuristic_label") == "ALTA")
+        media = sum(1 for d in all_classified if d.get("heuristic_label") == "MEDIA")
+        baja  = sum(1 for d in all_classified if d.get("heuristic_label") == "BAJA")
+        logger.info(f"[main] Heurística → ALTA: {alta} | MEDIA: {media} | BAJA: {baja}")
 
-    # ─── DEDUPLICACIÓN POST-EXTRACCIÓN ────────────────────────────────────────
-    all_classified = deduplicator.deduplicate(all_classified)
-    logger.info(f"[main] Tras dedup contenido: {len(all_classified)} documentos")
+        # ─── DEDUPLICACIÓN POST-EXTRACCIÓN ────────────────────────────────────────
+        all_classified = deduplicator.deduplicate(all_classified)
+        logger.info(f"[main] Tras dedup contenido: {len(all_classified)} documentos")
+
+        _save_checkpoint("classified_heuristic", all_classified, ckpt_dir)
+    else:
+        # _resume_from == "ai": cargar clasificación heurística desde checkpoint
+        all_classified = _load_checkpoint("classified_heuristic", ckpt_dir) or []
+        logger.info(f"[main] Clasificación heurística cargada desde checkpoint: {len(all_classified)} docs")
+        alta  = sum(1 for d in all_classified if d.get("heuristic_label") == "ALTA")
+        media = sum(1 for d in all_classified if d.get("heuristic_label") == "MEDIA")
+        baja  = sum(1 for d in all_classified if d.get("heuristic_label") == "BAJA")
+        logger.info(f"[main] Heurística (checkpoint) → ALTA: {alta} | MEDIA: {media} | BAJA: {baja}")
 
     # ─── CLASIFICACIÓN CON IA ──────────────────────────────────────────────────
     if not skip_ai and config.OPENAI_API_KEY:
         ai_candidates = sum(1 for d in all_classified if d.get("heuristic_label") in ("ALTA", "MEDIA"))
         logger.info(f"[PROGRESO] >> Clasificacion IA ({ai_candidates} candidatos) | Tiempo: {_elapsed()}")
-        all_classified = ai_classifier.classify_batch_with_ai(all_classified)
+        ai_ckpt = ckpt_dir / "ai_progress.json"
+        all_classified = ai_classifier.classify_batch_with_ai(
+            all_classified,
+            checkpoint_path=ai_ckpt,
+        )
         logger.info(f"[PROGRESO] Clasificacion IA completada | Tiempo: {_elapsed()}")
     else:
         reason = "desactivada por flag" if skip_ai else "API key no configurada"
@@ -324,6 +443,10 @@ def _parse_args():
         help="Procesar TODAS las universidades del CSV (ignora el límite seguro definido en config.DEFINITIVE_RUN_MAX_UNIVERSITIES)"
     )
     parser.add_argument(
+        "--resume", action="store_true",
+        help="Reanudar desde el último checkpoint disponible (output/checkpoints/)"
+    )
+    parser.add_argument(
         "--output", type=str, default=None,
         metavar="RUTA",
         help="Ruta del archivo Excel de salida"
@@ -368,6 +491,7 @@ if __name__ == "__main__":
         max_universities=effective_max,
         output_path=args.output,
         verbose=args.verbose,
+        resume=args.resume,
     )
 
     if output:

@@ -9,7 +9,8 @@ import json
 import logging
 import re
 import time
-from typing import Dict, Optional
+from pathlib import Path
+from typing import Dict, List, Optional
 
 import config
 
@@ -235,14 +236,42 @@ def classify_with_ai(document: Dict, retries: int = 2) -> Dict:
 def classify_batch_with_ai(
     documents: list,
     delay_between: float = 1.0,
+    checkpoint_path: Optional[Path] = None,
 ) -> list:
     """
     Clasifica con IA solo documentos ALTA y MEDIA.
     Los BAJA reciben clasificación vacía.
     Agrega campo 'ai_classification' a cada documento.
+
+    Args:
+        documents:        Lista completa de documentos (todos los labels).
+        delay_between:    Pausa entre llamadas a la API (segundos).
+        checkpoint_path:  Ruta JSON para persistir progreso URL→clasificación.
+                          Si existe, los documentos ya clasificados se saltean.
+                          Se actualiza cada 10 documentos nuevos clasificados.
     """
     to_classify = [d for d in documents if d.get("heuristic_label") in ("ALTA", "MEDIA")]
     skip = [d for d in documents if d.get("heuristic_label") == "BAJA"]
+
+    # ── Cargar checkpoint de clasificación IA ──────────────────────────────────
+    # Mapa URL → clasificación para documentos ya procesados en ejecuciones previas
+    ai_done: Dict[str, Dict] = {}
+    if checkpoint_path and Path(checkpoint_path).exists():
+        try:
+            ai_done = json.loads(Path(checkpoint_path).read_text(encoding="utf-8"))
+            logger.info(f"[ai_classifier] Checkpoint IA cargado: {len(ai_done)} docs ya clasificados")
+        except Exception as e:
+            logger.warning(f"[ai_classifier] Error cargando checkpoint IA: {e}")
+
+    def _persist_ai_checkpoint() -> None:
+        if not checkpoint_path:
+            return
+        try:
+            Path(checkpoint_path).write_text(
+                json.dumps(ai_done, ensure_ascii=False), encoding="utf-8"
+            )
+        except Exception as e:
+            logger.warning(f"[ai_classifier] Error guardando checkpoint IA: {e}")
 
     extra_baja = []
     if getattr(config, "AI_INCLUDE_BORDERLINE_BAJA", False):
@@ -278,11 +307,30 @@ def classify_batch_with_ai(
     )
 
     total_to_classify = len(to_classify)
+    new_classified = 0
     for idx, doc in enumerate(to_classify, 1):
-        doc["ai_classification"] = classify_with_ai(doc)
+        url = doc.get("url", "")
+        if url and url in ai_done:
+            # Documento ya clasificado en una ejecución anterior
+            doc["ai_classification"] = ai_done[url]
+            logger.debug(f"[ai_classifier] Checkpoint hit ({idx}/{total_to_classify}): {url[:60]}")
+        else:
+            doc["ai_classification"] = classify_with_ai(doc)
+            if url:
+                ai_done[url] = doc["ai_classification"]
+            new_classified += 1
+            # Persistir checkpoint cada 10 documentos nuevos
+            if checkpoint_path and new_classified % 10 == 0:
+                _persist_ai_checkpoint()
+            time.sleep(delay_between)
+
         if idx % 10 == 0 or idx == total_to_classify:
             logger.info(f"[ai_classifier] Progreso IA: {idx}/{total_to_classify} docs clasificados")
-        time.sleep(delay_between)
+
+    # Persistir checkpoint final
+    if checkpoint_path and new_classified > 0:
+        _persist_ai_checkpoint()
+        logger.info(f"[ai_classifier] Checkpoint IA final guardado ({len(ai_done)} docs)")
 
     for doc in skip:
         doc["ai_classification"] = dict(_EMPTY_CLASSIFICATION)

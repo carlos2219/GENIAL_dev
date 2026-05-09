@@ -44,12 +44,12 @@ AI_MAX_EXTRA_BAJA = 20
 # ─── Búsqueda ─────────────────────────────────────────────────────────────────
 MAX_RESULTS_PER_QUERY    = 10   # resultados por query DDG
 MAX_URLS_PER_UNIVERSITY  = 6    # URLs máx por universidad
-MAX_UNIVERSITIES         = 50   # TEST: 50 universidades — cambiar a None para run completo
+MAX_UNIVERSITIES         = None  # None = todas las universidades (run completo)
 SEARCH_DELAY_SECONDS     = 1.5  # pausa entre búsquedas (evita bloqueos DDG)
 CRAWL_NON_PRIORITY       = True   # crawl para todas; no-prioritarias usan límites reducidos
 CRAWL_NON_PRIORITY_MAX_DOCS    = 2   # URLs máx por universidad no prioritaria
 CRAWL_NON_PRIORITY_MAX_SECONDS = 15  # timeout de crawl para no-prioritarias
-MAX_WORKERS              = 16   # hilos paralelos para extracción y Fase 2
+MAX_WORKERS              = 16   # seguro con ≥8GB RAM; subir a 20-24 si tienes más
 
 # Cache de búsquedas DDG entre runs (evita repetir queries ya hechas)
 DDG_CACHE_ENABLED        = True   # False para deshabilitar en producción limpia
@@ -61,7 +61,7 @@ INTER_PHASE_PAUSE_SECONDS = 0    # reservado para ajustes futuros
 PRE_EXTRACTION_FILTER_ENABLED = True  # False para deshabilitar
 
 # Perfil de sesión larga (enfocado a normativa de IA en México)
-DEFINITIVE_RUN_MAX_UNIVERSITIES = 45
+DEFINITIVE_RUN_MAX_UNIVERSITIES = None  # sin límite en producción
 
 # Filtros temáticos para priorizar normativa real y reducir ruido
 STRICT_TOPIC_FILTER = True
@@ -104,6 +104,10 @@ LOW_SCORE_KEYWORDS = [
     "noticia", "blog", "evento", "curso", "taller", "seminario",
     "conferencia", "artículo", "articulo", "opinión", "opinion",
     "entrevista", "podcast",
+    # Convocatorias / bases de eventos académicos (no son normativa)
+    "convocatoria", "bases de participación", "bases de participacion",
+    "presentar propuestas", "propuesta de ponencia", "registro de participantes",
+    "ficha de inscripción", "ficha de inscripcion", "inscripción al evento",
 ]
 AI_KEYWORDS = [
     "inteligencia artificial", "aprendizaje automático",
@@ -134,12 +138,21 @@ EXCLUDED_DOMAINS = {
     "facebook.com", "twitter.com", "x.com", "instagram.com",
     "linkedin.com", "youtube.com", "tiktok.com", "reddit.com",
     "wikipedia.org", "wikimedia.org",
+    # Medios de comunicación nacionales
     "eluniversal.com.mx", "excelsior.com.mx", "milenio.com",
     "reforma.com", "jornada.com.mx", "infobae.com",
     "expansion.mx", "forbes.com.mx", "animalpolitico.com",
+    "elfinanciero.com.mx", "eleconomista.com.mx", "oem.com.mx",
+    "mundoejecutivo.com.mx", "posta.com.mx", "notipress.mx",
+    "rotativodigital.com.mx", "suracapulco.mx", "dognews.mx",
+    "onedigital.mx", "estilouniversitario.mx", "mexico.quadratin.com.mx",
+    "fastcompany.mx",
+    # Blogs y plataformas genéricas
     "blogspot.com", "wordpress.com", "medium.com", "substack.com",
     "slideshare.net", "scribd.com", "academia.edu",
     "researchgate.net", "semanticscholar.org",
+    # Journals y repositorios académicos (no son normativa gubernamental)
+    "scielo.org.mx", "ride.org.mx", "redalyc.org",
 }
 PRIORITY_URL_KEYWORDS = [
     "normativa", "reglamento", "lineamiento", "politica", "acuerdo",
@@ -184,7 +197,13 @@ GOVERNMENT_SEED_URLS = [
 ]
 GOVERNMENT_PRIORITY_DOMAINS = [
     ".gob.mx", "dof.gob.mx", "sep.gob.mx", "conahcyt.mx",
-    "conacyt.gob.mx",
+    "conacyt.gob.mx", "ift.org.mx",
+]
+
+# Dominios de universidades mexicanas reconocidas que no usan .edu.mx
+EXTRA_ALLOWED_UNIVERSITY_DOMAINS = [
+    "uqroo.mx", "buap.mx", "ujat.mx", "uadec.mx", "unison.mx",
+    "uaz.edu.mx", "uabc.mx", "colmex.mx", "cide.edu",
 ]
 
 # ─── Universidades prioritarias ───────────────────────────────────────────────
@@ -200,6 +219,8 @@ PRIORITY_UNIVERSITIES = [
     {"universidad": "UAM",                         "url_oficial": "https://www.uam.mx/"},
     {"universidad": "Universidad de Guadalajara",  "url_oficial": "https://udg.mx/"},
     {"universidad": "UDLAP",                       "url_oficial": "https://www.udlap.mx/"},
+    {"universidad": "BUAP",                        "url_oficial": "https://www.buap.mx/"},
+    {"universidad": "UQROO",                       "url_oficial": "https://www.uqroo.mx/"},
 ]
 MAX_URLS_PRIORITY_UNIVERSITY = 12  # más profundidad para universidades de alta prioridad
 

@@ -12,6 +12,7 @@ import logging
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
 from typing import List, Dict, Optional
 from urllib.parse import urlparse
 
@@ -318,7 +319,8 @@ def _process_university(row: pd.Series) -> List[Dict]:
     domain = row.get("_domain", "")
 
     # ── Caso sin URL: búsqueda solo por nombre ─────────────────────────────
-    if not domain or row.get("is_no_url", False):
+    is_no_url = row.get("is_no_url")
+    if not domain or (is_no_url is True or is_no_url == 1):
         if name.strip():
             logger.info(f"[uni_search] Procesando (sin URL): {name}")
             return _search_university_by_name(name)
@@ -367,9 +369,18 @@ def _process_university(row: pd.Series) -> List[Dict]:
 
 # ─── Punto de entrada ─────────────────────────────────────────────────────────
 
-def search_universities(universities_df: Optional[pd.DataFrame] = None) -> List[Dict]:
+def search_universities(
+    universities_df: Optional[pd.DataFrame] = None,
+    progress_checkpoint: Optional[Path] = None,
+) -> List[Dict]:
     """
     Ejecuta FASE 2 completa para todas las universidades del CSV.
+
+    Args:
+        universities_df:      DataFrame de universidades (cargado desde CSV si None).
+        progress_checkpoint:  Ruta al archivo JSON de progreso intra-fase.
+                              Si existe, se reanudan las universidades pendientes.
+                              Siempre se actualiza cada 5 universidades completadas.
 
     Retorna lista de documentos filtrados y rankeados.
     """
@@ -384,6 +395,7 @@ def search_universities(universities_df: Optional[pd.DataFrame] = None) -> List[
     priority_df = pd.DataFrame(config.PRIORITY_UNIVERSITIES)
     priority_df["_domain"]     = priority_df["url_oficial"].apply(_extract_domain)
     priority_df["is_priority"] = True
+    priority_df["is_no_url"]   = False
     priority_df = priority_df[priority_df["_domain"].str.len() > 4].copy()
     priority_domains = set(priority_df["_domain"].tolist())
 
@@ -400,7 +412,40 @@ def search_universities(universities_df: Optional[pd.DataFrame] = None) -> List[
         combined_df = combined_df.head(config.MAX_UNIVERSITIES)
         logger.info(f"[uni_search] Límite aplicado: {config.MAX_UNIVERSITIES} universidades")
 
-    all_docs: List[Dict] = []
+    # ── Cargar progreso previo desde checkpoint intra-fase ────────────────────
+    completed_domains: set = set()
+    completed_names: set = set()
+    checkpoint_raw_docs: List[Dict] = []
+
+    if progress_checkpoint and Path(progress_checkpoint).exists():
+        try:
+            progress_data = json.loads(Path(progress_checkpoint).read_text(encoding="utf-8"))
+            completed_domains = set(progress_data.get("completed_domains", []))
+            completed_names   = set(progress_data.get("completed_names", []))
+            checkpoint_raw_docs = progress_data.get("raw_docs", [])
+            logger.info(
+                f"[uni_search] Checkpoint cargado: {len(completed_domains)} dominios + "
+                f"{len(completed_names)} nombres ya procesados | "
+                f"{len(checkpoint_raw_docs)} docs acumulados"
+            )
+        except Exception as e:
+            logger.warning(f"[uni_search] Error cargando progress checkpoint: {e}")
+
+    # Filtrar universidades ya procesadas
+    if completed_domains or completed_names:
+        def _already_done(row: pd.Series) -> bool:
+            d = row.get("_domain", "")
+            if d:
+                return d in completed_domains
+            return row.get("universidad", "") in completed_names
+
+        mask = ~combined_df.apply(_already_done, axis=1)
+        skipped = int((~mask).sum())
+        if skipped:
+            logger.info(f"[uni_search] {skipped} universidades ya procesadas — omitidas por checkpoint")
+        combined_df = combined_df[mask].copy()
+
+    all_docs: List[Dict] = list(checkpoint_raw_docs)  # iniciar con docs ya acumulados
     all_docs_lock = threading.Lock()
     total_unis = len(combined_df)
     fase2_start = time.time()
@@ -414,6 +459,14 @@ def search_universities(universities_df: Optional[pd.DataFrame] = None) -> List[
         with all_docs_lock:
             all_docs.extend(docs)
             completed_count[0] += 1
+            # Registrar como completada
+            domain = row.get("_domain", "")
+            name   = row.get("universidad", "")
+            if domain:
+                completed_domains.add(domain)
+            if not domain or row.get("is_no_url"):
+                completed_names.add(name)
+
             i = completed_count[0]
             pct = i / total_unis * 100
             elapsed_total = time.time() - fase2_start
@@ -429,6 +482,22 @@ def search_universities(universities_df: Optional[pd.DataFrame] = None) -> List[
                 f"ETA: ~{eta_min}m{eta_sec:02d}s — "
                 f"Docs acumulados: {len(all_docs)}"
             )
+
+            # Guardar progreso cada 5 universidades completadas
+            if progress_checkpoint and i % 5 == 0:
+                try:
+                    progress_data = {
+                        "completed_domains": list(completed_domains),
+                        "completed_names":   list(completed_names),
+                        "raw_docs":          all_docs,
+                    }
+                    Path(progress_checkpoint).write_text(
+                        json.dumps(progress_data, ensure_ascii=False),
+                        encoding="utf-8",
+                    )
+                    logger.debug(f"[uni_search] Checkpoint guardado ({i} universidades)")
+                except Exception as e:
+                    logger.warning(f"[uni_search] Error guardando progress checkpoint: {e}")
         return docs
 
     # Paralelo: el semáforo _DDG_SEMAPHORE dentro de _ddg_search() garantiza
@@ -445,6 +514,22 @@ def search_universities(universities_df: Optional[pd.DataFrame] = None) -> List[
                 logger.error(f"[uni_search] Error en universidad: {e}")
 
     logger.info(f"[uni_search] Total crudo: {len(all_docs)} documentos")
+
+    # Guardar checkpoint final de la fase 2 (todas las universidades completadas)
+    if progress_checkpoint:
+        try:
+            progress_data = {
+                "completed_domains": list(completed_domains),
+                "completed_names":   list(completed_names),
+                "raw_docs":          all_docs,
+            }
+            Path(progress_checkpoint).write_text(
+                json.dumps(progress_data, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            logger.info("[uni_search] Checkpoint final FASE 2 guardado")
+        except Exception as e:
+            logger.warning(f"[uni_search] Error guardando checkpoint final FASE 2: {e}")
 
     filtered = filter_and_rank(all_docs)
     logger.info(f"[uni_search] Tras filtro: {len(filtered)} documentos")
