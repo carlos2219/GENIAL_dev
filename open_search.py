@@ -50,13 +50,13 @@ def _topic_match(url: str, title: str, body: str) -> bool:
 
 def _ddg_search(query: str, max_results: int = config.MAX_RESULTS_PER_QUERY) -> List[Dict]:
     try:
-        from ddgs import DDGS
+        from duckduckgo_search import DDGS
     except ImportError:
         try:
-            from duckduckgo_search import DDGS
-            logger.warning("[open_search] Usando duckduckgo_search legacy; instala 'ddgs'")
+            from ddgs import DDGS
+            logger.debug("[open_search] Usando ddgs como backend DDG")
         except ImportError:
-            logger.error("[open_search] ddgs no instalado. Ejecuta: pip install ddgs")
+            logger.error("[open_search] duckduckgo-search no instalado. Ejecuta: pip install 'duckduckgo-search>=4.4.3,<6.0.0'")
             return []
 
     for attempt in range(3):
@@ -102,9 +102,11 @@ def _dof_direct_search() -> List[Dict]:
         }
         try:
             headers = {"User-Agent": random.choice(config.USER_AGENTS)}
+            import urllib3
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             resp = requests.get(
                 base_url, params=params, headers=headers,
-                timeout=config.REQUEST_TIMEOUT, verify=True,
+                timeout=config.REQUEST_TIMEOUT, verify=False,
             )
             resp.raise_for_status()
             soup = BeautifulSoup(resp.text, "html.parser")
