@@ -9,6 +9,7 @@ __pycache__/
 venv/
 env/
 ENV/
+.venv/
 
 # IDE
 .vscode/
@@ -20,6 +21,19 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# Misc
+# Environment variables
 .env
+
+# Logs
 *.log
+logs/
+
+# Pipeline outputs (large files, run-specific)
+output/
+cache/
+
+# Excel output (generado por el pipeline)
+*.xlsx
+
+# Known matrix (archivo maestro — mantener si se desea versionar)
+# Mata_Normativa_IA_Educacion_LATAM.xlsx
