@@ -35,5 +35,8 @@ cache/
 # Excel output (generado por el pipeline)
 *.xlsx
 
+# PDFs descargados desde la matriz (generado por download_pdfs.py)
+documentos_pdfs.zip
+
 # Known matrix (archivo maestro — mantener si se desea versionar)
 # Mata_Normativa_IA_Educacion_LATAM.xlsx
