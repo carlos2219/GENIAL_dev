@@ -55,6 +55,9 @@ GOOGLE_AS_PRIMARY        = _google_env not in ("false", "0", "no")
 # Obtener en: https://programmablesearchengine.google.com/ + https://console.cloud.google.com/
 GOOGLE_CSE_API_KEY       = os.getenv("GOOGLE_CSE_API_KEY", "")
 GOOGLE_CSE_ID            = os.getenv("GOOGLE_CSE_ID", "")
+# Brave Search API — busca toda la web, funciona desde GCP, 2000 queries/mes gratis
+# Obtener API key en: https://api.search.brave.com/
+BRAVE_API_KEY            = os.getenv("BRAVE_API_KEY", "")
 CRAWL_NON_PRIORITY       = True   # crawl para todas; no-prioritarias usan límites reducidos
 CRAWL_NON_PRIORITY_MAX_DOCS    = 2   # URLs máx por universidad no prioritaria
 CRAWL_NON_PRIORITY_MAX_SECONDS = 8   # timeout de crawl para no-prioritarias

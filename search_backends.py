@@ -4,10 +4,13 @@ search_backends.py — Backends de búsqueda unificados para el pipeline GENIAL
 Estrategia de búsqueda (en orden de prioridad):
   1. Google Custom Search API (CSE) — funciona desde cualquier IP incluyendo GCP.
      Requiere GOOGLE_CSE_API_KEY y GOOGLE_CSE_ID en el entorno.
-     100 consultas/día gratis; $5 por cada 1000 adicionales.
-  2. googlesearch-python — scraping HTML de Google. Solo funciona en IPs residenciales/locales.
-     Activado cuando GOOGLE_AS_PRIMARY=true y no hay CSE configurado.
-  3. DuckDuckGo (ddgs / duckduckgo-search) — fallback sin API key.
+     100 consultas/día gratis; $5/1000 adicionales.
+  2. Brave Search API — busca toda la web, funciona desde GCP, 2000 queries/mes gratis.
+     Requiere BRAVE_API_KEY en el entorno.
+     Obtener en: https://api.search.brave.com/
+  3. googlesearch-python — scraping HTML de Google. Solo funciona en IPs locales/residenciales.
+     Activado cuando GOOGLE_AS_PRIMARY=true y no hay CSE/Brave configurado.
+  4. DuckDuckGo (ddgs / duckduckgo-search) — fallback sin API key.
 
 Interfaz pública:
   multi_search(query, max_results, pause) → List[Dict]
@@ -102,7 +105,76 @@ def _google_cse_search(query: str, max_results: int) -> List[Dict]:
     return results[:max_results]
 
 
-# ─── Backend 2: googlesearch-python (scraping HTML) ──────────────────────────
+# ─── Backend 2: Brave Search API ────────────────────────────────────────────
+
+def _brave_search(query: str, max_results: int) -> List[Dict]:
+    """
+    Búsqueda vía Brave Search API.
+
+    Funciona desde cualquier IP (incluyendo GCP). Requiere:
+      - BRAVE_API_KEY: token de suscripción de https://api.search.brave.com/
+
+    Plan gratuito: 2000 queries/mes (suficiente para una sesión completa del pipeline).
+    """
+    api_key = getattr(config, "BRAVE_API_KEY", "")
+    if not api_key:
+        return []
+
+    endpoint = "https://api.search.brave.com/res/v1/web/search"
+    results: List[Dict] = []
+    offset = 0
+
+    while len(results) < max_results:
+        fetch = min(20, max_results - len(results))  # Brave devuelve máx 20 por página
+        params = {
+            "q":           query,
+            "count":       fetch,
+            "offset":      offset,
+            "country":     "MX",
+            "search_lang": "es",
+            "text_decorations": 0,
+        }
+        headers = {
+            "Accept":             "application/json",
+            "Accept-Encoding":    "gzip",
+            "X-Subscription-Token": api_key,
+        }
+        try:
+            resp = requests.get(endpoint, params=params, headers=headers, timeout=15)
+            if resp.status_code == 429:
+                logger.warning("[backends/brave] Cuota mensual agotada (429). Cambiando a fallback.")
+                break
+            if resp.status_code in (401, 403):
+                logger.warning(f"[backends/brave] Error de autenticación ({resp.status_code}) — verifica BRAVE_API_KEY")
+                break
+            resp.raise_for_status()
+        except requests.RequestException as e:
+            logger.warning(f"[backends/brave] HTTP error: {e}")
+            break
+
+        web = resp.json().get("web", {})
+        items = web.get("results", [])
+        if not items:
+            break
+
+        for item in items:
+            results.append({
+                "href":  item.get("url", ""),
+                "url":   item.get("url", ""),
+                "title": item.get("title", ""),
+                "body":  item.get("description", query),
+            })
+
+        offset += len(items)
+        if len(items) < fetch:
+            break
+
+    if results:
+        logger.info(f"[backends/brave] {len(results)} resultados para: {query[:70]}")
+    return results[:max_results]
+
+
+# ─── Backend 3: googlesearch-python (scraping HTML) ───────────────────────────
 
 def _google_scrape_search(query: str, max_results: int, pause: float) -> List[Dict]:
     """
@@ -138,7 +210,7 @@ def _google_scrape_search(query: str, max_results: int, pause: float) -> List[Di
     ]
 
 
-# ─── Backend 3: DuckDuckGo ────────────────────────────────────────────────────
+# ─── Backend 4: DuckDuckGo ───────────────────────────────────────────────────
 
 def _ddg_search(query: str, max_results: int, retries: int = 3) -> List[Dict]:
     """Búsqueda DuckDuckGo con reintentos. Fallback final."""
@@ -191,8 +263,9 @@ def multi_search(
 
     Prioridad:
       1. Google Custom Search API (si GOOGLE_CSE_API_KEY + GOOGLE_CSE_ID configurados)
-      2. googlesearch-python scraping (si GOOGLE_AS_PRIMARY=true, solo funciona en local)
-      3. DuckDuckGo (siempre disponible como último recurso)
+      2. Brave Search API (si BRAVE_API_KEY configurado)
+      3. googlesearch-python scraping (si GOOGLE_AS_PRIMARY=true, solo funciona en local)
+      4. DuckDuckGo (siempre disponible como último recurso)
 
     Returns:
         Lista de dicts con keys href/url, title, body.
@@ -209,16 +282,23 @@ def multi_search(
         results = _google_cse_search(query, max_results=max_results)
         if results:
             return results
-        logger.debug("[backends] CSE vacío → fallback a DDG")
-        return _ddg_search(query, max_results=max_results)
+        logger.debug("[backends] CSE vacío → intentando Brave")
 
-    # ── 2. Google scraping (solo funciona fuera de GCP) ──
+    # ── 2. Brave Search API (funciona en GCP) ──
+    brave_key = getattr(config, "BRAVE_API_KEY", "")
+    if brave_key:
+        results = _brave_search(query, max_results=max_results)
+        if results:
+            return results
+        logger.debug("[backends] Brave vacío → intentando Google scrape")
+
+    # ── 3. Google scraping (solo funciona fuera de GCP) ──
     if getattr(config, "GOOGLE_AS_PRIMARY", True):
         results = _google_scrape_search(query, max_results=max_results, pause=pause)
         if results:
             return results
         logger.debug("[backends] Google scrape vacío → usando DDG fallback")
 
-    # ── 3. DuckDuckGo ──
+    # ── 4. DuckDuckGo ──
     return _ddg_search(query, max_results=max_results)
 
