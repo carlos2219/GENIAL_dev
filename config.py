@@ -46,11 +46,15 @@ MAX_RESULTS_PER_QUERY    = 10   # resultados por query
 MAX_URLS_PER_UNIVERSITY  = 6    # URLs máx por universidad
 MAX_UNIVERSITIES         = None  # None = todas las universidades (run completo)
 SEARCH_DELAY_SECONDS     = float(os.getenv("SEARCH_DELAY_SECONDS", "0.5"))  # pausa entre búsquedas
-GOOGLE_SEARCH_PAUSE      = 2.5  # pausa entre páginas Google (evita rate-limit)
-# En VMs de GCP, Google bloquea scraping desde IPs de nube.
-# Poner GOOGLE_AS_PRIMARY=false en el entorno para forzar modo DDG-only en el VM.
+GOOGLE_SEARCH_PAUSE      = 2.5  # pausa entre páginas Google scraping (evita rate-limit)
+# En VMs de GCP, Google bloquea scraping HTML. Usar GOOGLE_CSE_API_KEY+ID en su lugar,
+# o bien poner GOOGLE_AS_PRIMARY=false para forzar DDG-only.
 _google_env = os.getenv("GOOGLE_AS_PRIMARY", "true").strip().lower()
 GOOGLE_AS_PRIMARY        = _google_env not in ("false", "0", "no")
+# Google Custom Search API — funciona desde cualquier IP incluyendo GCP
+# Obtener en: https://programmablesearchengine.google.com/ + https://console.cloud.google.com/
+GOOGLE_CSE_API_KEY       = os.getenv("GOOGLE_CSE_API_KEY", "")
+GOOGLE_CSE_ID            = os.getenv("GOOGLE_CSE_ID", "")
 CRAWL_NON_PRIORITY       = True   # crawl para todas; no-prioritarias usan límites reducidos
 CRAWL_NON_PRIORITY_MAX_DOCS    = 2   # URLs máx por universidad no prioritaria
 CRAWL_NON_PRIORITY_MAX_SECONDS = 8   # timeout de crawl para no-prioritarias
