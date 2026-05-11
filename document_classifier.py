@@ -58,6 +58,17 @@ def heuristic_score(document: Dict) -> float:
     if ai_hits == 0:
         score = min(score, config.HEURISTIC_MEDIUM_THRESHOLD - 0.01)
 
+    # Sin keywords normativas (alta O media), el documento no puede alcanzar MEDIA.
+    # Evita que páginas meramente informativas sobre IA lleguen a MEDIA por acumulación
+    # de señal de IA + dominio .edu.mx sin contener lenguaje normativo.
+    if high_hits == 0 and medium_hits == 0:
+        score = min(score, config.HEURISTIC_MEDIUM_THRESHOLD - 0.01)
+
+    # Sin al menos un keyword de alto valor normativo, el documento no puede alcanzar ALTA.
+    # Requiere lenguaje explícito de instrumento normativo para la máxima categoría.
+    if high_hits == 0:
+        score = min(score, config.HEURISTIC_HIGH_THRESHOLD - 0.01)
+
     return max(0.0, min(score, 1.0))
 
 

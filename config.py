@@ -83,7 +83,7 @@ USER_AGENTS = [
 
 # ─── Clasificación heurística ─────────────────────────────────────────────────
 HEURISTIC_HIGH_THRESHOLD = 0.50
-HEURISTIC_MEDIUM_THRESHOLD = 0.24
+HEURISTIC_MEDIUM_THRESHOLD = 0.30  # subido de 0.24 → exige más señal normativa
 
 HIGH_SCORE_KEYWORDS = [
     "reglamento", "resolución", "resolucion", "acuerdo", "decreto",
@@ -268,6 +268,7 @@ UNIVERSITY_QUERY_TEMPLATES = [
 
 # ─── Búsqueda abierta ─────────────────────────────────────────────────────────
 OPEN_SEARCH_QUERIES = [
+    # Normativa universitaria general
     "México lineamientos inteligencia artificial educación superior universidad filetype:pdf",
     "México reglamento uso de inteligencia artificial universidad estudiantes docentes filetype:pdf",
     "México acuerdo institucional inteligencia artificial universidad consejo universitario",
@@ -276,6 +277,50 @@ OPEN_SEARCH_QUERIES = [
     "México código de ética inteligencia artificial universidad",
     "México protocolo uso responsable de inteligencia artificial educación superior",
     "México marco regulatorio inteligencia artificial educación superior",
-    "México DOF inteligencia artificial educación lineamientos",
-    "México iniciativa ley inteligencia artificial educación superior",
+    # Diario Oficial de la Federación — queries específicas
+    "site:dof.gob.mx \"inteligencia artificial\" acuerdo decreto lineamiento educación",
+    "site:dof.gob.mx \"inteligencia artificial\" estrategia nacional ENIA 2023 2024 2025",
+    "DOF México \"inteligencia artificial\" educación norma acuerdo secretaría",
+    "dof.gob.mx SEP inteligencia artificial lineamientos educación superior México",
+    # Repositorios universitarios de acceso abierto
+    "site:repositorio.unam.mx \"inteligencia artificial\" política lineamiento reglamento",
+    "site:repositoriodigital.ipn.mx \"inteligencia artificial\" normativa protocolo",
+    "repositorio universitario México \"inteligencia artificial\" lineamiento política institucional filetype:pdf",
+    # Transparencia institucional
+    "site:inai.org.mx \"inteligencia artificial\" lineamientos transparencia normativa",
+    "site:portaltransparencia.gob.mx \"inteligencia artificial\" acuerdo norma",
+    "site:sep.gob.mx \"inteligencia artificial\" acuerdo lineamiento normateca",
+    "site:conahcyt.mx \"inteligencia artificial\" programa estrategia normativa decreto",
+    # Organismos reguladores y policy
+    "site:ift.org.mx \"inteligencia artificial\" regulación lineamiento acuerdo",
+    "site:inegi.org.mx \"inteligencia artificial\" lineamiento normativa estadística",
+    "México ENIA estrategia nacional inteligencia artificial educación superior lineamientos",
+    "México iniciativa ley inteligencia artificial educación superior congreso",
+]
+
+# ─── DOF búsqueda directa ─────────────────────────────────────────────────────
+# Búsqueda directa al buscador del Diario Oficial de la Federación vía HTTP
+DOF_DIRECT_SEARCH_ENABLED = True
+DOF_SEARCH_BASE_URL = "https://dof.gob.mx/busqueda_detalle.php"
+DOF_SEARCH_TERMS = [
+    "inteligencia artificial educación",
+    "inteligencia artificial lineamiento",
+    "inteligencia artificial decreto",
+    "inteligencia artificial estrategia",
+    "ENIA inteligencia artificial",
+    "inteligencia artificial universidades",
+]
+DOF_SEARCH_YEAR_START = "2018-01-01"
+DOF_SEARCH_MAX_RESULTS = 30
+
+# ─── Repositorios universitarios de acceso abierto ──────────────────────────
+UNIVERSITY_REPOSITORIES = [
+    "https://repositorio.unam.mx",
+    "https://repositoriodigital.ipn.mx",
+    "https://repositorio.tec.mx",
+    "https://repositorio.udg.mx",
+]
+UNIVERSITY_REPO_DDG_QUERIES = [
+    'site:repositorio.unam.mx "inteligencia artificial" lineamiento OR reglamento OR política',
+    'site:repositoriodigital.ipn.mx "inteligencia artificial" normativa OR protocolo',
 ]

@@ -3,11 +3,20 @@ open_search.py — FASE 3: Búsqueda abierta exploratoria
 
 Ejecuta queries amplios sin restricción de dominio para detectar
 documentos no indexados fácilmente en búsquedas site-specific.
+
+Mejoras v2:
+  - Búsqueda directa en el DOF (Diario Oficial de la Federación)
+  - Queries adicionales para repositorios universitarios de acceso abierto
+  - Queries adicionales para portales de transparencia institucional
 """
 
 import logging
+import random
 import time
 from typing import List, Dict
+
+import requests
+from bs4 import BeautifulSoup
 
 import config
 from url_filter import filter_and_rank, is_excluded
@@ -62,20 +71,125 @@ def _ddg_search(query: str, max_results: int = config.MAX_RESULTS_PER_QUERY) -> 
     return []
 
 
+def _dof_direct_search() -> List[Dict]:
+    """
+    Consulta directamente el buscador del Diario Oficial de la Federación
+    para encontrar acuerdos, decretos y lineamientos sobre inteligencia artificial.
+
+    Retorna lista de documentos en formato estándar.
+    """
+    if not getattr(config, "DOF_DIRECT_SEARCH_ENABLED", False):
+        return []
+
+    base_url = getattr(config, "DOF_SEARCH_BASE_URL", "https://dof.gob.mx/busqueda_detalle.php")
+    terms    = getattr(config, "DOF_SEARCH_TERMS", [])
+    year_start = getattr(config, "DOF_SEARCH_YEAR_START", "2018-01-01")
+    max_results = int(getattr(config, "DOF_SEARCH_MAX_RESULTS", 30))
+
+    logger.info(f"[open_search/DOF] Búsqueda directa en DOF con {len(terms)} términos")
+
+    results: List[Dict] = []
+    seen_urls: set = set()
+
+    for term in terms:
+        params = {
+            "texto": term,
+            "busquedaSearchButton": "Search",
+            "tipo_publicacion": "0",
+            "fecha_inicio": year_start,
+            "fecha_fin": "2026-12-31",
+            "codigo": "",
+        }
+        try:
+            headers = {"User-Agent": random.choice(config.USER_AGENTS)}
+            resp = requests.get(
+                base_url, params=params, headers=headers,
+                timeout=config.REQUEST_TIMEOUT, verify=True,
+            )
+            resp.raise_for_status()
+            soup = BeautifulSoup(resp.text, "html.parser")
+
+            # DOF search results: links to nota_detalle.php or direct PDF links
+            for link in soup.find_all("a", href=True):
+                href = str(link.get("href", "")).strip()
+                if not href:
+                    continue
+
+                # Normalizar URL
+                if href.startswith("http"):
+                    full_url = href
+                elif href.startswith("/"):
+                    full_url = f"https://dof.gob.mx{href}"
+                else:
+                    full_url = f"https://dof.gob.mx/{href}"
+
+                # Solo páginas del DOF
+                if "dof.gob.mx" not in full_url:
+                    continue
+
+                # Solo nota_detalle o PDFs; omitir menús y anclas
+                if "nota_detalle" not in full_url and not full_url.endswith(".pdf"):
+                    continue
+
+                norm_url = full_url.split("?")[0] if "nota_detalle" not in full_url else full_url
+                if norm_url in seen_urls:
+                    continue
+                seen_urls.add(norm_url)
+
+                title = link.get_text(strip=True) or f"DOF — {term}"
+                if len(title) < 5:
+                    continue
+
+                results.append({
+                    "url": full_url,
+                    "title": title,
+                    "snippet": f"Diario Oficial de la Federación — búsqueda: {term}",
+                    "source_type": "open_dof",
+                    "university_name": None,
+                    "university_domain": None,
+                    "query_used": f"DOF:{term}",
+                    "extracted_text": "",
+                    "extraction_error": None,
+                    "heuristic_score": 0.0,
+                    "heuristic_label": "BAJA",
+                    "ai_classification": None,
+                })
+
+                if len(results) >= max_results:
+                    break
+
+            logger.info(f"[open_search/DOF] '{term}': {len(results)} docs acumulados")
+            time.sleep(config.SEARCH_DELAY_SECONDS * 2)
+
+        except requests.exceptions.RequestException as e:
+            logger.warning(f"[open_search/DOF] HTTP error para '{term}': {e}")
+        except Exception as e:
+            logger.warning(f"[open_search/DOF] Error inesperado para '{term}': {e}")
+
+    logger.info(f"[open_search/DOF] Total obtenido: {len(results)} documentos DOF")
+    return results
+
+
 def search_open() -> List[Dict]:
     """
     Ejecuta FASE 3 completa: búsquedas abiertas sin restricción de dominio.
 
+    Incluye:
+      - Queries DDG expandidos (DOF, repositorios, transparencia)
+      - Búsqueda directa en el DOF via HTTP
+
     Retorna lista de documentos filtrados y rankeados.
     """
     logger.info("=" * 60)
-    logger.info("FASE 3 — Búsqueda abierta exploratoria")
+    logger.info("FASE 3 — Búsqueda abierta exploratoria (v2)")
     logger.info("=" * 60)
 
     all_results: List[Dict] = []
 
+    # ── 3a. Queries DDG (incluye site:dof.gob.mx, repositorios, transparencia) ──
+    logger.info(f"[open_search] DDG: {len(config.OPEN_SEARCH_QUERIES)} queries")
     for query in config.OPEN_SEARCH_QUERIES:
-        logger.info(f"[open_search] Query: {query}")
+        logger.info(f"[open_search] Query DDG: {query}")
         raw = _ddg_search(query, max_results=config.MAX_RESULTS_PER_QUERY)
 
         for r in raw:
@@ -111,7 +225,17 @@ def search_open() -> List[Dict]:
 
         time.sleep(config.SEARCH_DELAY_SECONDS)
 
-    logger.info(f"[open_search] Total crudo: {len(all_results)} resultados")
+    logger.info(f"[open_search] DDG crudo: {len(all_results)} resultados")
+
+    # ── 3b. Búsqueda directa en el DOF ─────────────────────────────────────
+    dof_results = _dof_direct_search()
+    # Los resultados DOF ya son dof.gob.mx → siempre pasan el filtro de dominio
+    for r in dof_results:
+        if not _topic_match(r["url"], r["title"], r["snippet"]):
+            continue
+        all_results.append(r)
+
+    logger.info(f"[open_search] Total crudo (DDG + DOF directo): {len(all_results)} resultados")
 
     filtered = filter_and_rank(all_results)
     logger.info(f"[open_search] Tras filtro: {len(filtered)} documentos")

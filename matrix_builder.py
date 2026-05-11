@@ -188,33 +188,17 @@ def _build_row(document: Dict) -> Optional[Dict]:
         )
         return None
     ai = document.get("ai_classification") or {}
-    heuristic_label = document.get("heuristic_label", "BAJA")
     has_reliable_ai = bool(ai) and not _is_ai_unavailable(ai)
 
-    # ── Modo con IA ──────────────────────────────────────────────────────────
-    if has_reliable_ai:
-        is_normativa = ai.get("es_normativa", "no")
-        if is_normativa == "no":
-            return None
-    # ── Modo sin IA (fallback heurístico) ────────────────────────────────────
-    else:
-        # Sin IA, priorizamos precisión: solo ALTA entra a matriz.
-        if heuristic_label != "ALTA":
-            return None
-        # Poblar ai con valores heurísticos básicos
-        ai = {
-            "es_normativa": "si",
-            "tipo_norma": "otro",
-            "estado": "no especificado",
-            "dominio": "no aplica",
-            "vinculo": "indirecto" if heuristic_label == "MEDIA" else "directo",
-            "dedicacion_texto": "no aplica",
-            "titulo_norma": document.get("title", "No disponible"),
-            "organismo_emisor": document.get("university_name", "") or "No disponible",
-            "fecha_publicacion": "No disponible",
-            "ambito": "institucional" if document.get("source_type") == "university" else "nacional",
-            "observaciones": f"Clasificado heurísticamente sin IA (score={document.get('heuristic_score', 0):.2f}). Requiere validación manual.",
-        }
+    # Solo entran documentos con clasificación IA confiable.
+    # Los documentos sin IA (fallback heurístico) son sistemáticamente de baja calidad
+    # y quedan excluidos de la matriz; aparecen únicamente en la hoja de log.
+    if not has_reliable_ai:
+        return None
+
+    is_normativa = ai.get("es_normativa", "no")
+    if is_normativa == "no":
+        return None
 
     tipo_raw    = ai.get("tipo_norma", "otro")
     estado_raw  = ai.get("estado", "no especificado")
@@ -269,7 +253,8 @@ def build_matrix(documents: List[Dict]) -> List[Dict]:
     """
     Construye la matriz normativa desde todos los documentos clasificados.
 
-    Solo incluye documentos marcados como normativa por la IA.
+    Solo incluye documentos con clasificación IA confiable y marcados como normativa.
+    Documentos sin clasificación IA quedan excluidos de la matriz (solo aparecen en log).
     Retorna lista de filas (dicts) con columnas exactas de la matriz.
     """
     logger.info(f"[matrix] Construyendo matriz desde {len(documents)} documentos")
