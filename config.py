@@ -42,10 +42,12 @@ AI_BAJA_MIN_URL_PRIORITY = 0.60   # Umbral URL elevado para exigir más señal n
 AI_MAX_EXTRA_BAJA = 20
 
 # ─── Búsqueda ─────────────────────────────────────────────────────────────────
-MAX_RESULTS_PER_QUERY    = 10   # resultados por query DDG
+MAX_RESULTS_PER_QUERY    = 10   # resultados por query
 MAX_URLS_PER_UNIVERSITY  = 6    # URLs máx por universidad
 MAX_UNIVERSITIES         = None  # None = todas las universidades (run completo)
-SEARCH_DELAY_SECONDS     = 0.5  # pausa entre búsquedas (evita bloqueos DDG)
+SEARCH_DELAY_SECONDS     = 0.5  # pausa entre búsquedas (evita bloqueos)
+GOOGLE_SEARCH_PAUSE      = 2.5  # pausa entre páginas Google (evita rate-limit)
+GOOGLE_AS_PRIMARY        = True  # True = Google primario, DDG como fallback
 CRAWL_NON_PRIORITY       = True   # crawl para todas; no-prioritarias usan límites reducidos
 CRAWL_NON_PRIORITY_MAX_DOCS    = 2   # URLs máx por universidad no prioritaria
 CRAWL_NON_PRIORITY_MAX_SECONDS = 8   # timeout de crawl para no-prioritarias

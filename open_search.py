@@ -4,8 +4,10 @@ open_search.py — FASE 3: Búsqueda abierta exploratoria
 Ejecuta queries amplios sin restricción de dominio para detectar
 documentos no indexados fácilmente en búsquedas site-specific.
 
-Mejoras v2:
-  - Búsqueda directa en el DOF (Diario Oficial de la Federación)
+Mejoras v3:
+  - Google Search (googlesearch-python) como backend primario
+  - DuckDuckGo como fallback cuando Google no devuelve resultados
+  - Búsqueda directa en el DOF con adaptador SSL robusto (NoVerifyAdapter)
   - Queries adicionales para repositorios universitarios de acceso abierto
   - Queries adicionales para portales de transparencia institucional
 """
@@ -16,10 +18,31 @@ import time
 from typing import List, Dict
 
 import requests
+from requests.adapters import HTTPAdapter
 from bs4 import BeautifulSoup
+import urllib3
 
 import config
 from url_filter import filter_and_rank, is_excluded
+from search_backends import multi_search
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
+class _NoVerifyAdapter(HTTPAdapter):
+    """HTTPAdapter que desactiva verificación TLS para dominios con cert problemático."""
+    def send(self, request, **kwargs):
+        kwargs["verify"] = False
+        return super().send(request, **kwargs)
+
+
+def _make_dof_session(headers: dict) -> requests.Session:
+    """Crea una sesión requests con SSL desactivado específicamente para dof.gob.mx."""
+    session = requests.Session()
+    session.mount("https://dof.gob.mx", _NoVerifyAdapter())
+    session.mount("http://dof.gob.mx", _NoVerifyAdapter())
+    session.headers.update(headers)
+    return session
 
 logger = logging.getLogger(__name__)
 
@@ -48,27 +71,7 @@ def _topic_match(url: str, title: str, body: str) -> bool:
     return policy_hits >= min_policy
 
 
-def _ddg_search(query: str, max_results: int = config.MAX_RESULTS_PER_QUERY) -> List[Dict]:
-    try:
-        from duckduckgo_search import DDGS
-    except ImportError:
-        try:
-            from ddgs import DDGS
-            logger.debug("[open_search] Usando ddgs como backend DDG")
-        except ImportError:
-            logger.error("[open_search] duckduckgo-search no instalado. Ejecuta: pip install 'duckduckgo-search>=4.4.3,<6.0.0'")
-            return []
 
-    for attempt in range(3):
-        try:
-            ddgs = DDGS()
-            results = list(ddgs.text(query, max_results=max_results))
-            return results
-        except Exception as e:
-            wait = 5 * (attempt + 1)
-            logger.warning(f"[open_search] DDG error (intento {attempt+1}): {e}. Esperando {wait}s")
-            time.sleep(wait)
-    return []
 
 
 def _dof_direct_search() -> List[Dict]:
@@ -102,11 +105,10 @@ def _dof_direct_search() -> List[Dict]:
         }
         try:
             headers = {"User-Agent": random.choice(config.USER_AGENTS)}
-            import urllib3
-            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-            resp = requests.get(
-                base_url, params=params, headers=headers,
-                timeout=config.REQUEST_TIMEOUT, verify=False,
+            session = _make_dof_session(headers)
+            resp = session.get(
+                base_url, params=params,
+                timeout=max(config.REQUEST_TIMEOUT, 20),
             )
             resp.raise_for_status()
             soup = BeautifulSoup(resp.text, "html.parser")
@@ -177,22 +179,22 @@ def search_open() -> List[Dict]:
     Ejecuta FASE 3 completa: búsquedas abiertas sin restricción de dominio.
 
     Incluye:
-      - Queries DDG expandidos (DOF, repositorios, transparencia)
-      - Búsqueda directa en el DOF via HTTP
+      - Queries Google (primario) + DDG (fallback) para cada query
+      - Búsqueda directa en el DOF via HTTP (con adaptador SSL robusto)
 
     Retorna lista de documentos filtrados y rankeados.
     """
     logger.info("=" * 60)
-    logger.info("FASE 3 — Búsqueda abierta exploratoria (v2)")
+    logger.info("FASE 3 — Búsqueda abierta exploratoria (v3: Google + DDG fallback)")
     logger.info("=" * 60)
 
     all_results: List[Dict] = []
 
-    # ── 3a. Queries DDG (incluye site:dof.gob.mx, repositorios, transparencia) ──
-    logger.info(f"[open_search] DDG: {len(config.OPEN_SEARCH_QUERIES)} queries")
+    # ── 3a. Queries Google/DDG (incluye site:dof.gob.mx, repositorios, transparencia) ──
+    logger.info(f"[open_search] Ejecutando {len(config.OPEN_SEARCH_QUERIES)} queries (Google→DDG fallback)")
     for query in config.OPEN_SEARCH_QUERIES:
-        logger.info(f"[open_search] Query DDG: {query}")
-        raw = _ddg_search(query, max_results=config.MAX_RESULTS_PER_QUERY)
+        logger.info(f"[open_search] Query: {query}")
+        raw = multi_search(query, max_results=config.MAX_RESULTS_PER_QUERY)
 
         for r in raw:
             url   = r.get("href", "") or r.get("url", "")

@@ -2,8 +2,8 @@
 government_search.py — FASE 1: Búsqueda en fuentes gubernamentales
 
 Combina:
-  1. Búsqueda DDG con queries de normativa gubernamental mexicana
-    2. Rastreo heurístico de URLs semilla de portales de gobierno
+  1. Búsqueda Google (primario) / DDG (fallback) con queries de normativa gubernamental mexicana
+  2. Rastreo heurístico de URLs semilla de portales de gobierno
 """
 
 import logging
@@ -12,6 +12,7 @@ from typing import List, Dict
 
 import config
 from url_filter import filter_and_rank, is_excluded, looks_normative
+from search_backends import multi_search
 
 logger = logging.getLogger(__name__)
 
@@ -32,72 +33,15 @@ def _topic_match(url: str, title: str, body: str) -> bool:
     return policy_hits >= min_policy
 
 
-# ─── DuckDuckGo helper ───────────────────────────────────────────────────────
-
-def _ddg_search(query: str, max_results: int = config.MAX_RESULTS_PER_QUERY) -> List[Dict]:
-    """Wrapper robusto sobre duckduckgo_search con reintentos."""
-    try:
-        from ddgs import DDGS
-    except ImportError:
-        try:
-            from duckduckgo_search import DDGS
-            logger.warning("[gov_search] Usando duckduckgo_search legacy; instala 'ddgs'")
-        except ImportError:
-            logger.error("[gov_search] ddgs no instalado. Ejecuta: pip install ddgs")
-            return []
-
-    for attempt in range(3):
-        try:
-            ddgs = DDGS()
-            results = list(ddgs.text(query, max_results=max_results))
-            return results
-        except Exception as e:
-            wait = 5 * (attempt + 1)
-            logger.warning(f"[gov_search] DDG error (intento {attempt+1}): {e}. Esperando {wait}s")
-            time.sleep(wait)
-    return []
-
-
-# ─── Crawl de URLs semilla gubernamentales ────────────────────────────────────
-
-def _crawl_gov_seeds() -> List[Dict]:
-    """Rastrea semillas gubernamentales y extrae enlaces relevantes."""
-    from site_crawler import crawl_domain
-
-    docs: List[Dict] = []
-    for seed_url in config.GOVERNMENT_SEED_URLS:
-        logger.info(f"[gov_search] Crawleando semilla: {seed_url}")
-        results = crawl_domain(
-            domain=seed_url,
-            university_name="Gobierno de México",
-            source_type="government",
-            max_docs=8,
-        )
-        for d in results:
-            url = d.get("url", "")
-            if not url or is_excluded(url):
-                continue
-            # Solo filtrar por keywords normativas; NO requerir keywords de IA en este
-            # punto porque el contenido aún no ha sido extraído. El clasificador
-            # heurístico aplicará el gate de IA después de la extracción.
-            combined = (url + " " + d.get("title", "")).lower()
-            policy_hits = sum(1 for kw in config.PRIORITY_URL_KEYWORDS if kw in combined)
-            if policy_hits >= 1 or url.lower().endswith(".pdf"):
-                docs.append(d)
-        time.sleep(1.0)
-
-    return docs
-
-
-# ─── Búsquedas DDG gubernamentales ───────────────────────────────────────────
+# ─── Búsquedas gubernamentales ───────────────────────────────────────────────
 
 def _search_government_queries() -> List[Dict]:
-    """Ejecuta queries de normativa gubernamental en DDG."""
+    """Ejecuta queries de normativa gubernamental (Google→DDG fallback)."""
     all_results: List[Dict] = []
 
     for query in config.GOVERNMENT_QUERIES:
         logger.info(f"[gov_search] Query: {query}")
-        raw = _ddg_search(query)
+        raw = multi_search(query)
 
         for r in raw:
             url   = r.get("href", "") or r.get("url", "")
@@ -138,11 +82,40 @@ def _search_government_queries() -> List[Dict]:
     return all_results
 
 
-# ─── Punto de entrada ─────────────────────────────────────────────────────────
+# ─── Crawl de URLs semilla gubernamentales ────────────────────────────────────
+
+
+def _crawl_gov_seeds() -> List[Dict]:
+    """Rastrea semillas gubernamentales y extrae enlaces relevantes."""
+    from site_crawler import crawl_domain
+
+    docs: List[Dict] = []
+    for seed_url in config.GOVERNMENT_SEED_URLS:
+        logger.info(f"[gov_search] Crawleando semilla: {seed_url}")
+        results = crawl_domain(
+            domain=seed_url,
+            university_name="Gobierno de México",
+            source_type="government",
+            max_docs=8,
+        )
+        for d in results:
+            url = d.get("url", "")
+            if not url or is_excluded(url):
+                continue
+            # Solo filtrar por keywords normativas; NO requerir keywords de IA en este
+            # punto porque el contenido aún no ha sido extraído. El clasificador
+            # heurístico aplicará el gate de IA después de la extracción.
+            combined = (url + " " + d.get("title", "")).lower()
+            policy_hits = sum(1 for kw in config.PRIORITY_URL_KEYWORDS if kw in combined)
+            if policy_hits >= 1 or url.lower().endswith(".pdf"):
+                docs.append(d)
+        time.sleep(1.0)
+
+    return docs
 
 def search_government_sources() -> List[Dict]:
     """
-    Ejecuta la FASE 1 completa: queries DDG + crawl de semillas.
+    Ejecuta la FASE 1 completa: queries (Google→DDG) + crawl de semillas.
 
     Retorna lista de documentos filtrados y rankeados.
     """
@@ -150,9 +123,9 @@ def search_government_sources() -> List[Dict]:
     logger.info("FASE 1 — Búsqueda gubernamental")
     logger.info("=" * 60)
 
-    # Búsqueda en DDG
+    # Búsqueda Google→DDG
     query_docs = _search_government_queries()
-    logger.info(f"[gov_search] DDG: {len(query_docs)} resultados crudos")
+    logger.info(f"[gov_search] Queries: {len(query_docs)} resultados crudos")
 
     # Crawl de semillas
     seed_docs = _crawl_gov_seeds()

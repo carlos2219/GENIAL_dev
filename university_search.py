@@ -2,8 +2,8 @@
 university_search.py — FASE 2: Búsqueda en universidades
 
 Para cada universidad del CSV:
-  a) Búsqueda externa DDG con site: operator
-    b) Rastreo heurístico de rutas normativas conocidas y página raíz
+  a) Búsqueda externa Google (primario) / DDG (fallback) con site: operator
+  b) Rastreo heurístico de rutas normativas conocidas y página raíz
 """
 
 import hashlib
@@ -21,6 +21,7 @@ import pandas as pd
 import config
 from url_filter import filter_and_rank, is_excluded
 from site_crawler import crawl_domain
+from search_backends import multi_search as _multi_search
 
 logger = logging.getLogger(__name__)
 
@@ -147,24 +148,8 @@ def _extract_domain(url: str) -> str:
 # ─── DDG helper ───────────────────────────────────────────────────────────────
 
 def _ddg_search_raw(query: str, max_results: int = config.MAX_RESULTS_PER_QUERY) -> List[Dict]:
-    """Query DDG sin rate-limit ni caché. Usar solo a través de _ddg_search."""
-    try:
-        from ddgs import DDGS
-    except ImportError:
-        try:
-            from duckduckgo_search import DDGS
-            logger.warning("[uni_search] Usando duckduckgo_search legacy; instala 'ddgs'")
-        except ImportError:
-            logger.error("[uni_search] ddgs no instalado. Ejecuta: pip install ddgs")
-            return []
-
-    try:
-        ddgs = DDGS()
-        results = list(ddgs.text(query, max_results=max_results))
-        return results
-    except Exception as e:
-        logger.debug(f"[uni_search] DDG error (sin reintento): {e}")
-    return []
+    """Query con Google (primario) → DDG (fallback). Sin rate-limit ni caché. Usar solo a través de _ddg_search."""
+    return _multi_search(query, max_results=max_results)
 
 
 def _ddg_search(query: str, max_results: int = config.MAX_RESULTS_PER_QUERY) -> List[Dict]:
