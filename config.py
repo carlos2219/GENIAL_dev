@@ -9,14 +9,14 @@ from datetime import datetime
 
 # ─── Rutas ───────────────────────────────────────────────────────────────────
 BASE_DIR   = Path(__file__).parent
-CSV_PATH   = BASE_DIR / "listado_universidades_altillo.csv"
+CSV_PATH   = BASE_DIR / "data" / "listado_universidades_altillo.csv"
 OUTPUT_DIR = BASE_DIR / "output"
 CACHE_DIR  = BASE_DIR / "cache"
 LOG_DIR    = BASE_DIR / "logs"
 
 # Excel con los registros definitivos ya clasificados.
 # Si existe, sus URLs se usan como skip-list para no reprocesar documentos.
-KNOWN_MATRIX_EXCEL = BASE_DIR / "Matriz_Normativa_IA_Educacion_LATAM.xlsx"
+KNOWN_MATRIX_EXCEL = BASE_DIR / "data" / "Matriz_Normativa_IA_Educacion_LATAM.xlsx"
 
 for _d in [OUTPUT_DIR, CACHE_DIR, LOG_DIR]:
     _d.mkdir(exist_ok=True)
