@@ -46,15 +46,15 @@ def _setup_logging(verbose: bool = False):
 # ─── Módulos del sistema ──────────────────────────────────────────────────────
 
 import config
-import government_search
-import university_search
-import open_search
-import document_extractor
-import document_classifier
-import deduplicator
-import ai_classifier
-import matrix_builder
-import excel_exporter
+from src.pipeline import government_search
+from src.pipeline import university_search
+from src.pipeline import open_search
+from src.pipeline import document_extractor
+from src.pipeline import document_classifier
+from src.pipeline import deduplicator
+from src.pipeline import ai_classifier
+from src.pipeline import matrix_builder
+from src.pipeline import excel_exporter
 
 
 # ─── Checkpoint helpers ───────────────────────────────────────────────────────
@@ -430,6 +430,11 @@ def _parse_args():
         help="Omitir FASE 3 (búsqueda abierta)"
     )
     parser.add_argument(
+        "--phase3-only", action="store_true",
+        help="Ejecutar solo Fase 3 (búsqueda abierta) + extracción + clasificación + Excel. "
+             "Equivale a --skip-government --skip-universities."
+    )
+    parser.add_argument(
         "--skip-ai", action="store_true",
         help="Omitir clasificación con IA (usar solo heurística)"
     )
@@ -482,6 +487,10 @@ if __name__ == "__main__":
         effective_max = getattr(config, "DEFINITIVE_RUN_MAX_UNIVERSITIES", None)
         if effective_max:
             logger.info(f"[main] Límite seguro aplicado: {effective_max} universidades (usa --all-universities para el listado completo)")
+
+    if getattr(args, "phase3_only", False):
+        args.skip_government = True
+        args.skip_universities = True
 
     output = run_pipeline(
         skip_government=args.skip_government,
