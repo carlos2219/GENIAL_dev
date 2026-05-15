@@ -94,6 +94,7 @@ def _google_cse_search(query: str, max_results: int) -> List[Dict]:
                 "url":   item.get("link", ""),
                 "title": item.get("title", ""),
                 "body":  item.get("snippet", query),
+                "_backend_tag": "cse",
             })
 
         start += len(items)
@@ -163,6 +164,7 @@ def _brave_search(query: str, max_results: int) -> List[Dict]:
                 "url":   item.get("url", ""),
                 "title": item.get("title", ""),
                 "body":  item.get("description", query),
+                "_backend_tag": "brave",
             })
 
         offset += len(items)
@@ -174,7 +176,58 @@ def _brave_search(query: str, max_results: int) -> List[Dict]:
     return results[:max_results]
 
 
-# ─── Backend 3: googlesearch-python (scraping HTML) ───────────────────────────
+# ─── Backend 3: Serper.dev (Google proxy) ────────────────────────────────────
+
+def _serper_search(query: str, max_results: int, country: str = "MX") -> List[Dict]:
+    """
+    Búsqueda vía Serper.dev — proxy de Google Search.
+
+    Funciona desde cualquier IP (incluyendo GCP). Requiere:
+      - SERPER_API_KEY: obtenida en https://serper.dev
+
+    Plan Basic: 2500/mes gratis; $50/mes = 50k queries.
+    """
+    api_key = getattr(config, "SERPER_API_KEY", "")
+    if not api_key:
+        return []
+
+    country_cfg = getattr(config, "LATAM_COUNTRIES", {}).get(country, {})
+    gl = country_cfg.get("serper_gl", "mx")
+    hl = country_cfg.get("lang", "es")
+
+    endpoint = "https://google.serper.dev/search"
+    headers = {"X-API-KEY": api_key, "Content-Type": "application/json"}
+    payload = {"q": query, "num": min(max_results, 100), "gl": gl, "hl": hl}
+
+    try:
+        resp = requests.post(endpoint, json=payload, headers=headers, timeout=15)
+        if resp.status_code == 401:
+            logger.warning("[backends/serper] API key inválida — verifica SERPER_API_KEY")
+            return []
+        if resp.status_code == 429:
+            logger.warning("[backends/serper] Cuota agotada (429). Cambiando a fallback.")
+            return []
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        logger.warning(f"[backends/serper] HTTP error: {e}")
+        return []
+
+    results = []
+    for item in resp.json().get("organic", [])[:max_results]:
+        results.append({
+            "href":  item.get("link", ""),
+            "url":   item.get("link", ""),
+            "title": item.get("title", ""),
+            "body":  item.get("snippet", query),
+            "_backend_tag": "serper",
+        })
+
+    if results:
+        logger.info(f"[backends/serper] {len(results)} resultados para: {query[:70]}")
+    return results
+
+
+# ─── Backend 4: googlesearch-python (scraping HTML) ───────────────────────────
 
 def _google_scrape_search(query: str, max_results: int, pause: float) -> List[Dict]:
     """
@@ -205,7 +258,7 @@ def _google_scrape_search(query: str, max_results: int, pause: float) -> List[Di
 
     logger.debug(f"[backends/google-scrape] {len(urls)} URLs para: {query[:70]}")
     return [
-        {"href": u, "url": u, "title": "", "body": query}
+        {"href": u, "url": u, "title": "", "body": query, "_backend_tag": "google_scrape"}
         for u in urls
     ]
 
@@ -236,6 +289,8 @@ def _ddg_search(query: str, max_results: int, retries: int = 3) -> List[Dict]:
     for attempt in range(retries):
         try:
             results = list(DDGS().text(query, max_results=max_results))
+            for r in results:
+                r.setdefault("_backend_tag", "ddg")
             if results:
                 logger.debug(f"[backends/ddg] {len(results)} resultados para: {query[:70]}")
             return results
@@ -257,48 +312,12 @@ def multi_search(
     query: str,
     max_results: Optional[int] = None,
     pause: Optional[float] = None,
+    query_type: Optional[str] = None,
 ) -> List[Dict]:
     """
-    Búsqueda con cascade de backends: CSE → Google scrape → DDG.
-
-    Prioridad:
-      1. Google Custom Search API (si GOOGLE_CSE_API_KEY + GOOGLE_CSE_ID configurados)
-      2. Brave Search API (si BRAVE_API_KEY configurado)
-      3. googlesearch-python scraping (si GOOGLE_AS_PRIMARY=true, solo funciona en local)
-      4. DuckDuckGo (siempre disponible como último recurso)
-
-    Returns:
-        Lista de dicts con keys href/url, title, body.
+    Public entry point — delegates to phase-aware router when SEARCH_ROUTER_ENABLED=true,
+    falls back to legacy cascade otherwise. query_type: 'gov' | 'site' | 'open' | None.
     """
-    if max_results is None:
-        max_results = config.MAX_RESULTS_PER_QUERY
-    if pause is None:
-        pause = float(getattr(config, "GOOGLE_SEARCH_PAUSE", 2.5))
-
-    # ── 1. Google CSE (funciona en GCP) ──
-    cse_key = getattr(config, "GOOGLE_CSE_API_KEY", "")
-    cse_id  = getattr(config, "GOOGLE_CSE_ID", "")
-    if cse_key and cse_id:
-        results = _google_cse_search(query, max_results=max_results)
-        if results:
-            return results
-        logger.debug("[backends] CSE vacío → intentando Brave")
-
-    # ── 2. Brave Search API (funciona en GCP) ──
-    brave_key = getattr(config, "BRAVE_API_KEY", "")
-    if brave_key:
-        results = _brave_search(query, max_results=max_results)
-        if results:
-            return results
-        logger.debug("[backends] Brave vacío → intentando Google scrape")
-
-    # ── 3. Google scraping (solo funciona fuera de GCP) ──
-    if getattr(config, "GOOGLE_AS_PRIMARY", True):
-        results = _google_scrape_search(query, max_results=max_results, pause=pause)
-        if results:
-            return results
-        logger.debug("[backends] Google scrape vacío → usando DDG fallback")
-
-    # ── 4. DuckDuckGo ──
-    return _ddg_search(query, max_results=max_results)
+    from .search_router import router_search  # lazy: avoids circular import at module load
+    return router_search(query, query_type=query_type, max_results=max_results, pause=pause)
 
