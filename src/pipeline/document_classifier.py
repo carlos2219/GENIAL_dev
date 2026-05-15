@@ -94,6 +94,19 @@ def classify(document: Dict) -> Dict:
         label = "BAJA"
 
     document["heuristic_label"] = label
+
+    if getattr(config, "SEARCH_METRICS_ENABLED", True):
+        is_extracted = (
+            document.get("extraction_error") is None
+            and len(document.get("extracted_text", "")) > 0
+        )
+        if is_extracted:
+            from src.pipeline.search_metrics import get_metrics
+            get_metrics().record_classification(
+                document.get("url", ""),
+                is_normative=(label != "BAJA"),
+            )
+
     return document
 
 
