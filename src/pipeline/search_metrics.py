@@ -16,6 +16,15 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 
+# ─── CSV field order ─────────────────────────────────────────────────────────
+
+_CSV_FIELDNAMES = [
+    "backend", "phase", "queries_served", "hit_rate", "avg_results_per_query",
+    "pdf_yield", "official_domain_ratio", "latency_p50_ms", "latency_p95_ms",
+    "validated_document_rate", "false_positive_rate",
+]
+
+
 # ─── Compiled official-domain patterns (lazy, thread-safe) ───────────────────
 
 _COMPILED_PATTERNS: Optional[List[re.Pattern]] = None
@@ -235,12 +244,12 @@ class SearchMetrics:
         json_path = output_dir / f"run_{run_id}.json"
         json_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 
-        if rows:
-            csv_path = output_dir / f"run_{run_id}.csv"
-            with open(csv_path, "w", newline="", encoding="utf-8") as f:
-                writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
-                writer.writeheader()
-                writer.writerows(rows)
+        csv_path = output_dir / f"run_{run_id}.csv"
+        fieldnames = list(rows[0].keys()) if rows else _CSV_FIELDNAMES
+        with open(csv_path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(rows)
 
 
 # ─── Singleton ────────────────────────────────────────────────────────────────
