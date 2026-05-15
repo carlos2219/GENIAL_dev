@@ -6,6 +6,9 @@ Modifica este archivo para ajustar comportamiento, límites y credenciales.
 import os
 from pathlib import Path
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).parent / ".env")
 
 # ─── Rutas ───────────────────────────────────────────────────────────────────
 BASE_DIR   = Path(__file__).parent
