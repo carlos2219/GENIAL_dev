@@ -412,15 +412,21 @@ UNIVERSITY_REPO_DDG_QUERIES = [
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 import re as _re
+from urllib.parse import urlparse as _urlparse
 
 
 def _is_official_url(url: str, country: str = None) -> bool:
     """Returns True if url matches OFFICIAL_DOMAIN_PATTERNS for the given or all active countries."""
     countries = [country] if country else ACTIVE_COUNTRIES
-    url_lower = url.lower()
+    # Match only against the netloc (host) portion so path doesn't break $-anchored patterns
+    try:
+        netloc = _urlparse(url).netloc.lower()
+    except Exception:
+        netloc = url.lower()
+    host = netloc or url.lower()
     for c in countries:
         for pat in OFFICIAL_DOMAIN_PATTERNS.get(c, []):
-            if _re.search(pat, url_lower):
+            if _re.search(pat, host):
                 return True
     return False
 
