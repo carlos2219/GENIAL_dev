@@ -135,6 +135,13 @@ def _extract_all(documents: List[Dict], max_workers: int = config.MAX_WORKERS) -
                 original_doc["content_type"]     = "unknown"
             finally:
                 results.append(original_doc)
+                if getattr(config, "SEARCH_METRICS_ENABLED", True):
+                    from src.pipeline.search_metrics import get_metrics
+                    survived = (
+                        original_doc.get("extraction_error") is None
+                        and len(original_doc.get("extracted_text", "")) > 0
+                    )
+                    get_metrics().record_validation(original_doc.get("url", ""), survived)
                 completed += 1
                 if completed % 10 == 0:
                     logger.info(f"[main] Extraídos {completed}/{len(documents)}")
@@ -386,6 +393,14 @@ def run_pipeline(
         log_rows=log_rows,
     )
 
+    if getattr(config, "SEARCH_METRICS_ENABLED", True):
+        from src.pipeline.search_metrics import get_metrics
+        try:
+            get_metrics().export_report(config.OUTPUT_DIR)
+            logger.info(f"[main] Reporte de métricas guardado en {config.OUTPUT_DIR}/metrics/")
+        except Exception as e:
+            logger.warning(f"[main] Error exportando métricas: {e}")
+
     # ─── Guardar JSON de respaldo ──────────────────────────────────────────────
     json_path = config.OUTPUT_DIR / "documentos_procesados.json"
     try:
@@ -399,6 +414,9 @@ def run_pipeline(
         logger.info(f"[main] JSON de respaldo: {json_path}")
     except Exception as e:
         logger.warning(f"[main] No se pudo guardar JSON: {e}")
+
+    from src.pipeline import search_router
+    search_router._flush_cache()
 
     elapsed = time.time() - start_time
     logger.info("=" * 70)
@@ -465,6 +483,14 @@ def _parse_args():
         "--verbose", action="store_true",
         help="Logging detallado (DEBUG)"
     )
+    parser.add_argument(
+        "--profile",
+        type=str,
+        default=None,
+        choices=["fast", "balanced", "deep"],
+        metavar="PROFILE",
+        help="Perfil de ejecución de búsqueda: fast | balanced | deep (default: balanced)"
+    )
     return parser.parse_args()
 
 
@@ -474,6 +500,11 @@ if __name__ == "__main__":
 
     if args.researcher:
         config.RESEARCHER_NAME = args.researcher
+
+    if args.profile:
+        config.SEARCH_PROFILE = args.profile
+        config._apply_profile(args.profile)
+        logger.info(f"[main] Perfil de búsqueda: {args.profile}")
 
     # Determinar límite de universidades:
     # 1. --max-universities N  → usa N explícitamente
