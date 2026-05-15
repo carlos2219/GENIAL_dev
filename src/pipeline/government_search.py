@@ -41,7 +41,7 @@ def _search_government_queries() -> List[Dict]:
 
     for query in config.GOVERNMENT_QUERIES:
         logger.info(f"[gov_search] Query: {query}")
-        raw = multi_search(query)
+        raw = multi_search(query, query_type="gov")
 
         for r in raw:
             url   = r.get("href", "") or r.get("url", "")
@@ -52,11 +52,11 @@ def _search_government_queries() -> List[Dict]:
                 continue
 
             # Priorizar dominios gubernamentales
-            is_gov = any(dom in url.lower() for dom in config.GOVERNMENT_PRIORITY_DOMAINS)
-            if not is_gov:
+            if not config._is_official_url(url):
                 # En fase gubernamental descartamos resultados fuera de dominios prioritarios
                 # para evitar ruido de prensa y contenido no normativo.
                 continue
+            is_gov = True
 
             if not _topic_match(url, title, body):
                 continue

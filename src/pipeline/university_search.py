@@ -149,7 +149,7 @@ def _extract_domain(url: str) -> str:
 
 def _ddg_search_raw(query: str, max_results: int = config.MAX_RESULTS_PER_QUERY) -> List[Dict]:
     """Query con Google (primario) → DDG (fallback). Sin rate-limit ni caché. Usar solo a través de _ddg_search."""
-    return _multi_search(query, max_results=max_results)
+    return _multi_search(query, max_results=max_results, query_type="site")
 
 
 def _ddg_search(query: str, max_results: int = config.MAX_RESULTS_PER_QUERY) -> List[Dict]:

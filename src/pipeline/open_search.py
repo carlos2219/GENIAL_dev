@@ -47,12 +47,9 @@ def _make_dof_session(headers: dict) -> requests.Session:
 logger = logging.getLogger(__name__)
 
 
-def _is_mexican_official_url(url: str) -> bool:
-    """Verifica que la URL pertenezca a un dominio oficial mexicano (.gob.mx, .edu.mx o dominios prioritarios)."""
-    url_l = url.lower()
-    if ".gob.mx" in url_l or ".edu.mx" in url_l:
-        return True
-    return any(d and d in url_l for d in getattr(config, "GOVERNMENT_PRIORITY_DOMAINS", []))
+def _is_official_url_for_active_countries(url: str) -> bool:
+    """Verifica que la URL pertenezca a un dominio oficial usando config._is_official_url."""
+    return config._is_official_url(url)
 
 
 def _topic_match(url: str, title: str, body: str) -> bool:
@@ -194,7 +191,7 @@ def search_open() -> List[Dict]:
     logger.info(f"[open_search] Ejecutando {len(config.OPEN_SEARCH_QUERIES)} queries (Google→DDG fallback)")
     for query in config.OPEN_SEARCH_QUERIES:
         logger.info(f"[open_search] Query: {query}")
-        raw = multi_search(query, max_results=config.MAX_RESULTS_PER_QUERY)
+        raw = multi_search(query, max_results=config.MAX_RESULTS_PER_QUERY, query_type="open")
 
         for r in raw:
             url   = r.get("href", "") or r.get("url", "")
@@ -205,7 +202,7 @@ def search_open() -> List[Dict]:
                 continue
 
             # Solo fuentes oficiales mexicanas (.gob.mx, .edu.mx o dominios prioritarios)
-            if not _is_mexican_official_url(url):
+            if not _is_official_url_for_active_countries(url):
                 logger.debug(f"[open_search] Dominio no oficial descartado: {url[:60]}")
                 continue
 
