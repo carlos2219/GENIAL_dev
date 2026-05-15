@@ -80,6 +80,12 @@ def test_unknown_url_in_record_validation_is_silently_ignored():
 
 
 def test_get_metrics_returns_singleton():
-    a = get_metrics()
-    b = get_metrics()
-    assert a is b
+    import src.pipeline.search_metrics as _mod
+    original = _mod._INSTANCE
+    try:
+        _mod._INSTANCE = None
+        a = get_metrics()
+        b = get_metrics()
+        assert a is b
+    finally:
+        _mod._INSTANCE = original

@@ -163,7 +163,8 @@ class SearchMetrics:
             self._cache_stats = {"hits": 0, "misses": 0, "expired": 0, "by_query_type": {}}
             self._start_time = time.time()
         global _COMPILED_PATTERNS
-        _COMPILED_PATTERNS = None
+        with _COMPILED_LOCK:
+            _COMPILED_PATTERNS = None
 
     def _bucket_rows(self) -> List[Dict]:
         rows = []
@@ -241,15 +242,19 @@ class SearchMetrics:
             },
         }
 
-        json_path = output_dir / f"run_{run_id}.json"
-        json_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+        try:
+            json_path = output_dir / f"run_{run_id}.json"
+            json_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 
-        csv_path = output_dir / f"run_{run_id}.csv"
-        fieldnames = list(rows[0].keys()) if rows else _CSV_FIELDNAMES
-        with open(csv_path, "w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerows(rows)
+            csv_path = output_dir / f"run_{run_id}.csv"
+            fieldnames = list(rows[0].keys()) if rows else _CSV_FIELDNAMES
+            with open(csv_path, "w", newline="", encoding="utf-8") as f:
+                writer = csv.DictWriter(f, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(rows)
+        except Exception as exc:
+            import logging as _log
+            _log.getLogger(__name__).warning(f"[search_metrics] Error writing report: {exc}")
 
 
 # ─── Singleton ────────────────────────────────────────────────────────────────
