@@ -61,6 +61,19 @@ GOOGLE_CSE_ID            = os.getenv("GOOGLE_CSE_ID", "")
 # Brave Search API — busca toda la web, funciona desde GCP, 2000 queries/mes gratis
 # Obtener API key en: https://api.search.brave.com/
 BRAVE_API_KEY            = os.getenv("BRAVE_API_KEY", "")
+
+# ─── Motor de búsqueda — router y backends ───────────────────────────────────
+SERPER_API_KEY         = os.getenv("SERPER_API_KEY", "")
+SEARCH_ROUTER_ENABLED  = os.getenv("SEARCH_ROUTER_ENABLED", "true").strip().lower() not in ("false", "0", "no")
+SEARCH_PARALLEL_GOV    = os.getenv("SEARCH_PARALLEL_GOV",   "true").strip().lower() not in ("false", "0", "no")
+SEARCH_METRICS_ENABLED = os.getenv("SEARCH_METRICS_ENABLED","true").strip().lower() not in ("false", "0", "no")
+SEARCH_PROFILE         = os.getenv("SEARCH_PROFILE", "balanced").strip()
+
+# TTL del caché unificado (días) — sobrescritos por _apply_profile() si no se definen en .env
+CACHE_TTL_GOV_DAYS     = int(os.getenv("CACHE_TTL_GOV_DAYS",  "7"))
+CACHE_TTL_SITE_DAYS    = int(os.getenv("CACHE_TTL_SITE_DAYS", "14"))
+CACHE_TTL_OPEN_DAYS    = int(os.getenv("CACHE_TTL_OPEN_DAYS",  "3"))
+
 CRAWL_NON_PRIORITY       = True   # crawl para todas; no-prioritarias usan límites reducidos
 CRAWL_NON_PRIORITY_MAX_DOCS    = 2   # URLs máx por universidad no prioritaria
 CRAWL_NON_PRIORITY_MAX_SECONDS = 8   # timeout de crawl para no-prioritarias
@@ -214,6 +227,29 @@ GOVERNMENT_PRIORITY_DOMAINS = [
     ".gob.mx", "dof.gob.mx", "sep.gob.mx", "conahcyt.mx",
     "conacyt.gob.mx", "ift.org.mx",
 ]
+
+# ─── LATAM extensibility ─────────────────────────────────────────────────────
+LATAM_COUNTRIES = {
+    "MX": {"tld": ".mx",  "lang": "es", "brave_country": "MX", "serper_gl": "mx"},
+    "CO": {"tld": ".co",  "lang": "es", "brave_country": "CO", "serper_gl": "co"},
+    "AR": {"tld": ".ar",  "lang": "es", "brave_country": "AR", "serper_gl": "ar"},
+    "PE": {"tld": ".pe",  "lang": "es", "brave_country": "PE", "serper_gl": "pe"},
+    "CL": {"tld": ".cl",  "lang": "es", "brave_country": "CL", "serper_gl": "cl"},
+    "EC": {"tld": ".ec",  "lang": "es", "brave_country": "EC", "serper_gl": "ec"},
+    "BR": {"tld": ".br",  "lang": "pt", "brave_country": "BR", "serper_gl": "br"},
+}
+
+OFFICIAL_DOMAIN_PATTERNS = {
+    "MX": [r"\.gob\.mx$", r"\.edu\.mx$"],
+    "CO": [r"\.gov\.co$", r"\.edu\.co$"],
+    "AR": [r"\.gob\.ar$", r"\.edu\.ar$"],
+    "PE": [r"\.gob\.pe$", r"\.edu\.pe$"],
+    "CL": [r"\.gob\.cl$", r"\.edu\.cl$"],
+    "EC": [r"\.gob\.ec$", r"\.edu\.ec$"],
+    "BR": [r"\.gov\.br$", r"\.edu\.br$"],
+}
+
+ACTIVE_COUNTRIES = [c.strip() for c in os.getenv("ACTIVE_COUNTRIES", "MX").split(",")]
 
 # Dominios de universidades mexicanas reconocidas que no usan .edu.mx
 EXTRA_ALLOWED_UNIVERSITY_DOMAINS = [
@@ -372,3 +408,73 @@ UNIVERSITY_REPO_DDG_QUERIES = [
     'site:repositorio.unam.mx "inteligencia artificial" lineamiento OR reglamento OR política',
     'site:repositoriodigital.ipn.mx "inteligencia artificial" normativa OR protocolo',
 ]
+
+# ─── Helpers ──────────────────────────────────────────────────────────────────
+
+import re as _re
+
+
+def _is_official_url(url: str, country: str = None) -> bool:
+    """Returns True if url matches OFFICIAL_DOMAIN_PATTERNS for the given or all active countries."""
+    countries = [country] if country else ACTIVE_COUNTRIES
+    url_lower = url.lower()
+    for c in countries:
+        for pat in OFFICIAL_DOMAIN_PATTERNS.get(c, []):
+            if _re.search(pat, url_lower):
+                return True
+    return False
+
+
+# ─── Execution profiles ───────────────────────────────────────────────────────
+
+_ROUTING_TABLES = {
+    "fast": {
+        "gov":  {"primary": ["cse"],                  "secondary": "ddg",    "parallel": False},
+        "site": {"primary": ["ddg"],                  "secondary": None,     "parallel": False},
+        "open": {"primary": ["ddg"],                  "secondary": None,     "parallel": False},
+        None:   {"primary": ["cse", "brave", "ddg"],  "secondary": None,     "parallel": False},
+    },
+    "balanced": {
+        "gov":  {"primary": ["cse", "brave"],         "secondary": "serper", "parallel": True},
+        "site": {"primary": ["serper"],               "secondary": "ddg",    "parallel": False},
+        "open": {"primary": ["brave"],                "secondary": "serper", "parallel": False},
+        None:   {"primary": ["cse", "brave", "ddg"],  "secondary": None,     "parallel": False},
+    },
+    "deep": {
+        "gov":  {"primary": ["cse", "brave", "serper"], "secondary": None,   "parallel": True},
+        "site": {"primary": ["serper", "ddg"],          "secondary": None,   "parallel": True},
+        "open": {"primary": ["brave", "serper"],        "secondary": None,   "parallel": True},
+        None:   {"primary": ["cse", "brave", "ddg"],    "secondary": None,   "parallel": False},
+    },
+}
+
+_PROFILE_DEFAULTS = {
+    "fast":     {"CACHE_TTL_GOV_DAYS": 14, "CACHE_TTL_SITE_DAYS": 7,  "CACHE_TTL_OPEN_DAYS": 7,  "MAX_RESULTS_PER_QUERY": 5,  "SEARCH_PARALLEL_GOV": False},
+    "balanced": {"CACHE_TTL_GOV_DAYS": 7,  "CACHE_TTL_SITE_DAYS": 14, "CACHE_TTL_OPEN_DAYS": 3,  "MAX_RESULTS_PER_QUERY": 10, "SEARCH_PARALLEL_GOV": True},
+    "deep":     {"CACHE_TTL_GOV_DAYS": 1,  "CACHE_TTL_SITE_DAYS": 3,  "CACHE_TTL_OPEN_DAYS": 1,  "MAX_RESULTS_PER_QUERY": 20, "SEARCH_PARALLEL_GOV": True},
+}
+
+
+def _apply_profile(profile_name: str) -> None:
+    """Apply execution profile. Env-var-defined values take precedence."""
+    global CACHE_TTL_GOV_DAYS, CACHE_TTL_SITE_DAYS, CACHE_TTL_OPEN_DAYS
+    global MAX_RESULTS_PER_QUERY, SEARCH_PARALLEL_GOV, ROUTING_TABLE
+
+    defaults = _PROFILE_DEFAULTS.get(profile_name, _PROFILE_DEFAULTS["balanced"])
+
+    if not os.getenv("CACHE_TTL_GOV_DAYS"):
+        CACHE_TTL_GOV_DAYS = defaults["CACHE_TTL_GOV_DAYS"]
+    if not os.getenv("CACHE_TTL_SITE_DAYS"):
+        CACHE_TTL_SITE_DAYS = defaults["CACHE_TTL_SITE_DAYS"]
+    if not os.getenv("CACHE_TTL_OPEN_DAYS"):
+        CACHE_TTL_OPEN_DAYS = defaults["CACHE_TTL_OPEN_DAYS"]
+    if not os.getenv("MAX_RESULTS_PER_QUERY"):
+        MAX_RESULTS_PER_QUERY = defaults["MAX_RESULTS_PER_QUERY"]
+    if not os.getenv("SEARCH_PARALLEL_GOV"):
+        SEARCH_PARALLEL_GOV = defaults["SEARCH_PARALLEL_GOV"]
+
+    ROUTING_TABLE = _ROUTING_TABLES.get(profile_name, _ROUTING_TABLES["balanced"])
+
+
+ROUTING_TABLE = _ROUTING_TABLES["balanced"]  # default; overwritten by _apply_profile
+_apply_profile(SEARCH_PROFILE)
