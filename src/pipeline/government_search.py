@@ -87,7 +87,7 @@ def _search_government_queries() -> List[Dict]:
 
 def _crawl_gov_seeds() -> List[Dict]:
     """Rastrea semillas gubernamentales y extrae enlaces relevantes."""
-    from site_crawler import crawl_domain
+    from .site_crawler import crawl_domain
 
     docs: List[Dict] = []
     for seed_url in config.GOVERNMENT_SEED_URLS:

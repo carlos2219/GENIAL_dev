@@ -56,7 +56,7 @@ def _load_cache() -> None:
                     "key": key, "backend": "ddg", "query_type": None,
                     "results": results, "cached_at": now_str, "ttl_days": 7,
                 }
-            logger.info(f"[search_cache] Migradas {len(_cache_data)} entradas DDG → search_cache.json")
+            logger.info(f"[search_cache] Migradas {len(_cache_data)} entradas DDG -> search_cache.json")
         except Exception as e:
             logger.warning(f"[search_cache] Error migrando DDG cache: {e}")
 

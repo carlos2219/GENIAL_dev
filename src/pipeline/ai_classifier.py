@@ -204,7 +204,7 @@ def classify_with_ai(document: Dict, retries: int = 2) -> Dict:
                 if field not in classification:
                     classification[field] = _EMPTY_CLASSIFICATION.get(field, "No disponible")
 
-            logger.debug(f"[ai_classifier] Clasificado: {document.get('url', '')[:60]} → {classification.get('es_normativa')} / {classification.get('tipo_norma')}")
+            logger.debug(f"[ai_classifier] Clasificado: {document.get('url', '')[:60]} -> {classification.get('es_normativa')} / {classification.get('tipo_norma')}")
             return classification
 
         except json.JSONDecodeError as e:

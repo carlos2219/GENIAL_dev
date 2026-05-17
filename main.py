@@ -74,7 +74,7 @@ def _save_checkpoint(name: str, data: List[Dict], ckpt_dir: Path) -> None:
         safe = [{k: v for k, v in d.items() if k != "_session"} for d in data]
         with open(path, "w", encoding="utf-8") as f:
             json.dump(safe, f, ensure_ascii=False)
-        logger.info(f"[checkpoint] Guardado '{name}': {len(data)} docs → {path.name}")
+        logger.info(f"[checkpoint] Guardado '{name}': {len(data)} docs -> {path.name}")
     except Exception as e:
         logger.warning(f"[checkpoint] Error guardando '{name}': {e}")
 
@@ -206,13 +206,13 @@ def run_pipeline(
     if resume:
         if _ckpt_exists("classified_heuristic", ckpt_dir):
             _resume_from = "ai"
-            logger.info("[resume] Checkpoint detectado → reanudando desde: Clasificación IA")
+            logger.info("[resume] Checkpoint detectado -> reanudando desde: Clasificación IA")
         elif _ckpt_exists("extracted", ckpt_dir):
             _resume_from = "heuristic"
-            logger.info("[resume] Checkpoint detectado → reanudando desde: Clasificación heurística")
+            logger.info("[resume] Checkpoint detectado -> reanudando desde: Clasificación heurística")
         elif _ckpt_exists("search_complete", ckpt_dir):
             _resume_from = "extraction"
-            logger.info("[resume] Checkpoint detectado → reanudando desde: Extracción de contenido")
+            logger.info("[resume] Checkpoint detectado -> reanudando desde: Extracción de contenido")
         else:
             _resume_from = "search"
             logger.info("[resume] Sin checkpoint de etapa — cargando fases de búsqueda si existen")
@@ -347,7 +347,7 @@ def run_pipeline(
         alta  = sum(1 for d in all_classified if d.get("heuristic_label") == "ALTA")
         media = sum(1 for d in all_classified if d.get("heuristic_label") == "MEDIA")
         baja  = sum(1 for d in all_classified if d.get("heuristic_label") == "BAJA")
-        logger.info(f"[main] Heurística → ALTA: {alta} | MEDIA: {media} | BAJA: {baja}")
+        logger.info(f"[main] Heurística -> ALTA: {alta} | MEDIA: {media} | BAJA: {baja}")
 
         # ─── DEDUPLICACIÓN POST-EXTRACCIÓN ────────────────────────────────────────
         all_classified = deduplicator.deduplicate(all_classified)
@@ -361,7 +361,7 @@ def run_pipeline(
         alta  = sum(1 for d in all_classified if d.get("heuristic_label") == "ALTA")
         media = sum(1 for d in all_classified if d.get("heuristic_label") == "MEDIA")
         baja  = sum(1 for d in all_classified if d.get("heuristic_label") == "BAJA")
-        logger.info(f"[main] Heurística (checkpoint) → ALTA: {alta} | MEDIA: {media} | BAJA: {baja}")
+        logger.info(f"[main] Heurística (checkpoint) -> ALTA: {alta} | MEDIA: {media} | BAJA: {baja}")
 
     # ─── CLASIFICACIÓN CON IA ──────────────────────────────────────────────────
     if not skip_ai and config.OPENAI_API_KEY:

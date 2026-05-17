@@ -188,7 +188,7 @@ def search_open() -> List[Dict]:
     all_results: List[Dict] = []
 
     # ── 3a. Queries Google/DDG (incluye site:dof.gob.mx, repositorios, transparencia) ──
-    logger.info(f"[open_search] Ejecutando {len(config.OPEN_SEARCH_QUERIES)} queries (Google→DDG fallback)")
+    logger.info(f"[open_search] Ejecutando {len(config.OPEN_SEARCH_QUERIES)} queries (Google->DDG fallback)")
     for query in config.OPEN_SEARCH_QUERIES:
         logger.info(f"[open_search] Query: {query}")
         raw = multi_search(query, max_results=config.MAX_RESULTS_PER_QUERY, query_type="open")

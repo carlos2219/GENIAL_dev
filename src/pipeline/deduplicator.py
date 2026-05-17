@@ -86,7 +86,7 @@ def deduplicate(documents: List[Dict]) -> List[Dict]:
                 by_url[norm] = doc
 
     deduped_by_url = list(by_url.values())
-    logger.info(f"[dedup] URL: {len(documents)} → {len(deduped_by_url)}")
+    logger.info(f"[dedup] URL: {len(documents)} -> {len(deduped_by_url)}")
 
     # Paso 2: deduplicar por hash de contenido (sólo si hay texto)
     by_content: Dict[str, Dict] = {}
@@ -106,7 +106,7 @@ def deduplicate(documents: List[Dict]) -> List[Dict]:
                 by_content[chash] = doc
 
     result = list(by_content.values()) + no_text
-    logger.info(f"[dedup] contenido: {len(deduped_by_url)} → {len(result)}")
+    logger.info(f"[dedup] contenido: {len(deduped_by_url)} -> {len(result)}")
     return result
 
 
@@ -122,7 +122,7 @@ def remove_url_duplicates_only(documents: List[Dict]) -> List[Dict]:
         if norm not in seen:
             seen.add(norm)
             result.append(doc)
-    logger.info(f"[dedup-url] {len(documents)} → {len(result)}")
+    logger.info(f"[dedup-url] {len(documents)} -> {len(result)}")
     return result
 
 
