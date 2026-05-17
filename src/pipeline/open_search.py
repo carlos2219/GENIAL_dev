@@ -52,6 +52,21 @@ def _is_official_url_for_active_countries(url: str) -> bool:
     return config._is_official_url(url)
 
 
+def _matches_site_query(url: str, query: str) -> bool:
+    """Para queries site:dominio, acepta cualquier URL del dominio objetivo."""
+    import re
+    from urllib.parse import urlparse
+    m = re.search(r'site:(\S+)', query.lower())
+    if not m:
+        return False
+    site_domain = m.group(1).rstrip("/")
+    try:
+        host = urlparse(url).netloc.lower().lstrip("www.")
+        return host == site_domain or host.endswith("." + site_domain)
+    except Exception:
+        return False
+
+
 def _topic_match(url: str, title: str, body: str) -> bool:
     """Filtro temático para reducir ruido en búsqueda abierta."""
     if not getattr(config, "STRICT_TOPIC_FILTER", False):
@@ -201,8 +216,8 @@ def search_open() -> List[Dict]:
             if not url or is_excluded(url):
                 continue
 
-            # Solo fuentes oficiales mexicanas (.gob.mx, .edu.mx o dominios prioritarios)
-            if not _is_official_url_for_active_countries(url):
+            # Aceptar dominios oficiales (.gob.mx, .edu.mx) O el dominio objetivo de un site: query
+            if not _is_official_url_for_active_countries(url) and not _matches_site_query(url, query):
                 logger.debug(f"[open_search] Dominio no oficial descartado: {url[:60]}")
                 continue
 
