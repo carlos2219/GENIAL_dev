@@ -29,7 +29,7 @@ Thumbs.db
 logs/
 
 # Pipeline outputs (large files, run-specific)
-output/
+# output/
 cache/
 
 # Excel output (generado por el pipeline)
