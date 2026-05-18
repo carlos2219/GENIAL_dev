@@ -33,7 +33,7 @@ output/
 cache/
 
 # Excel output (generado por el pipeline)
-*.xlsx
+# *.xlsx
 
 # PDFs descargados desde la matriz (generado por download_pdfs.py)
 documentos_pdfs.zip
