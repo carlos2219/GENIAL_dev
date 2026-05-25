@@ -1,0 +1,5 @@
+backend,phase,queries_served,hit_rate,avg_results_per_query,pdf_yield,official_domain_ratio,latency_p50_ms,latency_p95_ms,validated_document_rate,false_positive_rate
+serper,site,2,0.5,5,0.0,0.0,833.2,858.1,1.0,0.3
+ddg,site,1,1.0,1,0.0,0.0,11994.3,11994.3,,
+brave,open,2,0.5,0.5,0.0,0.0,972.0,987.9,,
+serper,open,1,1.0,1,0.0,0.0,1311.4,1311.4,,
