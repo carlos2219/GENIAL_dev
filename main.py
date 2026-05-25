@@ -160,6 +160,7 @@ def run_pipeline(
     skip_open: bool = False,
     skip_ai: bool = False,
     max_universities: int = None,
+    max_unis_phase3: int = None,
     output_path: Path = None,
     verbose: bool = False,
     resume: bool = False,
@@ -172,7 +173,8 @@ def run_pipeline(
         skip_universities: Omitir FASE 2
         skip_open:         Omitir FASE 3
         skip_ai:           Omitir clasificación con IA (usar solo heurística)
-        max_universities:  Límite de universidades a procesar
+        max_universities:  Límite de universidades a procesar en FASE 2
+        max_unis_phase3:   Límite de universidades a procesar en FASE 3
         output_path:       Ruta del Excel de salida
         verbose:           Logging detallado
         resume:            Reanudar desde el último checkpoint disponible
@@ -251,7 +253,7 @@ def run_pipeline(
             open_docs = _cached
         else:
             logger.info(f"[PROGRESO] >> FASE 3/3 - Busqueda abierta (pre-Fase2) | Tiempo: {_elapsed()}")
-            open_docs = open_search.search_open()
+            open_docs = open_search.search_open(max_unis=max_unis_phase3)
             logger.info(f"[PROGRESO] FASE 3 completada: {len(open_docs)} docs | Tiempo: {_elapsed()}")
             _save_checkpoint("phase3_open", open_docs, ckpt_dir)
         all_raw.extend(open_docs)
@@ -466,6 +468,11 @@ def _parse_args():
         help="Procesar TODAS las universidades del CSV (ignora el límite seguro definido en config.DEFINITIVE_RUN_MAX_UNIVERSITIES)"
     )
     parser.add_argument(
+        "--max-unis-phase3", type=int, default=None,
+        metavar="N",
+        help="Procesar solo las primeras N universidades en FASE 3 (útil para pruebas)"
+    )
+    parser.add_argument(
         "--resume", action="store_true",
         help="Reanudar desde el último checkpoint disponible (output/checkpoints/)"
     )
@@ -529,6 +536,7 @@ if __name__ == "__main__":
         skip_open=args.skip_open,
         skip_ai=args.skip_ai,
         max_universities=effective_max,
+        max_unis_phase3=args.max_unis_phase3,
         output_path=args.output,
         verbose=args.verbose,
         resume=args.resume,
