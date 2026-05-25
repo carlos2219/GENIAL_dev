@@ -1,22 +1,21 @@
 """
-open_search.py — FASE 3: Búsqueda abierta exploratoria
+open_search.py — FASE 3: Búsqueda normativa institucional universitaria
 
-Ejecuta queries amplios sin restricción de dominio para detectar
-documentos no indexados fácilmente en búsquedas site-specific.
+Para cada universidad del CSV ejecuta dos fórmulas de búsqueda:
+  1. site:{domain} "inteligencia artificial" AND (lineamientos OR política OR resolución OR guía)
+  2. "{nombre}" México "IA" (ética OR "uso académico" OR regulación OR "pedagógico")
 
-Mejoras v3:
-  - Google Search (googlesearch-python) como backend primario
-  - DuckDuckGo como fallback cuando Google no devuelve resultados
-  - Búsqueda directa en el DOF con adaptador SSL robusto (NoVerifyAdapter)
-  - Queries adicionales para repositorios universitarios de acceso abierto
-  - Queries adicionales para portales de transparencia institucional
+Complementa con búsqueda directa en el DOF.
 """
 
 import logging
 import random
 import time
+from pathlib import Path
 from typing import List, Dict
+from urllib.parse import urlparse
 
+import pandas as pd
 import requests
 from requests.adapters import HTTPAdapter
 from bs4 import BeautifulSoup
@@ -186,72 +185,152 @@ def _dof_direct_search() -> List[Dict]:
     return results
 
 
+def _extract_domain(url_str: str) -> str:
+    """Extrae dominio limpio (sin www) de una URL."""
+    if not url_str or url_str in ("nan", ""):
+        return ""
+    if not url_str.startswith("http"):
+        url_str = "https://" + url_str
+    try:
+        netloc = urlparse(url_str).netloc.lower().lstrip("www.")
+        return netloc if len(netloc) > 4 else ""
+    except Exception:
+        return ""
+
+
+def _load_universities() -> pd.DataFrame:
+    """Carga el CSV de universidades y retorna columnas universidad + url_oficial."""
+    df = pd.read_csv(config.CSV_PATH, encoding="utf-8")
+    df.columns = [c.strip().lower().replace(" ", "_") for c in df.columns]
+    df["universidad"] = df["universidad"].fillna("").astype(str).str.strip()
+    df["url_oficial"] = df.get("url_oficial", pd.Series(dtype=str)).fillna("").astype(str).str.strip()
+    df.loc[df["url_oficial"] == "nan", "url_oficial"] = ""
+    return df
+
+
 def search_open() -> List[Dict]:
     """
-    Ejecuta FASE 3 completa: búsquedas abiertas sin restricción de dominio.
+    FASE 3 — Búsqueda normativa institucional por universidad.
 
-    Incluye:
-      - Queries Google (primario) + DDG (fallback) para cada query
-      - Búsqueda directa en el DOF via HTTP (con adaptador SSL robusto)
+    Para cada universidad del CSV ejecuta:
+      Fórmula 1 (site:): site:{domain} "inteligencia artificial" AND
+                         (lineamientos OR política OR resolución OR guía)
+      Fórmula 2 (nombre): "{nombre}" México "IA"
+                          (ética OR "uso académico" OR regulación OR "pedagógico")
 
-    Retorna lista de documentos filtrados y rankeados.
+    Complementa con búsqueda directa en el DOF.
     """
     logger.info("=" * 60)
-    logger.info("FASE 3 — Búsqueda abierta exploratoria (v3: Google + DDG fallback)")
+    logger.info("FASE 3 — Búsqueda normativa institucional universitaria (v4)")
     logger.info("=" * 60)
 
+    df = _load_universities()
+
+    # Deduplicar por dominio para evitar queries redundantes
+    seen_domains: set = set()
+    seen_urls: set = set()
     all_results: List[Dict] = []
 
-    # ── 3a. Queries Google/DDG (incluye site:dof.gob.mx, repositorios, transparencia) ──
-    logger.info(f"[open_search] Ejecutando {len(config.OPEN_SEARCH_QUERIES)} queries (Google->DDG fallback)")
-    for query in config.OPEN_SEARCH_QUERIES:
-        logger.info(f"[open_search] Query: {query}")
-        raw = multi_search(query, max_results=config.MAX_RESULTS_PER_QUERY, query_type="open")
+    total = len(df)
+    logger.info(f"[open_search] {total} universidades en CSV")
 
-        for r in raw:
-            url   = r.get("href", "") or r.get("url", "")
-            title = r.get("title", "")
-            body  = r.get("body", "")
+    for idx, row in df.iterrows():
+        name = row.get("universidad", "").strip()
+        url_oficial = str(row.get("url_oficial", "") or "").strip()
+        domain = _extract_domain(url_oficial)
 
-            if not url or is_excluded(url):
-                continue
+        queries: List[tuple] = []  # (query_str, query_type, domain_for_filter)
 
-            # Aceptar dominios oficiales (.gob.mx, .edu.mx) O el dominio objetivo de un site: query
-            if not _is_official_url_for_active_countries(url) and not _matches_site_query(url, query):
-                logger.debug(f"[open_search] Dominio no oficial descartado: {url[:60]}")
-                continue
+        # ── Fórmula 1: site: search (solo si tiene URL y dominio nuevo) ────────
+        if domain and domain not in seen_domains:
+            seen_domains.add(domain)
+            q1 = (
+                f'site:{domain} "inteligencia artificial" AND '
+                f'(lineamientos OR política OR resolución OR guía)'
+            )
+            queries.append((q1, "site", domain))
 
-            if not _topic_match(url, title, body):
-                continue
+        # ── Fórmula 2: búsqueda por nombre ─────────────────────────────────────
+        if name and len(name) > 3:
+            q2 = (
+                f'"{name}" México "IA" '
+                f'(ética OR "uso académico" OR regulación OR "pedagógico")'
+            )
+            queries.append((q2, "open", domain))
 
-            all_results.append({
-                "url": url,
-                "title": title,
-                "snippet": body[:400],
-                "source_type": "open",
-                "university_name": None,
-                "university_domain": None,
-                "query_used": query,
-                "extracted_text": "",
-                "extraction_error": None,
-                "heuristic_score": 0.0,
-                "heuristic_label": "BAJA",
-                "ai_classification": None,
-            })
+        for query, qtype, uni_domain in queries:
+            logger.debug(f"[open_search] {name[:40]} — {query[:100]}")
+            raw = multi_search(
+                query,
+                max_results=config.MAX_RESULTS_PER_QUERY,
+                query_type=qtype,
+            )
 
-        time.sleep(config.SEARCH_DELAY_SECONDS)
+            for r in raw:
+                url   = r.get("href", "") or r.get("url", "")
+                title = r.get("title", "")
+                body  = r.get("body", "")
 
-    logger.info(f"[open_search] DDG crudo: {len(all_results)} resultados")
+                if not url or is_excluded(url) or url in seen_urls:
+                    continue
 
-    # ── 3b. Búsqueda directa en el DOF ─────────────────────────────────────
+                # Filtro de dominio:
+                #   - site: queries → aceptar solo URLs del dominio consultado
+                #   - nombre queries → aceptar dominios .mx u oficiales
+                if qtype == "site":
+                    try:
+                        result_host = urlparse(url).netloc.lower().lstrip("www.")
+                        if not (uni_domain and (
+                            result_host == uni_domain
+                            or result_host.endswith("." + uni_domain)
+                        )):
+                            continue
+                    except Exception:
+                        continue
+                else:
+                    try:
+                        result_host = urlparse(url).netloc.lower()
+                        if not (result_host.endswith(".mx")
+                                or _is_official_url_for_active_countries(url)):
+                            logger.debug(f"[open_search] Dominio no .mx descartado: {url[:60]}")
+                            continue
+                    except Exception:
+                        continue
+
+                seen_urls.add(url)
+                all_results.append({
+                    "url": url,
+                    "title": title,
+                    "snippet": body[:400],
+                    "source_type": "open",
+                    "university_name": name,
+                    "university_domain": uni_domain,
+                    "query_used": query,
+                    "extracted_text": "",
+                    "extraction_error": None,
+                    "heuristic_score": 0.0,
+                    "heuristic_label": "BAJA",
+                    "ai_classification": None,
+                })
+
+            time.sleep(config.SEARCH_DELAY_SECONDS)
+
+        if (idx + 1) % 100 == 0 or (idx + 1) == total:
+            logger.info(
+                f"[open_search] Progreso: {idx + 1}/{total} universidades — "
+                f"{len(all_results)} docs acumulados"
+            )
+
+    logger.info(f"[open_search] Crudo universidad: {len(all_results)} resultados")
+
+    # ── Búsqueda directa en el DOF ──────────────────────────────────────────
     dof_results = _dof_direct_search()
-    # Los resultados DOF ya son dof.gob.mx → siempre pasan el filtro de dominio
     for r in dof_results:
-        if not _topic_match(r["url"], r["title"], r["snippet"]):
-            continue
-        all_results.append(r)
+        if r["url"] not in seen_urls:
+            all_results.append(r)
+            seen_urls.add(r["url"])
 
-    logger.info(f"[open_search] Total crudo (DDG + DOF directo): {len(all_results)} resultados")
+    logger.info(f"[open_search] Total crudo (universidades + DOF): {len(all_results)} resultados")
 
     filtered = filter_and_rank(all_results)
     logger.info(f"[open_search] Tras filtro: {len(filtered)} documentos")
