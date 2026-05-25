@@ -54,9 +54,21 @@ def heuristic_score(document: Dict) -> float:
     if ".gob.mx" in url or ".edu.mx" in url:
         score += 0.05
 
-    # Sin mención explícita de IA el documento no puede alcanzar MEDIA ni ALTA
-    if ai_hits == 0:
+    # Detectar señal de IA en la URL (seguro: sin riesgo de falsos positivos por OCR).
+    # Patrones como /ia/, -ia., lineamientos-ia, politica-ia confirman contexto de IA.
+    _url_ai_patterns = (
+        "/ia/", "/ia-", "-ia/", "-ia.", "_ia/", "_ia.", "/ia",
+        "uso-ia", "politica-ia", "lineamientos-ia", "guia-ia", "reglamento-ia",
+        "inteligencia-artificial", "inteligencia_artificial",
+    )
+    url_has_ai = any(p in url for p in _url_ai_patterns)
+
+    # Sin señal de IA (ni en texto ni en URL), el doc no puede alcanzar MEDIA ni ALTA
+    if ai_hits == 0 and not url_has_ai:
         score = min(score, config.HEURISTIC_MEDIUM_THRESHOLD - 0.01)
+    # Señal de IA solo en URL (doc usa abreviatura "IA"): puede llegar a MEDIA pero no ALTA
+    elif ai_hits == 0 and url_has_ai:
+        score = min(score, config.HEURISTIC_HIGH_THRESHOLD - 0.01)
 
     # Sin keywords normativas (alta O media), el documento no puede alcanzar MEDIA.
     # Evita que páginas meramente informativas sobre IA lleguen a MEDIA por acumulación

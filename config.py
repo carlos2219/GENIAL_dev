@@ -36,13 +36,13 @@ SIN_NORMATIVA_LABEL = "Sin normativa específica detectada"
 OPENAI_API_KEY   = os.getenv("OPENAI_API_KEY", "")
 OPENAI_MODEL     = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 OPENAI_MAX_TOKENS = 600      # JSON estructurado; respuestas típicas 300-450 tokens
-OPENAI_INPUT_CHARS = 3500    # Reducido de 5500 para ahorrar ~30% en tokens de entrada
+OPENAI_INPUT_CHARS = 5500    # Más contexto para mejor clasificación IA
 
 # Ampliación controlada de cobertura IA para documentos borderline
 AI_INCLUDE_BORDERLINE_BAJA = True
-AI_BAJA_MIN_SCORE = 0.30          # Umbral mínimo elevado para reducir falsos positivos
-AI_BAJA_MIN_URL_PRIORITY = 0.60   # Umbral URL elevado para exigir más señal normativa
-AI_MAX_EXTRA_BAJA = 20
+AI_BAJA_MIN_SCORE = 0.15          # Umbral relajado para capturar más docs borderline
+AI_BAJA_MIN_URL_PRIORITY = 0.30   # Umbral URL relajado; dominios gob/edu siempre pasan
+AI_MAX_EXTRA_BAJA = 50
 
 # ─── Búsqueda ─────────────────────────────────────────────────────────────────
 MAX_RESULTS_PER_QUERY    = 10   # resultados por query
@@ -86,14 +86,14 @@ DDG_CACHE_ENABLED        = True   # False para deshabilitar en producción limpi
 INTER_PHASE_PAUSE_SECONDS = 0    # reservado para ajustes futuros
 
 # Filtro pre-extracción: descartar docs sin señal de IA ni normativa en snippet/URL
-PRE_EXTRACTION_FILTER_ENABLED = True  # False para deshabilitar
+PRE_EXTRACTION_FILTER_ENABLED = False  # Desactivado: mejor recall, la heurística filtra post-extracción
 
 # Perfil de sesión larga (enfocado a normativa de IA en México)
 DEFINITIVE_RUN_MAX_UNIVERSITIES = None  # sin límite en producción
 
 # Filtros temáticos para priorizar normativa real y reducir ruido
-STRICT_TOPIC_FILTER = True
-TOPIC_MUST_INCLUDE_AI = True
+STRICT_TOPIC_FILTER = False  # Desactivado: la heurística filtra post-extracción con más contexto
+TOPIC_MUST_INCLUDE_AI = False
 TOPIC_MIN_POLICY_HITS = 1
 
 # ─── HTTP ─────────────────────────────────────────────────────────────────────
@@ -111,7 +111,7 @@ USER_AGENTS = [
 
 # ─── Clasificación heurística ─────────────────────────────────────────────────
 HEURISTIC_HIGH_THRESHOLD = 0.50
-HEURISTIC_MEDIUM_THRESHOLD = 0.30  # subido de 0.24 → exige más señal normativa
+HEURISTIC_MEDIUM_THRESHOLD = 0.24  # relajado de 0.30 para mejor recall en docs borderline
 
 HIGH_SCORE_KEYWORDS = [
     "reglamento", "resolución", "resolucion", "acuerdo", "decreto",
