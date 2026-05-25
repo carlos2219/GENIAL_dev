@@ -208,7 +208,7 @@ def _load_universities() -> pd.DataFrame:
     return df
 
 
-def search_open() -> List[Dict]:
+def search_open(max_unis: int = None) -> List[Dict]:
     """
     FASE 3 — Búsqueda normativa institucional por universidad.
 
@@ -219,12 +219,18 @@ def search_open() -> List[Dict]:
                           (ética OR "uso académico" OR regulación OR "pedagógico")
 
     Complementa con búsqueda directa en el DOF.
+
+    Args:
+        max_unis: limita el número de universidades procesadas (útil para pruebas).
     """
     logger.info("=" * 60)
     logger.info("FASE 3 — Búsqueda normativa institucional universitaria (v4)")
     logger.info("=" * 60)
 
     df = _load_universities()
+    if max_unis:
+        df = df.head(max_unis)
+        logger.info(f"[open_search] Modo prueba: limitado a {max_unis} universidades")
 
     # Deduplicar por dominio para evitar queries redundantes
     seen_domains: set = set()
