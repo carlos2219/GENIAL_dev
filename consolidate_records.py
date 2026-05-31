@@ -4,14 +4,15 @@ import argparse
 import sys
 
 
-def load_excel(filepath, sheet_name='Registro de Normativa', auto_detect=True):
+def load_excel(filepath, sheet_name='Registro de Normativa', auto_detect=True, required_columns=None):
     """
     Carga un archivo Excel y retorna DataFrame.
 
     Args:
         filepath: Ruta al archivo .xlsx
         sheet_name: Nombre de la hoja (por defecto: 'Registro de Normativa')
-        auto_detect: Si True, detecta automáticamente la hoja con más filas si la especificada no existe
+        auto_detect: Si True, detecta automáticamente la hoja si la especificada no existe
+        required_columns: Lista de columnas que debe contener la hoja (para auto-detect)
 
     Returns:
         pd.DataFrame con los datos del Excel
@@ -32,7 +33,24 @@ def load_excel(filepath, sheet_name='Registro de Normativa', auto_detect=True):
         if "Worksheet named" in str(e) and auto_detect:
             xls = pd.ExcelFile(filepath)
             sheets = xls.sheet_names
-            # Auto-detect: buscar la hoja con más filas (presumiblemente la matriz de datos)
+
+            # Si se especificaron columnas requeridas, buscar hoja que las contenga
+            if required_columns:
+                for sheet in sheets:
+                    df_check = pd.read_excel(filepath, sheet_name=sheet)
+                    if all(col in df_check.columns for col in required_columns):
+                        print(f"Detectado automáticamente: usando hoja '{sheet}' ({len(df_check)} filas)")
+                        return df_check
+
+            # Si no, buscar hojas con nombres que sugieran ser matriz de datos
+            matrix_keywords = ['matriz', 'normativa', 'registro']
+            for sheet in sheets:
+                if any(kw in sheet.lower() for kw in matrix_keywords):
+                    df = pd.read_excel(filepath, sheet_name=sheet)
+                    print(f"Detectado automáticamente: usando hoja '{sheet}' ({len(df)} filas)")
+                    return df
+
+            # Como último recurso, usar la hoja con más filas
             sheet_sizes = {sheet: len(pd.read_excel(filepath, sheet_name=sheet)) for sheet in sheets}
             best_sheet = max(sheet_sizes, key=sheet_sizes.get)
             print(f"Detectado automáticamente: usando hoja '{best_sheet}' ({sheet_sizes[best_sheet]} filas)")
