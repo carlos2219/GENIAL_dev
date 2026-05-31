@@ -4,13 +4,14 @@ import argparse
 import sys
 
 
-def load_excel(filepath, sheet_name='Registro de Normativa'):
+def load_excel(filepath, sheet_name='Registro de Normativa', auto_detect=True):
     """
     Carga un archivo Excel y retorna DataFrame.
 
     Args:
         filepath: Ruta al archivo .xlsx
         sheet_name: Nombre de la hoja (por defecto: 'Registro de Normativa')
+        auto_detect: Si True, detecta automáticamente la hoja con más filas si la especificada no existe
 
     Returns:
         pd.DataFrame con los datos del Excel
@@ -28,7 +29,16 @@ def load_excel(filepath, sheet_name='Registro de Normativa'):
         df = pd.read_excel(filepath, sheet_name=sheet_name)
         return df
     except ValueError as e:
-        if "Worksheet named" in str(e):
+        if "Worksheet named" in str(e) and auto_detect:
+            xls = pd.ExcelFile(filepath)
+            sheets = xls.sheet_names
+            # Auto-detect: buscar la hoja con más filas (presumiblemente la matriz de datos)
+            sheet_sizes = {sheet: len(pd.read_excel(filepath, sheet_name=sheet)) for sheet in sheets}
+            best_sheet = max(sheet_sizes, key=sheet_sizes.get)
+            print(f"Detectado automáticamente: usando hoja '{best_sheet}' ({sheet_sizes[best_sheet]} filas)")
+            df = pd.read_excel(filepath, sheet_name=best_sheet)
+            return df
+        elif "Worksheet named" in str(e):
             xls = pd.ExcelFile(filepath)
             sheets = xls.sheet_names
             raise ValueError(
