@@ -185,3 +185,72 @@ def test_save_excel():
     finally:
         if os.path.exists(tmp_path):
             os.remove(tmp_path)
+
+
+def test_integration_end_to_end():
+    """Test de integración: archivo completo entrada → salida"""
+    from consolidate_records import (
+        load_excel, find_column_index, filter_duplicates, save_excel
+    )
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        # Crear archivo de entrada
+        entrada_df = pd.DataFrame({
+            'Título de la Norma': [
+                'Ley Federal de Educación',
+                'Ley de IA en Escuelas',
+                'Decreto sobre Datos',
+                'Reglamento Interno'
+            ],
+            'Fecha de Publicación': [
+                '01/01/2023',
+                '15/03/2024',
+                '20/05/2024',
+                '10/06/2024'
+            ],
+            'Tipo de norma': ['Ley', 'Ley', 'Decreto', 'Reglamento'],
+            'País': ['México', 'México', 'México', 'México']
+        })
+
+        entrada_path = Path(tmpdir) / 'entrada.xlsx'
+        entrada_df.to_excel(entrada_path, sheet_name='Matriz Normativa', index=False)
+
+        # Crear matriz maestra (con algunos duplicados)
+        matriz_df = pd.DataFrame({
+            'Título de la Norma': [
+                'Ley Federal de Educación',
+                'Decreto sobre Datos'
+            ],
+            'Fecha de Publicación': [
+                '01/01/2023',
+                '20/05/2024'
+            ],
+            'Tipo de norma': ['Ley', 'Decreto']
+        })
+
+        matriz_path = Path(tmpdir) / 'matriz.xlsx'
+        matriz_df.to_excel(matriz_path, sheet_name='Matriz Normativa', index=False)
+
+        # Procesar
+        entrada_loaded = load_excel(str(entrada_path), sheet_name='Matriz Normativa')
+        matriz_loaded = load_excel(str(matriz_path), sheet_name='Matriz Normativa')
+
+        titulo_col = find_column_index(entrada_loaded, 'Título de la Norma')
+        fecha_col = find_column_index(entrada_loaded, 'Fecha de Publicación')
+
+        resultado = filter_duplicates(entrada_loaded, matriz_loaded, titulo_col, fecha_col)
+
+        # Validaciones
+        assert len(resultado) == 2  # Solo nuevos registros
+        assert 'Ley de IA en Escuelas' in resultado['Título de la Norma'].values
+        assert 'Reglamento Interno' in resultado['Título de la Norma'].values
+        assert 'Ley Federal de Educación' not in resultado['Título de la Norma'].values
+
+        # Guardar y verificar
+        output_path = Path(tmpdir) / 'salida.xlsx'
+        save_excel(resultado, str(output_path), sheet_name='Matriz Normativa')
+
+        # Leer de nuevo para validar
+        resultado_leido = pd.read_excel(output_path, sheet_name='Matriz Normativa')
+        assert len(resultado_leido) == 2
+        assert list(resultado_leido.columns) == list(entrada_loaded.columns)
