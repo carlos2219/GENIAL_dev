@@ -1,0 +1,68 @@
+{
+  "summary": {
+    "run_id": "20260531_034606",
+    "profile": "balanced",
+    "duration_seconds": 2433.9,
+    "total_queries": 752,
+    "total_urls_found": 0,
+    "active_countries": [
+      "MX"
+    ],
+    "serper_queries_billed": 376,
+    "cse_queries_billed": 0
+  },
+  "by_backend_and_phase": [
+    {
+      "backend": "brave",
+      "phase": "open",
+      "queries_served": 376,
+      "hit_rate": 0.0,
+      "avg_results_per_query": 0,
+      "pdf_yield": 0.0,
+      "official_domain_ratio": 0.0,
+      "latency_p50_ms": 588.5,
+      "latency_p95_ms": 640.2,
+      "validated_document_rate": null,
+      "false_positive_rate": null
+    },
+    {
+      "backend": "serper",
+      "phase": "open",
+      "queries_served": 376,
+      "hit_rate": 0.0,
+      "avg_results_per_query": 0,
+      "pdf_yield": 0.0,
+      "official_domain_ratio": 0.0,
+      "latency_p50_ms": 242.7,
+      "latency_p95_ms": 254.3,
+      "validated_document_rate": null,
+      "false_positive_rate": null
+    }
+  ],
+  "cache_stats": {
+    "hits": 2158,
+    "misses": 0,
+    "expired": 0,
+    "by_query_type": {
+      "open": {
+        "hits": 1248,
+        "misses": 0,
+        "expired": 0,
+        "misss": 752
+      },
+      "site": {
+        "hits": 910,
+        "misses": 0,
+        "expired": 0
+      }
+    },
+    "misss": 752
+  },
+  "cost_estimate": {
+    "serper_queries": 376,
+    "serper_cost_usd": 0.376,
+    "cse_queries": 0,
+    "cse_cost_usd": 0.0,
+    "total_usd": 0.376
+  }
+}
