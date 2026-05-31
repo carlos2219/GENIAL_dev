@@ -97,3 +97,66 @@ def test_find_column_not_found():
 
     with pytest.raises(ValueError, match="no encontrada"):
         find_column_index(df, 'NoExiste')
+
+
+def test_get_unique_pairs():
+    """Test que extrae tuplas únicas (título, fecha) de un DataFrame"""
+    from consolidate_records import get_unique_pairs
+
+    df = pd.DataFrame({
+        'Título de la Norma': ['Ley 1', 'Ley 2', 'Ley 1'],
+        'Fecha de Publicación': ['01/01/2024', '02/01/2024', '01/01/2024']
+    })
+
+    pairs = get_unique_pairs(df, titulo_col=0, fecha_col=1)
+
+    assert isinstance(pairs, set)
+    assert len(pairs) == 2
+    assert ('Ley 1', '01/01/2024') in pairs
+    assert ('Ley 2', '02/01/2024') in pairs
+
+
+def test_filter_duplicates():
+    """Test que filtra filas duplicadas"""
+    from consolidate_records import filter_duplicates
+
+    entrada = pd.DataFrame({
+        'Título de la Norma': ['Ley A', 'Ley B', 'Ley C'],
+        'Fecha de Publicación': ['01/01/2024', '02/01/2024', '03/01/2024'],
+        'Extra': ['x', 'y', 'z']
+    })
+
+    matriz = pd.DataFrame({
+        'Título de la Norma': ['Ley A', 'Ley X'],
+        'Fecha de Publicación': ['01/01/2024', '04/01/2024']
+    })
+
+    result = filter_duplicates(
+        entrada,
+        matriz,
+        titulo_col=0,
+        fecha_col=1
+    )
+
+    assert len(result) == 2  # Solo Ley B y Ley C (sin duplicados)
+    assert 'Ley A' not in result['Título de la Norma'].values
+    assert 'Ley B' in result['Título de la Norma'].values
+    assert 'Ley C' in result['Título de la Norma'].values
+
+
+def test_filter_duplicates_empty():
+    """Test cuando entrada está vacía"""
+    from consolidate_records import filter_duplicates
+
+    entrada = pd.DataFrame({
+        'Título de la Norma': [],
+        'Fecha de Publicación': []
+    })
+
+    matriz = pd.DataFrame({
+        'Título de la Norma': ['Ley A'],
+        'Fecha de Publicación': ['01/01/2024']
+    })
+
+    result = filter_duplicates(entrada, matriz, titulo_col=0, fecha_col=1)
+    assert len(result) == 0

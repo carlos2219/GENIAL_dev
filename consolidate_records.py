@@ -54,3 +54,64 @@ def find_column_index(df, column_name, fallback_index=None):
         return fallback_index
 
     raise ValueError(f"Columna '{column_name}' no encontrada en {list(df.columns)}")
+
+
+def get_unique_pairs(df, titulo_col, fecha_col):
+    """
+    Extrae tuplas únicas (título, fecha) de un DataFrame.
+    Ignora filas con valores nulos.
+
+    Args:
+        df: DataFrame con datos
+        titulo_col: Índice de columna de título
+        fecha_col: Índice de columna de fecha
+
+    Returns:
+        set de tuplas (titulo, fecha)
+    """
+    pairs = set()
+    for idx, row in df.iterrows():
+        titulo = row.iloc[titulo_col]
+        fecha = row.iloc[fecha_col]
+
+        # Ignorar si alguno es nulo
+        if pd.notna(titulo) and pd.notna(fecha):
+            pairs.add((str(titulo).strip(), str(fecha).strip()))
+
+    return pairs
+
+
+def filter_duplicates(entrada_df, matriz_df, titulo_col, fecha_col):
+    """
+    Filtra entrada_df para eliminar registros que existen en matriz_df.
+    Compara por (título, fecha).
+
+    Args:
+        entrada_df: DataFrame de entrada
+        matriz_df: DataFrame de matriz maestra
+        titulo_col: Índice de columna de título
+        fecha_col: Índice de columna de fecha
+
+    Returns:
+        DataFrame de entrada sin duplicados (nuevos registros)
+    """
+    matriz_pairs = get_unique_pairs(matriz_df, titulo_col, fecha_col)
+
+    # Filtrar: mantener solo filas que NO están en matriz
+    filtered_rows = []
+    for idx, row in entrada_df.iterrows():
+        titulo = row.iloc[titulo_col]
+        fecha = row.iloc[fecha_col]
+
+        if pd.notna(titulo) and pd.notna(fecha):
+            pair = (str(titulo).strip(), str(fecha).strip())
+            if pair not in matriz_pairs:
+                filtered_rows.append(row)
+        else:
+            # Registros con nulos: se incluyen en salida pero con advertencia
+            filtered_rows.append(row)
+
+    if filtered_rows:
+        return pd.DataFrame(filtered_rows).reset_index(drop=True)
+    else:
+        return entrada_df.iloc[0:0]  # DataFrame vacío con mismas columnas
