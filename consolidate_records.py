@@ -159,6 +159,11 @@ def main():
         default='Matriz Normativa',
         help='Nombre de la hoja a procesar (por defecto: Matriz Normativa)'
     )
+    parser.add_argument(
+        '--sheet-matriz',
+        default=None,
+        help='Nombre de la hoja en la matriz maestra (por defecto: mismo que --sheet)'
+    )
 
     args = parser.parse_args()
 
@@ -175,12 +180,15 @@ def main():
         sys.exit(1)
 
     try:
+        # Determinar nombre de hoja para matriz
+        matriz_sheet = args.sheet_matriz if args.sheet_matriz else args.sheet
+
         # Cargar archivos
         print(f"Cargando archivo de entrada: {entrada_path}")
         entrada_df = load_excel(str(entrada_path), sheet_name=args.sheet)
 
         print(f"Cargando matriz maestra: {matriz_path}")
-        matriz_df = load_excel(str(matriz_path), sheet_name=args.sheet)
+        matriz_df = load_excel(str(matriz_path), sheet_name=matriz_sheet)
 
         # Encontrar columnas
         try:
