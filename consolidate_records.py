@@ -29,7 +29,12 @@ def load_excel(filepath, sheet_name='Registro de Normativa'):
         return df
     except ValueError as e:
         if "Worksheet named" in str(e):
-            raise ValueError(f"Hoja '{sheet_name}' no encontrada en {filepath}") from e
+            xls = pd.ExcelFile(filepath)
+            sheets = xls.sheet_names
+            raise ValueError(
+                f"Hoja '{sheet_name}' no encontrada en {filepath.name}.\n"
+                f"Hojas disponibles: {', '.join(sheets)}"
+            ) from e
         raise
 
 
