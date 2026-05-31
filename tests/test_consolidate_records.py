@@ -160,3 +160,28 @@ def test_filter_duplicates_empty():
 
     result = filter_duplicates(entrada, matriz, titulo_col=0, fecha_col=1)
     assert len(result) == 0
+
+
+def test_save_excel():
+    """Test que guarda DataFrame a Excel"""
+    from consolidate_records import save_excel
+
+    df = pd.DataFrame({
+        'Título de la Norma': ['Ley 1'],
+        'Fecha de Publicación': ['01/01/2024']
+    })
+
+    with tempfile.NamedTemporaryFile(suffix='.xlsx', delete=False) as tmp:
+        tmp_path = tmp.name
+
+    try:
+        save_excel(df, tmp_path, sheet_name='Matriz Normativa')
+
+        # Verificar que se creó y se puede leer
+        assert os.path.exists(tmp_path)
+        df_read = pd.read_excel(tmp_path, sheet_name='Matriz Normativa')
+        assert len(df_read) == 1
+        assert df_read.iloc[0, 0] == 'Ley 1'
+    finally:
+        if os.path.exists(tmp_path):
+            os.remove(tmp_path)

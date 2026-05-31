@@ -115,3 +115,18 @@ def filter_duplicates(entrada_df, matriz_df, titulo_col, fecha_col):
         return pd.DataFrame(filtered_rows).reset_index(drop=True)
     else:
         return entrada_df.iloc[0:0]  # DataFrame vacío con mismas columnas
+
+
+def save_excel(df, filepath, sheet_name='Matriz Normativa'):
+    """
+    Guarda DataFrame a archivo Excel.
+
+    Args:
+        df: DataFrame a guardar
+        filepath: Ruta de destino (.xlsx)
+        sheet_name: Nombre de la hoja
+    """
+    filepath = Path(filepath)
+    filepath.parent.mkdir(parents=True, exist_ok=True)
+
+    df.to_excel(filepath, sheet_name=sheet_name, index=False)
