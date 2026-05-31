@@ -57,3 +57,43 @@ def test_load_excel_sheet_not_found():
     finally:
         if os.path.exists(tmp_path):
             os.remove(tmp_path)
+
+
+def test_find_column_by_name():
+    """Test que encuentra columna por nombre exacto"""
+    from consolidate_records import find_column_index
+
+    df = pd.DataFrame({
+        'Título de la Norma': [1, 2],
+        'Fecha de Publicación': [3, 4]
+    })
+
+    idx = find_column_index(df, 'Título de la Norma')
+    assert idx == 0
+
+    idx = find_column_index(df, 'Fecha de Publicación')
+    assert idx == 1
+
+
+def test_find_column_by_number():
+    """Test que usa número de columna como respaldo"""
+    from consolidate_records import find_column_index
+
+    df = pd.DataFrame({
+        'Col A': [1, 2],
+        'Col B': [3, 4]
+    })
+
+    # Si nombre no existe, usar número
+    idx = find_column_index(df, 'NoExiste', fallback_index=1)
+    assert idx == 1
+
+
+def test_find_column_not_found():
+    """Test que lanza excepción si columna no existe"""
+    from consolidate_records import find_column_index
+
+    df = pd.DataFrame({'Col': [1, 2]})
+
+    with pytest.raises(ValueError, match="no encontrada"):
+        find_column_index(df, 'NoExiste')
