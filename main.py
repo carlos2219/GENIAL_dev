@@ -164,6 +164,7 @@ def run_pipeline(
     output_path: Path = None,
     verbose: bool = False,
     resume: bool = False,
+    consolidate_with_matrix: str = None,
 ) -> Path:
     """
     Ejecuta el pipeline completo.
@@ -178,6 +179,7 @@ def run_pipeline(
         output_path:       Ruta del Excel de salida
         verbose:           Logging detallado
         resume:            Reanudar desde el último checkpoint disponible
+        consolidate_with_matrix: Ruta de matriz maestra para consolidar
 
     Returns:
         Path del Excel generado.
@@ -395,6 +397,28 @@ def run_pipeline(
         log_rows=log_rows,
     )
 
+    # Consolidate if requested
+    if getattr(args, 'consolidate_with_matrix', None):
+        from src.pipeline.consolidator import consolidate_excel_file
+        try:
+            nuevos, duplicados = consolidate_excel_file(
+                Path(output_file),
+                Path(args.consolidate_with_matrix)
+            )
+            print("\n" + "=" * 50)
+            print("  CONSOLIDACIÓN DE REGISTROS")
+            print("=" * 50)
+            print(f"Archivo de entrada:     {output_file}")
+            print(f"Matriz maestra:         {args.consolidate_with_matrix}")
+            print(f"\nRegistros procesados:   {nuevos + duplicados}")
+            print(f"Duplicados encontrados: {duplicados}")
+            print(f"Registros nuevos:       {nuevos}")
+            print(f"\nArchivo consolidado guardado: {output_file}")
+            print("=" * 50)
+        except Exception as e:
+            logger.error(f"Error durante consolidación: {e}")
+            sys.exit(1)
+
     if getattr(config, "SEARCH_METRICS_ENABLED", True):
         from src.pipeline.search_metrics import get_metrics
         try:
@@ -498,6 +522,13 @@ def _parse_args():
         metavar="PROFILE",
         help="Perfil de ejecución de búsqueda: fast | balanced | deep (default: balanced)"
     )
+    parser.add_argument(
+        '--consolidate-with-matrix',
+        type=str,
+        default=None,
+        help='Path to master matrix file (.xlsx) to consolidate against. If provided, '
+             'filters output Excel to contain only new records (not duplicates).'
+    )
     return parser.parse_args()
 
 
@@ -540,6 +571,7 @@ if __name__ == "__main__":
         output_path=args.output,
         verbose=args.verbose,
         resume=args.resume,
+        consolidate_with_matrix=getattr(args, 'consolidate_with_matrix', None),
     )
 
     if output:
