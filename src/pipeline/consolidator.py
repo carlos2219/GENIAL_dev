@@ -2,7 +2,6 @@
 
 import logging
 from pathlib import Path
-from typing import Tuple
 import pandas as pd
 
 logger = logging.getLogger(__name__)
@@ -21,9 +20,6 @@ def detect_data_sheet(filepath: Path) -> str:
 
     Returns:
         Sheet name (str)
-
-    Raises:
-        ValueError: If no suitable sheet found
     """
     with pd.ExcelFile(filepath) as xls:
         sheets = xls.sheet_names
