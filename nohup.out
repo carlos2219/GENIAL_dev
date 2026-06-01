@@ -1,0 +1,27 @@
+18:02:33 [INFO] __main__ — ======================================================================
+18:02:33 [INFO] __main__ —   GENIAL — Sistema de Levantamiento Normativo IA en Educación México
+18:02:33 [INFO] __main__ — ======================================================================
+18:02:33 [INFO] __main__ —   Investigador: Carlos Auquilla
+18:02:33 [INFO] __main__ —   Modelo IA:    gpt-4o-mini
+18:02:33 [INFO] __main__ —   API OpenAI:   Configurada
+18:02:33 [INFO] __main__ — ======================================================================
+18:02:33 [INFO] __main__ — [PROGRESO] >> FASE 1/3 - Busqueda gubernamental | Tiempo: 0m00s
+18:02:33 [INFO] src.pipeline.government_search — ============================================================
+18:02:33 [INFO] src.pipeline.government_search — FASE 1 — Búsqueda gubernamental
+18:02:33 [INFO] src.pipeline.government_search — ============================================================
+18:02:33 [INFO] src.pipeline.government_search — [gov_search] Query: México ley de inteligencia artificial
+18:02:34 [INFO] src.pipeline.search_router — [search_cache] 15654 entradas cargadas
+18:02:34 [INFO] src.pipeline.government_search — [gov_search] Query: México decreto inteligencia artificial
+18:02:35 [INFO] src.pipeline.government_search — [gov_search] Query: México guía ética de inteligencia artificial
+18:02:35 [INFO] src.pipeline.government_search — [gov_search] Query: México estrategia nacional de inteligencia artificial
+18:02:36 [INFO] src.pipeline.government_search — [gov_search] Query: México resolución rectoral inteligencia artificial
+Traceback (most recent call last):
+  File "/home/carlosauquillal/GENIAL_dev/main.py", line 564, in <module>
+    output = run_pipeline(
+  File "/home/carlosauquillal/GENIAL_dev/main.py", line 241, in run_pipeline
+    gov_docs = government_search.search_government_sources()
+  File "/home/carlosauquillal/GENIAL_dev/src/pipeline/government_search.py", line 127, in search_government_sources
+    query_docs = _search_government_queries()
+  File "/home/carlosauquillal/GENIAL_dev/src/pipeline/government_search.py", line 80, in _search_government_queries
+    time.sleep(config.SEARCH_DELAY_SECONDS)
+KeyboardInterrupt

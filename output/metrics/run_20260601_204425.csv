@@ -1,0 +1,3 @@
+backend,phase,queries_served,hit_rate,avg_results_per_query,pdf_yield,official_domain_ratio,latency_p50_ms,latency_p95_ms,validated_document_rate,false_positive_rate
+cse,gov,7,0.0,0,0.0,0.0,164.5,207.5,,
+brave,gov,7,1.0,10,0.1,0.0,1259.1,1406.2,0.15,0.6667
