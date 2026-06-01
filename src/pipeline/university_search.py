@@ -430,6 +430,13 @@ def search_universities(
     all_docs: List[Dict] = list(checkpoint_raw_docs)  # iniciar con docs ya acumulados
     all_docs_lock = threading.Lock()
     total_unis = len(combined_df)
+
+    if total_unis == 0:
+        logger.info("[uni_search] Todas las universidades ya procesadas (checkpoint completo)")
+        filtered = filter_and_rank(all_docs)
+        logger.info(f"[uni_search] Tras filtro: {len(filtered)} documentos")
+        return filtered
+
     fase2_start = time.time()
     completed_count = [0]  # lista para mutabilidad en closure
 
