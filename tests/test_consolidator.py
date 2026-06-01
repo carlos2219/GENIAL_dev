@@ -57,3 +57,75 @@ def test_consolidate_basic():
         resultado = pd.read_excel(entrada_file)
         assert len(resultado) == 5
         assert 'Ley F' in resultado['Título de la Norma'].values
+
+
+def test_detect_data_sheet_keyword_match():
+    """Test detection using keyword 'Registro'."""
+    with tempfile.NamedTemporaryFile(suffix='.xlsx', delete=False) as tmp:
+        tmp_path = Path(tmp.name)
+
+    try:
+        df = pd.DataFrame({'Título de la Norma': ['Test'], 'Fecha de Publicación': ['2026-01-01']})
+        df.to_excel(tmp_path, sheet_name='Registro de Normativa', index=False)
+
+        result = detect_data_sheet(tmp_path)
+        assert result == 'Registro de Normativa'
+    finally:
+        gc.collect()
+        tmp_path.unlink(missing_ok=True)
+
+
+def test_consolidate_all_duplicates():
+    """Test when all entrada records are duplicates."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmpdir = Path(tmpdir)
+
+        entrada_data = {
+            'Título de la Norma': ['Ley A', 'Ley B'],
+            'Fecha de Publicación': ['2026-01-01', '2026-01-02'],
+            'País': ['México'] * 2
+        }
+        entrada_file = tmpdir / 'entrada.xlsx'
+        pd.DataFrame(entrada_data).to_excel(entrada_file, sheet_name='Matriz Normativa', index=False)
+
+        matriz_data = entrada_data.copy()
+        matriz_file = tmpdir / 'matriz.xlsx'
+        pd.DataFrame(matriz_data).to_excel(matriz_file, sheet_name='Registro de Normativa', index=False)
+
+        from src.pipeline.consolidator import consolidate_excel_file
+        nuevos, duplicados = consolidate_excel_file(entrada_file, matriz_file)
+
+        assert nuevos == 0
+        assert duplicados == 2
+
+        # Verify entrada is now empty (only headers)
+        resultado = pd.read_excel(entrada_file)
+        assert len(resultado) == 0
+
+
+def test_consolidate_no_duplicates():
+    """Test when no entrada records are duplicates."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmpdir = Path(tmpdir)
+
+        entrada_data = {
+            'Título de la Norma': ['Ley C', 'Ley D'],
+            'Fecha de Publicación': ['2026-01-03', '2026-01-04'],
+            'País': ['México'] * 2
+        }
+        entrada_file = tmpdir / 'entrada.xlsx'
+        pd.DataFrame(entrada_data).to_excel(entrada_file, sheet_name='Matriz Normativa', index=False)
+
+        matriz_data = {
+            'Título de la Norma': ['Ley A', 'Ley B'],
+            'Fecha de Publicación': ['2026-01-01', '2026-01-02'],
+            'País': ['México'] * 2
+        }
+        matriz_file = tmpdir / 'matriz.xlsx'
+        pd.DataFrame(matriz_data).to_excel(matriz_file, sheet_name='Registro de Normativa', index=False)
+
+        from src.pipeline.consolidator import consolidate_excel_file
+        nuevos, duplicados = consolidate_excel_file(entrada_file, matriz_file)
+
+        assert nuevos == 2
+        assert duplicados == 0
