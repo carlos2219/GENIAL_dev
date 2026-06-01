@@ -1,0 +1,95 @@
+{
+  "summary": {
+    "run_id": "20260531_205953",
+    "profile": "balanced",
+    "duration_seconds": 6501.2,
+    "total_queries": 646,
+    "total_urls_found": 6,
+    "active_countries": [
+      "MX"
+    ],
+    "serper_queries_billed": 323,
+    "cse_queries_billed": 0
+  },
+  "by_backend_and_phase": [
+    {
+      "backend": "brave",
+      "phase": "open",
+      "queries_served": 321,
+      "hit_rate": 0.0,
+      "avg_results_per_query": 0,
+      "pdf_yield": 0.0,
+      "official_domain_ratio": 0.0,
+      "latency_p50_ms": 538.7,
+      "latency_p95_ms": 639.0,
+      "validated_document_rate": null,
+      "false_positive_rate": null
+    },
+    {
+      "backend": "serper",
+      "phase": "open",
+      "queries_served": 321,
+      "hit_rate": 0.0,
+      "avg_results_per_query": 0,
+      "pdf_yield": 0.0,
+      "official_domain_ratio": 0.0,
+      "latency_p50_ms": 244.9,
+      "latency_p95_ms": 258.5,
+      "validated_document_rate": null,
+      "false_positive_rate": null
+    },
+    {
+      "backend": "serper",
+      "phase": "site",
+      "queries_served": 2,
+      "hit_rate": 0.0,
+      "avg_results_per_query": 0,
+      "pdf_yield": 0.0,
+      "official_domain_ratio": 0.0,
+      "latency_p50_ms": 250.4,
+      "latency_p95_ms": 253.8,
+      "validated_document_rate": null,
+      "false_positive_rate": null
+    },
+    {
+      "backend": "ddg",
+      "phase": "site",
+      "queries_served": 2,
+      "hit_rate": 0.5,
+      "avg_results_per_query": 3,
+      "pdf_yield": 0.0,
+      "official_domain_ratio": 0.0,
+      "latency_p50_ms": 22949.6,
+      "latency_p95_ms": 39489.5,
+      "validated_document_rate": 0.8333,
+      "false_positive_rate": 0.2
+    }
+  ],
+  "cache_stats": {
+    "hits": 9631,
+    "misses": 0,
+    "expired": 0,
+    "by_query_type": {
+      "open": {
+        "hits": 6210,
+        "misses": 0,
+        "expired": 0,
+        "misss": 642
+      },
+      "site": {
+        "hits": 3421,
+        "misses": 0,
+        "expired": 0,
+        "misss": 4
+      }
+    },
+    "misss": 646
+  },
+  "cost_estimate": {
+    "serper_queries": 323,
+    "serper_cost_usd": 0.323,
+    "cse_queries": 0,
+    "cse_cost_usd": 0.0,
+    "total_usd": 0.323
+  }
+}
