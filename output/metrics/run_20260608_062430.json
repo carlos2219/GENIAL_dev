@@ -1,0 +1,73 @@
+{
+  "summary": {
+    "run_id": "20260608_062430",
+    "profile": "balanced",
+    "duration_seconds": 12096.0,
+    "total_queries": 5577,
+    "total_urls_found": 527,
+    "active_countries": [
+      "MX"
+    ],
+    "serper_queries_billed": 2671,
+    "cse_queries_billed": 0
+  },
+  "by_backend_and_phase": [
+    {
+      "backend": "brave",
+      "phase": "open",
+      "queries_served": 2906,
+      "hit_rate": 0.0809,
+      "avg_results_per_query": 0.18,
+      "pdf_yield": 0.0474,
+      "official_domain_ratio": 0.0,
+      "latency_p50_ms": 612.4,
+      "latency_p95_ms": 968.0,
+      "validated_document_rate": 0.6107,
+      "false_positive_rate": 0.9942
+    },
+    {
+      "backend": "serper",
+      "phase": "open",
+      "queries_served": 2671,
+      "hit_rate": 0.0,
+      "avg_results_per_query": 0,
+      "pdf_yield": 0.0,
+      "official_domain_ratio": 0.0,
+      "latency_p50_ms": 243.5,
+      "latency_p95_ms": 257.3,
+      "validated_document_rate": null,
+      "false_positive_rate": null
+    }
+  ],
+  "cache_stats": {
+    "hits": 4467,
+    "misses": 0,
+    "expired": 0,
+    "by_query_type": {
+      "gov": {
+        "hits": 34,
+        "misses": 0,
+        "expired": 0
+      },
+      "open": {
+        "hits": 1008,
+        "misses": 0,
+        "expired": 0,
+        "misss": 5577
+      },
+      "site": {
+        "hits": 3425,
+        "misses": 0,
+        "expired": 0
+      }
+    },
+    "misss": 5577
+  },
+  "cost_estimate": {
+    "serper_queries": 2671,
+    "serper_cost_usd": 2.671,
+    "cse_queries": 0,
+    "cse_cost_usd": 0.0,
+    "total_usd": 2.671
+  }
+}
